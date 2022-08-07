@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_pie_chart/pages/dashboard_page.dart';
+import 'package:sport/pages/dashboard_page.dart';
 
 
 class VerifyOtp extends StatefulWidget {

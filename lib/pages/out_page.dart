@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pie_chart/model/category_batch.dart';
-import 'package:flutter_pie_chart/pages/Tab_page.dart';
-import 'package:flutter_pie_chart/service.dart';
+import 'package:sport/model/category_batch.dart';
+import 'package:sport/pages/Tab_page.dart';
+import 'package:sport/service.dart';
 
 
 

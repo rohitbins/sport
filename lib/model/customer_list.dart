@@ -1,4 +1,4 @@
-import 'package:flutter_pie_chart/model/common_response.dart';
+import 'package:sport/model/common_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'customer_list.g.dart';
 

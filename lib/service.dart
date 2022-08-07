@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
-import 'package:flutter_pie_chart/model/category_batch.dart';
-import 'package:flutter_pie_chart/model/customer_list.dart';
+import 'package:sport/model/category_batch.dart';
+import 'package:sport/model/customer_list.dart';
 import 'package:http/http.dart' as http;
 
 Future<CategoryAndBatch> fetchBatchCatgories() async {

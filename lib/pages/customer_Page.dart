@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pie_chart/model/customer_list.dart';
-import 'package:flutter_pie_chart/service.dart';
+import 'package:sport/model/customer_list.dart';
+import 'package:sport/service.dart';
 
 class CustomerPage extends StatefulWidget {
   const CustomerPage({Key? key}) : super(key: key);

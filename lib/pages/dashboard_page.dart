@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pie_chart/pages/down_page.dart';
+import 'package:sport/pages/down_page.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 
