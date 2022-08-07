@@ -10,42 +10,34 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-int pagesIndex = 2;
-
-final pages = [
-  const HomePage1(),
-  const InPage(),
-  const OutPage()
-];
-
 class _HomePageState extends State<HomePage> {
+  int pagesIndex = 0;
+  final pages = [HomePage1(), const InPage(), const OutPage()];
+  final String _home = 'Home';
+  final String _in = 'In';
+  final String _out = 'Out';
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-       bottomNavigationBar: BottomNavigationBar(
-         currentIndex: pagesIndex,
-         items:const [
-           BottomNavigationBarItem(
-             icon: Icon(Icons.home_filled),
-             label: 'Home'),
-
-           BottomNavigationBarItem(
-             icon: Icon(Icons.arrow_downward),
-             label: 'In'),
-
-           BottomNavigationBarItem(
-             icon: Icon(Icons.arrow_upward),
-             label: 'Out' )    
-         ],
-         onTap: (index) {
-           setState(() {
-             pagesIndex = index;
-           });
-         },
-         ),
-       body: pages[pagesIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: pagesIndex,
+          items: [
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.home_filled), label: _home),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.arrow_downward), label: _in),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.arrow_upward), label: _out)
+          ],
+          onTap: (index) {
+            setState(() {
+              pagesIndex = index;
+            });
+          },
+        ),
+        body: pages[pagesIndex],
       ),
     );
   }

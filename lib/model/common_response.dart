@@ -1,13 +1,7 @@
-import 'package:json_annotation/json_annotation.dart';
+abstract class CommonResponse {
+  int? statusCode;
 
-abstract class CommonResponse{
-  @JsonKey(name: "StatusCode")
-int? statusCode;
+  bool? isError;
 
-@JsonKey(name: "IsError")
-bool? isError;
-
-@JsonKey(name: "Message")
-String? message;
-
-} 
+  String? message;
+}
