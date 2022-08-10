@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import '../../model/phone_validator.dart';
 import '../../service.dart';
+import '../../utils/constants.dart';
 import '../otp/otp_page.dart';
 
 class Login extends StatefulWidget {
@@ -50,122 +51,113 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        FocusScope.of(context).requestFocus(FocusNode());
-      },
-      child: Scaffold(
-        backgroundColor: const Color.fromRGBO(0, 22, 30, 1),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
-              child: Form(
-                key: _key,
-                child: Column(children: [
-                  const SizedBox(height: 10),
-                  Image.asset(
-                    'assets/images/ff_sports_logo.png',
-                    scale: 1.5,
-                  ),
-                  const SizedBox(height: 130),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-                    child: Form(
-                      autovalidateMode: AutovalidateMode.always,
-                      child: TextFormField(
-                        smartDashesType: SmartDashesType.enabled,
-                        textAlign: TextAlign.center,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 18),
-                        controller: _phoneController,
-                        keyboardType: TextInputType.phone,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (value) {
-                          if (_empty) {
-                            return 'Please enter Phone Number';
-                          }
-                          if (_invalid) {
-                            // return Messg != null
-                            //     ? Messg!.length > 55
-                            //         ? Messg!.substring(0, 53) +
-                            //             '\n' +
-                            //             Messg!.substring(
-                            //               53,
-                            //             )
-                            //         : Messg
-                            //     : "Invalid";
-                          }
-                          return null;
-                        },
-                        maxLength: 10,
-                        decoration: const InputDecoration(
-                          counterText: '',
-                          errorStyle: TextStyle(
-                            color: Colors.orange,
-                            fontSize: 13,
+    return Scaffold(
+      body: InkWell(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Scaffold(
+          backgroundColor: const Color.fromRGBO(0, 22, 30, 1),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                child: Form(
+                  key: _key,
+                  child: Column(children: [
+                    const SizedBox(height: 10),
+                    Image.asset(
+                      'assets/images/ff_sports_logo.png',
+                      scale: 1.5,
+                    ),
+                    const SizedBox(height: 130),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: Form(
+                        autovalidateMode: AutovalidateMode.always,
+                        child: TextFormField(
+                          smartDashesType: SmartDashesType.enabled,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 18),
+                          controller: _phoneController,
+                          keyboardType: TextInputType.phone,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            return value!.length != 10
+                                ? 'Please enter Phone Number'
+                                : null;
+                          },
+                          maxLength: 10,
+                          decoration: const InputDecoration(
+                            counterText: '',
+                            errorStyle: TextStyle(
+                              color: Colors.orange,
+                              fontSize: 13,
+                            ),
+                            border: OutlineInputBorder(),
+                            labelStyle: TextStyle(
+                              color: Colors.white38,
+                              fontSize: 16,
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.white,
+                            )),
+                            hintText: 'Enter number here',
+                            hintStyle: TextStyle(color: Colors.white),
+                            labelText: 'Phone Number',
                           ),
-                          border: OutlineInputBorder(),
-                          labelStyle: TextStyle(
-                            color: Colors.white38,
-                            fontSize: 16,
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                            color: Colors.white,
-                          )),
-                          hintText: 'Enter number here',
-                          hintStyle: TextStyle(color: Colors.white),
-                          labelText: 'Phone Number',
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 50),
-                  TextButton(
-                    style: ButtonStyle(
-                        backgroundColor: pressed
-                            ? MaterialStateProperty.all<Color>(Colors.black)
-                            : MaterialStateProperty.all<Color>(Colors.white24)),
-                    onPressed: () async {
-                      pressed = true;
-                      if (_key.currentState!.validate()) {
-                        _empty = _phoneController.text.isEmpty;
+                    const SizedBox(height: 50),
+                    TextButton(
+                      style: ButtonStyle(
+                          backgroundColor: pressed
+                              ? MaterialStateProperty.all<Color>(Colors.black)
+                              : MaterialStateProperty.all<Color>(
+                                  Colors.white24)),
+                      onPressed: () async {
+                        pressed = true;
+                        if (_key.currentState!.validate()) {
+                          _empty = _phoneController.text.isEmpty;
 
-                        await service.PhoneValidatorApi(
-                                phoneNumber: _phoneController.text)
-                            .then((PhoneValidator value) {
-                          if (!value.isError!) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => OtpPage(
-                                        phoneNumber: _phoneController.text)));
-                          } else {
-                            _invalid = true;
-                          }
-                          setState(() {});
-                        });
-                      }
-                      // api calling
-                    },
-                    child: const Text(
-                      'Submit',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
+                          await service.PhoneValidatorApi(
+                                  phoneNumber: _phoneController.text)
+                              .then((PhoneValidator value) {
+                            if (!value.isError!) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => OtpPage(
+                                          phoneNumber: _phoneController.text)));
+                            } else {
+                              _invalid = true;
+                            }
+                            setState(() {});
+                          });
+                        }
+                        // api calling
+                      },
+                      child: const Text(
+                        'Submit',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
-                  ),
-                ]),
+                  ]),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

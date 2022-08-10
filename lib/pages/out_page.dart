@@ -21,7 +21,7 @@ class _OutPageState extends State<OutPage> {
   void initState() {
     super.initState();
     getData();
-    futureBatchCategories = Service().fetchBatchCatgories();
+    futureBatchCategories = ServiceCall().fetchBatchCatgories();
   }
 
   @override
@@ -55,8 +55,7 @@ class _OutPageState extends State<OutPage> {
                   )),
             ),
           ),
-          const SizedBox(height: 5
-          ),
+          const SizedBox(height: 5),
           SizedBox(
             height: 400,
             width: MediaQuery.of(context).size.width,
@@ -115,10 +114,15 @@ class _OutPageState extends State<OutPage> {
                       ),
                     ),
                   ),
-
-                 ElevatedButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute (builder: (context) => DownPage(),));
-                 }, child: const Text("Down Page"))
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DownPage(),
+                          ));
+                    },
+                    child: const Text("Down Page"))
               ],
             ),
           )
@@ -128,7 +132,7 @@ class _OutPageState extends State<OutPage> {
   }
 
   void getData() async {
-    await Service().fetchBatchCatgories().then((value) {
+    await ServiceCall().fetchBatchCatgories().then((value) {
       sports.addAll(value.data!.categoryList!);
       selectedPerson = sports.first.category;
       setState(() {});

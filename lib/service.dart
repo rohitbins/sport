@@ -5,6 +5,7 @@ import 'package:sport/model/customer_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:sport/utils/enums.dart';
 
+import 'model/otp_validator.dart';
 import 'model/phone_validator.dart';
 import 'model/request/customer_data.dart';
 
@@ -56,6 +57,21 @@ class ServiceCall {
       PhoneValidator phoneValidator =
           PhoneValidator.fromJson(jsonDecode(response.body));
       return phoneValidator;
+    } else {
+      throw Exception('failed to load BatchCategories');
+    }
+  }
+
+  Future<OtpValidator> OtpValidatorApi(
+      {required String phoneNumber, required String otp}) async {
+    final response = await http.post(Uri.parse('${base}OTPValidator'),
+        headers: headers,
+        body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
+
+    if (response.statusCode == 200) {
+      OtpValidator otpValidator =
+          OtpValidator.fromJson(jsonDecode(response.body));
+      return otpValidator;
     } else {
       throw Exception('failed to load BatchCategories');
     }

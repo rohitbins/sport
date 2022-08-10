@@ -19,7 +19,7 @@ class _PopPageState extends State<PopPage> {
   @override
   void initState() {
     super.initState();
-    futureBatchCategories = Service().fetchBatchCatgories();
+    futureBatchCategories = ServiceCall().fetchBatchCatgories();
   }
 
   @override

@@ -2,10 +2,9 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
-import 'package:sportsb/Widgets/loading.dart';
-import 'package:sportsb/model_view/api.dart';
 import '../../service.dart';
-import '../util/constants.dart';
+import '../../utils/constants.dart';
+import '../../widget/loading.dart';
 
 class OtpPage extends StatefulWidget {
   OtpPage({Key? key, required this.phoneNumber}) : super(key: key);
