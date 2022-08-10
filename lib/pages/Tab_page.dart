@@ -25,11 +25,10 @@ class _TabBarPageState extends State<TabBarPage>
   ];
   int selectedCat = 0;
   int selectedbatch = 0;
-  int SelectedId = 0;
+  int selectedId = 0;
   @override
   void initState() {
     super.initState();
-    futureBatchCategories = Service().fetchBatchCatgories();
     _tabController = TabController(vsync: this, length: 2);
   }
 
@@ -54,7 +53,7 @@ class _TabBarPageState extends State<TabBarPage>
             ),
             Expanded(
               child: FutureBuilder<CategoryAndBatch>(
-                  future: futureBatchCategories,
+                  future:  Service().fetchBatchCatgories(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return TabBarView(controller: _tabController, children: [
@@ -72,7 +71,7 @@ class _TabBarPageState extends State<TabBarPage>
                                   selectedbatch: selectedCat == index,
                                   callBack: () {
                                     setState(() => selectedCat = index);
-                                    SelectedId = data.id;
+                                    selectedId = data.id;
                                   });
                             }),
                         ListView.builder(
@@ -83,12 +82,12 @@ class _TabBarPageState extends State<TabBarPage>
                                   snapshot.data!.data!.batchList![index];
 
                               return SlotCard(
-                                  title: data.batch!.split(':').first,
-                                  subTitle: data.batch!.split(':').last,
+                                  title: data.batch.split(':').first,
+                                  subTitle: data.batch.split(':').last,
                                   selectedbatch: selectedbatch == index,
                                   callBack: () {
                                     setState(() => selectedbatch = index);
-                                    SelectedId = data.id!;
+                                    selectedId = data.id;
                                   });
                             })
                       ]);
@@ -102,13 +101,13 @@ class _TabBarPageState extends State<TabBarPage>
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            print('selected:${_tabController.index}:$SelectedId');
+            print('selected:${_tabController.index}:$selectedId');
             Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => CustomerPage(
-                      category: _tabController.index == 0 ? SelectedId : 0,
-                      batch: _tabController.index == 1 ? SelectedId : 0),
+                      category: _tabController.index == 0 ? selectedId : 0,
+                      batch: _tabController.index == 1 ? selectedId : 0),
                 ));
           },
           child: const Icon(Icons.search),

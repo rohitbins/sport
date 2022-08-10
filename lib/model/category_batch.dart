@@ -28,13 +28,13 @@ class MyData {
 @JsonSerializable()
 class Batch {
   Batch({
-    this.id,
-    this.batch,
+   required this.id,
+   required this.batch,
   });
 
-  int? id;
+  int id;
 
-  String? batch;
+  String batch;
 
   factory Batch.fromJson(Map<String, dynamic> json) => _$BatchFromJson(json);
   Map<String, dynamic> toJson() => _$BatchToJson(this);

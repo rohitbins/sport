@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport/model/category_batch.dart';
 import 'package:sport/pages/Tab_page.dart';
+import 'package:sport/pages/down_page.dart';
 import 'package:sport/service.dart';
 
 class OutPage extends StatefulWidget {
@@ -32,26 +33,30 @@ class _OutPageState extends State<OutPage> {
       ),
       body: Column(
         children: [
-          SizedBox(
-            width: 100,
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TabBarPage(),
-                      ));
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text("Filter"),
-                    SizedBox(width: 5),
-                    Icon(Icons.filter_1_outlined)
-                  ],
-                )),
+          Padding(
+            padding: const EdgeInsets.only(left: 270, top: 10),
+            child: SizedBox(
+              width: 100,
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TabBarPage(),
+                        ));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text("Filter"),
+                      SizedBox(width: 5),
+                      Icon(Icons.filter_1_outlined)
+                    ],
+                  )),
+            ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 5
+          ),
           SizedBox(
             height: 400,
             width: MediaQuery.of(context).size.width,
@@ -90,7 +95,7 @@ class _OutPageState extends State<OutPage> {
                                     child: ElevatedButton(
                                         onPressed: () {},
                                         style: ElevatedButton.styleFrom(
-                                            primary: Colors.pink),
+                                            primary: Colors.orange.shade500),
                                         child: const Text("Out")),
                                   ),
                                 ),
@@ -110,6 +115,10 @@ class _OutPageState extends State<OutPage> {
                       ),
                     ),
                   ),
+
+                 ElevatedButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute (builder: (context) => DownPage(),));
+                 }, child: const Text("Down Page"))
               ],
             ),
           )

@@ -46,19 +46,21 @@ class _DownPageState extends State<DownPage> {
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.grey, width: 1)),
                 child: Center(
-                  child: DropdownButton<String>(
-                    value: selectedVelue,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedVelue = value;
-                      });
-                    },
-                    hint: const Text("Select"),
-                    items: items.map((e) {
-                      return DropdownMenuItem<String>(
-                          value: e.category,
-                          child: Text(e.category.toString()));
-                    }).toList(),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: selectedVelue,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedVelue = value;
+                        });
+                      },
+                      hint: const Text("Select"),
+                      items: items.map((e) {
+                        return DropdownMenuItem<String>(
+                            value: e.category,
+                            child: Text(e.category.toString()));
+                      }).toList(),
+                    ),
                   ),
                 ),
               ),
@@ -72,19 +74,21 @@ class _DownPageState extends State<DownPage> {
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: Colors.grey, width: 1)),
               child: Center(
-                child: DropdownButton<String>(
-                  value: _selectedTime,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedTime = value;
-                    });
-                  },
-                  hint: const Text("Select2"),
-                  items: sport.map((e) {
-                    return DropdownMenuItem<String>(
-                        value: e.batch.toString(),
-                        child: Text(e.batch.toString()));
-                  }).toList(),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: _selectedTime,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedTime = value;
+                      });
+                    },
+                    hint: const Text("Select2"),
+                    items: sport.map((e) {
+                      return DropdownMenuItem<String>(
+                          value: e.batch.toString(),
+                          child: Text(e.batch.toString()));
+                    }).toList(),
+                  ),
                 ),
               ),
             ),

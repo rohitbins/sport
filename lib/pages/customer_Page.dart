@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:sport/service.dart';
 import 'package:sport/utils/constants.dart';
-
 import '../model/request/customer_data.dart';
 import '../widget/sport_circleavatar.dart';
 
@@ -23,7 +22,7 @@ class _CustomerPageState extends State<CustomerPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(Const().player),
-          actions: [
+          actions: const[
             // FlatButton(
             //   textColor: Colors.white,
             //   onPressed: () {},
@@ -56,14 +55,14 @@ class _CustomerPageState extends State<CustomerPage> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SportCircleAvatar(
-                                      name: customerData.name!
-                                          .trim()
-                                          .substring(0, 1),
-                                      color: customerData.feePening != 0
-                                          ? Colors.red
-                                          : null,
-                                    ),
+                                    // SportCircleAvatar(
+                                    //   name: customerData.name
+                                    //       .trim()
+                                    //       .substring(0, 1),
+                                    //   color: customerData.feePening != 0
+                                    //       ? Colors.red
+                                    //       : null,
+                                    // ),
                                     const SizedBox(width: 10),
                                     Expanded(
                                       child: Column(
@@ -71,41 +70,45 @@ class _CustomerPageState extends State<CustomerPage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              customerData.name!,
+                                              customerData.name,
                                               style: const TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w600),
                                             ),
                                             Text(
-                                              customerData.categoryType!,
+                                              customerData.categoryType,
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey.shade600,
                                                   fontWeight: FontWeight.w400),
                                             ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  customerData.batch!,
+                                            Text(
+                                              customerData.batch,
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color:
+                                                      Colors.grey.shade600,
+                                                  fontWeight:
+                                                      FontWeight.w400),
+                                            ),
+                                            const SizedBox(width: 4),
+                                            if (customerData.feePening != 0)
+                                              Row(
+                                                children: [
+                                                  const Text("Fee Pending",
                                                   style: TextStyle(
-                                                      fontSize: 12,
-                                                      color:
-                                                          Colors.grey.shade600,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                                const SizedBox(width: 4),
-                                                if (customerData.feePening != 0)
+                                                    fontSize: 12
+                                                  ),),
                                                   Text(
-                                                    '(*${customerData.feePening!})',
+                                                    '(*${customerData.feePening})',
                                                     style: const TextStyle(
                                                         color: Colors.red,
                                                         fontSize: 10,
                                                         fontWeight:
                                                             FontWeight.w600),
-                                                  )
-                                              ],
-                                            ),
+                                                  ),
+                                                ],
+                                              ),
                                           ]),
                                     ),
                                     ElevatedButton(

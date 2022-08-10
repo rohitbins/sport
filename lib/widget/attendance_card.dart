@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class AttendanceCard extends StatefulWidget {
@@ -37,7 +39,7 @@ class _AttendanceCardState extends State<AttendanceCard> {
             slotHours == 1
                 ? current
                 : "${widget.start} - ${widget.end} | ${widget.ampm}",
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 5),

@@ -25,11 +25,15 @@ Map<String, dynamic> _$CustomerListDataToJson(CustomerListData instance) =>
     };
 
 CustomerData _$CustomerDataFromJson(Map<String, dynamic> json) => CustomerData(
-      batch: json['batch'] as String?,
-      categoryType: json['categoryType'] as String?,
-      feePening: json['feePening'] as int?,
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      batch: json['batch'] as String,
+      categoryType: json['categoryType'] as String,
+      feePening: json['feePening'] as int,
+      id: json['id'] as int,
+      name: json['name'] as String,
+      customerKey: json['customerKey'] as String,
+      inTime: json['inTime'] as String?,
+      isPlaying: json['isPlaying'] as int,
+      totalPlay: json['totalPlay'] as String?,
     );
 
 Map<String, dynamic> _$CustomerDataToJson(CustomerData instance) =>
@@ -39,4 +43,8 @@ Map<String, dynamic> _$CustomerDataToJson(CustomerData instance) =>
       'batch': instance.batch,
       'categoryType': instance.categoryType,
       'feePening': instance.feePening,
+      'isPlaying': instance.isPlaying,
+      'inTime': instance.inTime,
+      'totalPlay': instance.totalPlay,
+      'customerKey': instance.customerKey,
     };

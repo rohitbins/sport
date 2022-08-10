@@ -16,17 +16,35 @@ class CustomerListData extends CommonResponse {
 @JsonSerializable()
 class CustomerData {
   CustomerData(
-      {this.batch, this.categoryType, this.feePening, this.id, this.name});
+      {
+     required this.batch, 
+     required this.categoryType, 
+     required this.feePening, 
+     required this.id, 
+     required this.name,
+     required this.customerKey,
+      this.inTime,
+     required this.isPlaying,
+      this.totalPlay
+      });
 
-  int? id;
+  int id;
 
-  String? name;
+  String name;
 
-  String? batch;
+  String batch;
 
-  String? categoryType;
+  String categoryType;
 
-  int? feePening;
+  int feePening;
+
+  int isPlaying;
+
+  String? inTime;
+  
+  String? totalPlay;
+
+  String customerKey;
 
   factory CustomerData.fromJson(Map<String, dynamic> json) =>
       _$CustomerDataFromJson(json);

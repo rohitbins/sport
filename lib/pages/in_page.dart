@@ -1,6 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:sport/model/category_batch.dart';
+import 'package:sport/model/customer_list.dart';
 import 'package:sport/service.dart';
+import '../utils/enums.dart';
 
 class InPage extends StatefulWidget {
   const InPage({Key? key}) : super(key: key);
@@ -11,9 +15,23 @@ class InPage extends StatefulWidget {
 
 class _InPageState extends State<InPage> {
   late Future<CategoryAndBatch> futureBatchCategories;
+    late CustomerListData futureCustomerData;
+
+     List<String> CatBatch = [
+    SportType.Category.apiValue,
+    SportType.Batch.apiValue,
+  ];
+
+    int selectedCat = 0;
+  int selectedbatch = 0;
+  int SelectedId = 0;
 
   String? selectedPerson;
   List<Category> sports = [];
+
+   String? _selectedTime;
+  final List<Batch> batch = [];
+
 
   @override
   void initState() {
@@ -32,18 +50,21 @@ class _InPageState extends State<InPage> {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Container(
-              height: 50,
-              color: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+            child: Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)
+              ),
               child: Container(
-                height: 50,
-                width: 300,
+                height: 30,
+                width: 100,
                 decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                    ),
-                    borderRadius: BorderRadius.circular(10)),
+                  color: Colors.amber.shade100,
+                    // border: Border.all(
+                    //   // color: Colors.black,
+                    // ),
+                    borderRadius: BorderRadius.circular(15)),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: selectedPerson,
@@ -59,6 +80,45 @@ class _InPageState extends State<InPage> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 70),
                             child: Text(e.category.toString()),
+                          ));
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+      
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Card(
+              shadowColor: Colors.grey,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)
+              ),
+              child: Container(
+                height: 30,
+                width: 100,
+                decoration: BoxDecoration(
+                  color: Colors.amber.shade100,
+                    // border: Border.all(
+                    //   color: Colors.black,
+                    // ),
+                    borderRadius: BorderRadius.circular(15)),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: _selectedTime,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedTime = value;
+                      });
+                    },
+                    hint: const Text("select"),
+                    items: batch.map((e) {
+                      return DropdownMenuItem<String>(
+                          value: e.batch,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 70),
+                            child: Text(e.batch.toString()),
                           ));
                     }).toList(),
                   ),
@@ -139,6 +199,8 @@ class _InPageState extends State<InPage> {
           )
         ],
       ),
+
+      
     );
   }
 
@@ -146,6 +208,10 @@ class _InPageState extends State<InPage> {
     await Service().fetchBatchCatgories().then((value) {
       sports.addAll(value.data!.categoryList!);
       selectedPerson = sports.first.category;
+
+
+      batch.addAll(value.data!.batchList!);
+      _selectedTime = batch.first.batch;
 
       setState(() {});
     });

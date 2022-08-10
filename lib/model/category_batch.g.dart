@@ -39,8 +39,8 @@ Map<String, dynamic> _$MyDataToJson(MyData instance) => <String, dynamic>{
     };
 
 Batch _$BatchFromJson(Map<String, dynamic> json) => Batch(
-      id: json['id'] as int?,
-      batch: json['batch'] as String?,
+      id: json['id'] as int,
+      batch: json['batch'] as String,
     );
 
 Map<String, dynamic> _$BatchToJson(Batch instance) => <String, dynamic>{
