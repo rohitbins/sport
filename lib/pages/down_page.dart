@@ -23,7 +23,7 @@ class _DownPageState extends State<DownPage> {
   void initState() {
     super.initState();
     getData();
-    futureBatchCategories = Service().fetchBatchCatgories();
+    futureBatchCategories = ServiceCall().fetchBatchCatgories();
   }
 
   @override
@@ -108,7 +108,7 @@ class _DownPageState extends State<DownPage> {
   }
 
   void getData() async {
-    await Service().fetchBatchCatgories().then((value) {
+    await ServiceCall().fetchBatchCatgories().then((value) {
       items.addAll(value.data!.categoryList!);
       selectedVelue = items.first.category;
 

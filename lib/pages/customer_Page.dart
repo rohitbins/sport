@@ -22,7 +22,7 @@ class _CustomerPageState extends State<CustomerPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(Const().player),
-          actions: const[
+          actions: const [
             // FlatButton(
             //   textColor: Colors.white,
             //   onPressed: () {},
@@ -32,7 +32,7 @@ class _CustomerPageState extends State<CustomerPage> {
           ],
         ),
         body: FutureBuilder<CustomerListData>(
-            future: Service().fetchCustomerData(
+            future: ServiceCall().fetchCustomerData(
                 customerDataRequest: CustomerDataRequest(
                     batchId: '${widget.batch}',
                     categoryId: '${widget.category}')),
@@ -86,19 +86,18 @@ class _CustomerPageState extends State<CustomerPage> {
                                               customerData.batch,
                                               style: TextStyle(
                                                   fontSize: 12,
-                                                  color:
-                                                      Colors.grey.shade600,
-                                                  fontWeight:
-                                                      FontWeight.w400),
+                                                  color: Colors.grey.shade600,
+                                                  fontWeight: FontWeight.w400),
                                             ),
                                             const SizedBox(width: 4),
                                             if (customerData.feePening != 0)
                                               Row(
                                                 children: [
-                                                  const Text("Fee Pending",
-                                                  style: TextStyle(
-                                                    fontSize: 12
-                                                  ),),
+                                                  const Text(
+                                                    "Fee Pending",
+                                                    style:
+                                                        TextStyle(fontSize: 12),
+                                                  ),
                                                   Text(
                                                     '(*${customerData.feePening})',
                                                     style: const TextStyle(

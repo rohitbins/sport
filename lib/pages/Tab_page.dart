@@ -53,7 +53,7 @@ class _TabBarPageState extends State<TabBarPage>
             ),
             Expanded(
               child: FutureBuilder<CategoryAndBatch>(
-                  future:  Service().fetchBatchCatgories(),
+                  future: ServiceCall().fetchBatchCatgories(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return TabBarView(controller: _tabController, children: [

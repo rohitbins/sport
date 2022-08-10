@@ -15,29 +15,28 @@ class InPage extends StatefulWidget {
 
 class _InPageState extends State<InPage> {
   late Future<CategoryAndBatch> futureBatchCategories;
-    late CustomerListData futureCustomerData;
+  late CustomerListData futureCustomerData;
 
-     List<String> CatBatch = [
+  List<String> CatBatch = [
     SportType.Category.apiValue,
     SportType.Batch.apiValue,
   ];
 
-    int selectedCat = 0;
+  int selectedCat = 0;
   int selectedbatch = 0;
   int SelectedId = 0;
 
   String? selectedPerson;
   List<Category> sports = [];
 
-   String? _selectedTime;
+  String? _selectedTime;
   final List<Batch> batch = [];
-
 
   @override
   void initState() {
     super.initState();
     getData();
-    futureBatchCategories = Service().fetchBatchCatgories();
+    futureBatchCategories = ServiceCall().fetchBatchCatgories();
   }
 
   @override
@@ -50,17 +49,16 @@ class _InPageState extends State<InPage> {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Card(
               elevation: 5,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)
-              ),
+                  borderRadius: BorderRadius.circular(15)),
               child: Container(
                 height: 30,
                 width: 100,
                 decoration: BoxDecoration(
-                  color: Colors.amber.shade100,
+                    color: Colors.amber.shade100,
                     // border: Border.all(
                     //   // color: Colors.black,
                     // ),
@@ -87,19 +85,17 @@ class _InPageState extends State<InPage> {
               ),
             ),
           ),
-      
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Card(
               shadowColor: Colors.grey,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)
-              ),
+                  borderRadius: BorderRadius.circular(15)),
               child: Container(
                 height: 30,
                 width: 100,
                 decoration: BoxDecoration(
-                  color: Colors.amber.shade100,
+                    color: Colors.amber.shade100,
                     // border: Border.all(
                     //   color: Colors.black,
                     // ),
@@ -199,16 +195,13 @@ class _InPageState extends State<InPage> {
           )
         ],
       ),
-
-      
     );
   }
 
   void getData() async {
-    await Service().fetchBatchCatgories().then((value) {
+    await ServiceCall().fetchBatchCatgories().then((value) {
       sports.addAll(value.data!.categoryList!);
       selectedPerson = sports.first.category;
-
 
       batch.addAll(value.data!.batchList!);
       _selectedTime = batch.first.batch;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sport/pages/home_page.dart';
+import 'package:sport/pages/login/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey.shade200,
         primaryColor: Colors.blue.shade900,
       ),
-      home: const HomePage(),
+      home: const Login(),
     );
   }
 }

@@ -5,13 +5,14 @@ import 'package:sport/model/customer_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:sport/utils/enums.dart';
 
+import 'model/phone_validator.dart';
 import 'model/request/customer_data.dart';
 
-class Service {
+class ServiceCall {
   String base = 'http://api.sportsb.co.in/api/';
   Map<String, String> headers = {
-    'staff-key':'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=',
-'ContentType':'application/json'
+    'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=',
+    'ContentType': 'application/json'
   };
   Future<CategoryAndBatch> fetchBatchCatgories() async {
     final response = await http.post(
@@ -43,6 +44,20 @@ class Service {
       return customerListData;
     } else {
       throw Exception('failed to load CustomerList');
+    }
+  }
+
+  Future<PhoneValidator> PhoneValidatorApi(
+      {required String phoneNumber}) async {
+    final response = await http.post(Uri.parse('${base}PhoneValidator'),
+        headers: headers, body: {"phone": phoneNumber, "source": "Android"});
+
+    if (response.statusCode == 200) {
+      PhoneValidator phoneValidator =
+          PhoneValidator.fromJson(jsonDecode(response.body));
+      return phoneValidator;
+    } else {
+      throw Exception('failed to load BatchCategories');
     }
   }
 }
