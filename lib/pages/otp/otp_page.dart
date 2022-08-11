@@ -2,6 +2,9 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:sport/pages/dashboard_page.dart';
+import 'package:sport/pages/home_page.dart';
+import 'package:sport/pages/home_page1.dart';
 import '../../service.dart';
 import '../../utils/constants.dart';
 import '../../widget/loading.dart';
@@ -83,15 +86,15 @@ class _OtpState extends State<OtpPage> {
               textFieldAlignment: MainAxisAlignment.spaceAround,
               fieldStyle: FieldStyle.box,
               onCompleted: (pin) {
-                print(pin);
+              
                 service.OtpValidatorApi(
-                        otp: pin, phoneNumber: widget.phoneNumber)
+                        otp: pin.toString(), phoneNumber: widget.phoneNumber)
                     .then((value) {
-                  if (!value.isError) {
-                    KEY = value.data!.customerKey!;
+                  if (value.isError) {
+                    // KEY = value.data!.customerKey!;
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Loading()),
+                      MaterialPageRoute(builder: (context) => const HomePage()),
                     );
                   } else {
                     const Text('');

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sport/model/category_batch.dart';
+import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/pages/Tab_page.dart';
 import 'package:sport/pages/down_page.dart';
 import 'package:sport/service.dart';
@@ -12,17 +12,15 @@ class OutPage extends StatefulWidget {
 }
 
 class _OutPageState extends State<OutPage> {
-  late Future<CategoryAndBatch> futureBatchCategories;
 
-  String? selectedPerson;
-  List<Category> sports = [];
+  late CustomerListOut futureCustomerOut;
+ 
 
   @override
   void initState() {
     super.initState();
-    getData();
-    futureBatchCategories = ServiceCall().fetchBatchCatgories();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,7 @@ class _OutPageState extends State<OutPage> {
         title: const Text("Out"),
         centerTitle: true,
       ),
-      body: Column(
+      body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 270, top: 10),
@@ -39,11 +37,11 @@ class _OutPageState extends State<OutPage> {
               width: 100,
               child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const TabBarPage(),
-                        ));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) =>  TabBarPage(),
+                    //     ));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -56,86 +54,92 @@ class _OutPageState extends State<OutPage> {
             ),
           ),
           const SizedBox(height: 5),
-          SizedBox(
-            height: 400,
-            width: MediaQuery.of(context).size.width,
-            child: ListView(
-              children: [
-                for (var i = 0; i < 1; i++)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Card(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Container(
-                        height: 90,
-                        width: 300,
-                        decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 4,
-                                  spreadRadius: 1,
-                                  offset: Offset(2, 2))
-                            ],
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 20, top: 5),
-                                  child: SizedBox(
-                                    height: 40,
-                                    width: 90,
-                                    child: ElevatedButton(
-                                        onPressed: () {},
-                                        style: ElevatedButton.styleFrom(
-                                            primary: Colors.orange.shade500),
-                                        child: const Text("Out")),
-                                  ),
-                                ),
-                                const SizedBox(width: 30),
-                                Text(
-                                  selectedPerson.toString(),
-                                  style: const TextStyle(fontSize: 15),
-                                ),
-                              ],
-                            ),
-                            const Divider(
-                              thickness: 1.5,
-                              color: Colors.grey,
-                            ),
-                          ],
+
+          FutureBuilder<CustomerListOut>(
+            future: ServiceCall().fetchCustomerOut(),
+            builder: (context,AsyncSnapshot<CustomerListOut> snapshot){
+              if (snapshot.hasData){
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.data!.length,
+                  itemBuilder: (BuildContext context, int index){
+                     return Padding(
+                       padding: const EdgeInsets.all(10),
+                       child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                      ),
-                    ),
-                  ),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DownPage(),
-                          ));
-                    },
-                    child: const Text("Down Page"))
-              ],
-            ),
-          )
+                        elevation: 5,
+                         child: SizedBox(
+                          height: 100,
+                          width: 190,
+                          child: Column(
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20, top: 15),
+                                    child: SizedBox(
+                                      height: 40,
+                                      width: 80,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.amber.shade600
+                                        ),
+                                        onPressed: (){}, child: const Text("Out",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold
+                                        ),))),
+                                  ),
+                                 const SizedBox(width: 50),
+                       
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text("Name :  ${snapshot.data!.data![index].name}",
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold
+                                    ),
+                                 ),
+                                  ),
+                                  ],
+                               ),
+                              const SizedBox(height: 10),
+
+                               const Divider(thickness: 1.5,
+                               color: Colors.blue),
+                       
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 150),
+                                    child: Text("FeeDetail :  ${snapshot.data!.data![index].feePending}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13
+                                    ),
+                                   ),
+                                   )
+                                ],
+                              )
+                            ],
+                          ),
+                         ),
+                       ),
+                      );
+                    });
+              }if (snapshot.hasError){
+                return Text("${snapshot.error}");
+              }
+              return const Center(child: CircularProgressIndicator());
+            })
+         
         ],
       ),
     );
   }
 
-  void getData() async {
-    await ServiceCall().fetchBatchCatgories().then((value) {
-      sports.addAll(value.data!.categoryList!);
-      selectedPerson = sports.first.category;
-      setState(() {});
-    });
-  }
+
 }

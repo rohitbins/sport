@@ -12,7 +12,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int pagesIndex = 0;
-  final pages = [HomePage1(), const InPage(), const OutPage()];
+  final pages = [
+  const HomePage1(),
+    InPage(),
+  const OutPage()];
+  
   final String _home = 'Home';
   final String _in = 'In';
   final String _out = 'Out';

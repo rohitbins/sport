@@ -22,6 +22,7 @@ class _CustomerPageState extends State<CustomerPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(Const().player),
+          centerTitle: true,
           actions: const [
             // FlatButton(
             //   textColor: Colors.white,
@@ -70,27 +71,27 @@ class _CustomerPageState extends State<CustomerPage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              customerData.name,
+                                              customerData.name.toString(),
                                               style: const TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w600),
                                             ),
                                             Text(
-                                              customerData.categoryType,
+                                              customerData.categoryType.toString(),
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey.shade600,
                                                   fontWeight: FontWeight.w400),
                                             ),
                                             Text(
-                                              customerData.batch,
+                                              customerData.batch.toString(),
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.grey.shade600,
                                                   fontWeight: FontWeight.w400),
                                             ),
                                             const SizedBox(width: 4),
-                                            if (customerData.feePening != 0)
+                                            if (customerData.feePending != 0)
                                               Row(
                                                 children: [
                                                   const Text(
@@ -99,7 +100,7 @@ class _CustomerPageState extends State<CustomerPage> {
                                                         TextStyle(fontSize: 12),
                                                   ),
                                                   Text(
-                                                    '(*${customerData.feePening})',
+                                                    '(*${customerData.feePending})',
                                                     style: const TextStyle(
                                                         color: Colors.red,
                                                         fontSize: 10,
@@ -110,15 +111,12 @@ class _CustomerPageState extends State<CustomerPage> {
                                               ),
                                           ]),
                                     ),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          primary: index % 2 == 1
-                                              ? Colors.amber
-                                              : Colors.green),
-                                      onPressed: () {},
-                                      child:
-                                          Text(index % 3 == 1 ? 'Out' : 'in'),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.green
                                     ),
+                                   onPressed: (){},
+                                   child: const Text("In"))
                                   ]),
                             ),
                           ),
@@ -130,6 +128,8 @@ class _CustomerPageState extends State<CustomerPage> {
                 return Text("${snapshot.error}");
               }
               return const Center(child: CircularProgressIndicator());
-            }));
+            })
+            
+            );
   }
 }

@@ -1,5 +1,5 @@
 class Const {
-  String player = 'Player\'s';
+  String player = 'Player\'s In';
 }
 
 int? SelectedIndex;

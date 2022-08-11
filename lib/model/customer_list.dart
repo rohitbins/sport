@@ -17,34 +17,34 @@ class CustomerListData extends CommonResponse {
 class CustomerData {
   CustomerData(
       {
-     required this.batch, 
-     required this.categoryType, 
-     required this.feePening, 
+      this.batch, 
+      this.categoryType, 
+      this.feePending, 
      required this.id, 
-     required this.name,
-     required this.customerKey,
+      this.name,
+      this.customerKey,
       this.inTime,
-     required this.isPlaying,
+      this.isPlaying,
       this.totalPlay
       });
 
   int id;
 
-  String name;
+  String? name;
 
-  String batch;
+  String? batch;
 
-  String categoryType;
+  String? categoryType;
 
-  int feePening;
+  int? feePending;
 
-  int isPlaying;
+  int? isPlaying;
 
   String? inTime;
   
   String? totalPlay;
 
-  String customerKey;
+  String? customerKey;
 
   factory CustomerData.fromJson(Map<String, dynamic> json) =>
       _$CustomerDataFromJson(json);

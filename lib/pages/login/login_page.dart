@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:sportsb/View/otp.dart';
@@ -39,7 +41,7 @@ class _LoginState extends State<Login> {
 
   @override
   void initState() {
-    _phoneController.text = '9811027161';
+    
     super.initState();
   }
 
@@ -131,7 +133,7 @@ class _LoginState extends State<Login> {
                           await service.PhoneValidatorApi(
                                   phoneNumber: _phoneController.text)
                               .then((PhoneValidator value) {
-                            if (!value.isError!) {
+                            if (value.isError!) {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

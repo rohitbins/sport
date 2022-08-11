@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport/model/category_batch.dart';
 import 'package:sport/model/customer_list.dart';
+import 'package:sport/pages/Tab_page.dart';
 import 'package:sport/service.dart';
 import '../utils/enums.dart';
 
@@ -49,80 +50,32 @@ class _InPageState extends State<InPage> {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Card(
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Container(
-                height: 30,
-                width: 100,
-                decoration: BoxDecoration(
-                    color: Colors.amber.shade100,
-                    // border: Border.all(
-                    //   // color: Colors.black,
-                    // ),
-                    borderRadius: BorderRadius.circular(15)),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: selectedPerson,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedPerson = value;
-                      });
-                    },
-                    hint: const Text("select"),
-                    items: sports.map((e) {
-                      return DropdownMenuItem<String>(
-                          value: e.category,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 70),
-                            child: Text(e.category.toString()),
-                          ));
-                    }).toList(),
-                  ),
-                ),
-              ),
+            padding: const EdgeInsets.only(left: 270, top: 10),
+            child: SizedBox(
+              width: 100,
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>  TabBarPage(callBack: (category,batc){
+                            callForData(){
+                              print('I have data : $category,$batch');
+                            }
+                          }),
+                        ));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text("Filter"),
+                      SizedBox(width: 5),
+                      Icon(Icons.filter_1_outlined)
+                    ],
+                  )),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Card(
-              shadowColor: Colors.grey,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Container(
-                height: 30,
-                width: 100,
-                decoration: BoxDecoration(
-                    color: Colors.amber.shade100,
-                    // border: Border.all(
-                    //   color: Colors.black,
-                    // ),
-                    borderRadius: BorderRadius.circular(15)),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: _selectedTime,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedTime = value;
-                      });
-                    },
-                    hint: const Text("select"),
-                    items: batch.map((e) {
-                      return DropdownMenuItem<String>(
-                          value: e.batch,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 70),
-                            child: Text(e.batch.toString()),
-                          ));
-                    }).toList(),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
+         
           SizedBox(
             height: 495,
             width: MediaQuery.of(context).size.width,
@@ -192,7 +145,8 @@ class _InPageState extends State<InPage> {
                   )
               ],
             ),
-          )
+          ),
+
         ],
       ),
     );

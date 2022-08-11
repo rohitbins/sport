@@ -8,8 +8,8 @@ import 'package:sport/utils/enums.dart';
 import '../widget/slot_card.dart';
 
 class TabBarPage extends StatefulWidget {
-  const TabBarPage({Key? key}) : super(key: key);
-
+ TabBarPage({Key? key, required this.callBack}) : super(key: key);
+ final Function callBack;
   @override
   State<TabBarPage> createState() => _TabBarPageState();
 }
@@ -101,16 +101,21 @@ class _TabBarPageState extends State<TabBarPage>
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+                                int category= _tabController.index == 0 ? selectedId : 0;
+                     int batch= _tabController.index == 1 ? selectedId : 0;
             print('selected:${_tabController.index}:$selectedId');
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CustomerPage(
-                      category: _tabController.index == 0 ? selectedId : 0,
-                      batch: _tabController.index == 1 ? selectedId : 0),
-                ));
+            widget.callBack(category,batch);
+//             Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (context) => CustomerPage(
+//  ),
+//                 ));
+Navigator.pop(context);
           },
           child: const Icon(Icons.search),
-        ));
+        ),
+        
+        );
   }
 }

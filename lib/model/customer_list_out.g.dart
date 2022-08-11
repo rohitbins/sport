@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'customer_list.dart';
+part of 'customer_list_out.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CustomerListData _$CustomerListDataFromJson(Map<String, dynamic> json) =>
-    CustomerListData(
+CustomerListOut _$CustomerListOutFromJson(Map<String, dynamic> json) =>
+    CustomerListOut(
       data: (json['data'] as List<dynamic>?)
-          ?.map((e) => CustomerData.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => CustomerOut.fromJson(e as Map<String, dynamic>))
           .toList(),
     )
       ..statusCode = json['statusCode'] as int?
       ..isError = json['isError'] as bool?
       ..message = json['message'] as String?;
 
-Map<String, dynamic> _$CustomerListDataToJson(CustomerListData instance) =>
+Map<String, dynamic> _$CustomerListOutToJson(CustomerListOut instance) =>
     <String, dynamic>{
       'statusCode': instance.statusCode,
       'isError': instance.isError,
@@ -24,19 +24,19 @@ Map<String, dynamic> _$CustomerListDataToJson(CustomerListData instance) =>
       'data': instance.data,
     };
 
-CustomerData _$CustomerDataFromJson(Map<String, dynamic> json) => CustomerData(
+CustomerOut _$CustomerOutFromJson(Map<String, dynamic> json) => CustomerOut(
       batch: json['batch'] as String?,
       categoryType: json['categoryType'] as String?,
-      feePending: json['feePending'] as int?,
+      feePending: json['feePending'] as int,
       id: json['id'] as int,
-      name: json['name'] as String?,
-      customerKey: json['customerKey'] as String?,
+      name: json['name'] as String,
+      customerKey: json['customerKey'] as String,
       inTime: json['inTime'] as String?,
-      isPlaying: json['isPlaying'] as int?,
       totalPlay: json['totalPlay'] as String?,
+      isPlaying: json['isPlaying'] as int?,
     );
 
-Map<String, dynamic> _$CustomerDataToJson(CustomerData instance) =>
+Map<String, dynamic> _$CustomerOutToJson(CustomerOut instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

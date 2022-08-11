@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sport/pages/Tab_page.dart';
 
 import '../widget/attendance_card.dart';
 import '../widget/sportPie.dart';
@@ -30,7 +31,7 @@ class _HomePage1State extends State<HomePage1> {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
               attendanceText,
-              style: TextStyle(fontWeight: FontWeight.w600),
+              style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 2.0),
@@ -56,18 +57,24 @@ class _HomePage1State extends State<HomePage1> {
                 children: [
                   Text(
                     feeText,
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
                   SportPie(colorList: colorList, dataSet: fee),
                   Text(
                     attendanceText,
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
                   SportPie(colorList: colorList, dataSet: attendanceList),
                 ]),
+
+                // Center(
+                //   child: ElevatedButton(onPressed: (){
+                //     Navigator.push(context, MaterialPageRoute (builder: (context) => TabBarPage(),));
+                //   }, child: const Text("Push")),
+                // )
           ]),
-        ),
-      ),
-    );
+          ),
+         ),
+        );
   }
 }
