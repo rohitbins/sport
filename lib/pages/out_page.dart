@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/service.dart';
 
+import '../widget/secondery_button.dart';
+
 class OutPage extends StatefulWidget {
   const OutPage({Key? key}) : super(key: key);
 
@@ -49,26 +51,18 @@ class _OutPageState extends State<OutPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 20, top: 15),
-                                    child: SizedBox(
-                                        height: 40,
-                                        width: 80,
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                primary: Colors.amber.shade600),
-                                            onPressed: () {
-                                              ServiceCall()
-                                                  .attendanceOut(
-                                                      key: data.customerKey)
-                                                  .then((value) {
-                                                setState(() {});
-                                              });
-                                            },
-                                            child: const Text(
-                                              "Out",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold),
-                                            ))),
+                                    child: SeconderyButton(
+                                      title: 'Out',
+                                      color: Colors.yellow,
+                                      doubleTap: () {
+                                        ServiceCall()
+                                            .attendanceOut(
+                                                key: data.customerKey)
+                                            .then((value) {
+                                          setState(() {});
+                                        });
+                                      },
+                                    ),
                                   ),
                                   const SizedBox(width: 50),
                                   Padding(

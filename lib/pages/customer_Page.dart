@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:sport/service.dart';
 
+import '../widget/secondery_button.dart';
+
 class CustomerPage extends StatefulWidget {
   CustomerPage({Key? key, required this.customerListData}) : super(key: key);
   final CustomerListData customerListData;
@@ -74,21 +76,19 @@ class _CustomerPageState extends State<CustomerPage> {
                                   ),
                               ]),
                         ),
-                        ElevatedButton(
-                            style:
-                                ElevatedButton.styleFrom(primary: Colors.green),
-                            onPressed: () {
-                              ServiceCall()
-                                  .attendanceIn(
-                                      customerKey: customerData.customerKey!)
-                                  .then((value) {
-                                setState(() {
-                                  customerData.isPlaying = 15;
-                                });
+                        SeconderyButton(
+                          title: customerData.isPlaying! > 0 ? 'Palying' : 'In',
+                          doubleTap: () {
+                            ServiceCall()
+                                .attendanceIn(
+                                    customerKey: customerData.customerKey!)
+                                .then((value) {
+                              setState(() {
+                                customerData.isPlaying = 15;
                               });
-                            },
-                            child: Text(
-                                customerData.isPlaying! > 0 ? 'Palying' : 'In'))
+                            });
+                          },
+                        )
                       ]),
                 ),
               ),
