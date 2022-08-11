@@ -3,7 +3,6 @@ import 'package:sport/model/customer_list.dart';
 import 'package:sport/service.dart';
 import 'package:sport/utils/constants.dart';
 import '../model/request/customer_data.dart';
-import '../widget/sport_circleavatar.dart';
 
 class CustomerPage extends StatefulWidget {
   CustomerPage({Key? key, required this.batch, required this.category})
@@ -17,6 +16,7 @@ class CustomerPage extends StatefulWidget {
 class _CustomerPageState extends State<CustomerPage> {
   late Future<CustomerListData> futureCustomerData;
   int inside = 15;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

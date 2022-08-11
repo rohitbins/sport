@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sport/model/category_batch.dart';
 import 'package:sport/model/customer_list.dart';
-import 'package:sport/pages/customer_Page.dart';
 import 'package:sport/service.dart';
 import 'package:sport/utils/enums.dart';
 

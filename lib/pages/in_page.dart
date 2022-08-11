@@ -6,6 +6,7 @@ import 'package:sport/model/customer_list.dart';
 import 'package:sport/pages/Tab_page.dart';
 import 'package:sport/service.dart';
 import '../utils/enums.dart';
+import 'customer_Page.dart';
 
 class InPage extends StatefulWidget {
   const InPage({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _InPageState extends State<InPage> {
     SportType.Category.apiValue,
     SportType.Batch.apiValue,
   ];
-
+bool filtered = false;
   int selectedCat = 0;
   int selectedbatch = 0;
   int SelectedId = 0;
@@ -32,6 +33,8 @@ class _InPageState extends State<InPage> {
 
   String? _selectedTime;
   final List<Batch> batch = [];
+  int selecteCat=0;
+  int selectedBatch=0;
 
   @override
   void initState() {
@@ -60,10 +63,16 @@ class _InPageState extends State<InPage> {
                         MaterialPageRoute(
                           builder: (context) =>  TabBarPage(callBack: (category,batc){
                             callForData(){
-                              print('I have data : $category,$batch');
+                              selecteCat = category;
+                              selectedBatch = batc;
                             }
                           }),
-                        ));
+                        )).whenComplete(() {
+                              print('I have data : $selecteCat,$selectedBatch');
+                              setState(() {
+                                filtered= true;
+                              });
+                        });
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -76,76 +85,85 @@ class _InPageState extends State<InPage> {
             ),
           ),
          
-          SizedBox(
-            height: 495,
-            width: MediaQuery.of(context).size.width,
-            child: ListView(
-              children: [
-                for (var i = 0; i < 2; i++)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Card(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 3,
-                                spreadRadius: 1,
-                                offset: Offset(2, 2))
-                          ],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        height: 90,
-                        width: 300,
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 20, top: 5),
-                                  child: SizedBox(
-                                    width: 90,
-                                    height: 40,
-                                    child: ElevatedButton(
-                                        onPressed: (() {}),
-                                        style: ElevatedButton.styleFrom(
-                                            primary: Colors.green),
-                                        child: const Text("In")),
-                                  ),
-                                ),
-                                const SizedBox(width: 20),
-                                Text(
-                                  selectedPerson.toString(),
-                                  style: const TextStyle(fontSize: 15),
-                                )
-                              ],
-                            ),
-                            const Divider(
-                              thickness: 1.5,
-                              color: Colors.blue,
-                            ),
-                            const Center(
-                              child: Text(
-                                "Fee Due",
-                                style:
-                                    TextStyle(fontSize: 15, color: Colors.blue),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-              ],
-            ),
-          ),
+          // SizedBox(
+          //   height: 495,
+          //   width: MediaQuery.of(context).size.width,
+          //   child: ListView(
+          //     children: [
+          //       for (var i = 0; i < 2; i++)
+          //         Padding(
+          //           padding: const EdgeInsets.symmetric(horizontal: 10),
+          //           child: Card(
+          //             elevation: 0,
+          //             shape: RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.circular(10),
+          //             ),
+          //             child: Container(
+          //               decoration: BoxDecoration(
+          //                 color: Colors.white,
+          //                 boxShadow: const [
+          //                   BoxShadow(
+          //                       color: Colors.grey,
+          //                       blurRadius: 3,
+          //                       spreadRadius: 1,
+          //                       offset: Offset(2, 2))
+          //                 ],
+          //                 borderRadius: BorderRadius.circular(10),
+          //               ),
+          //               height: 90,
+          //               width: 300,
+          //               child: Column(
+          //                 children: [
+          //                   Row(
+          //                     children: [
+          //                       Padding(
+          //                         padding:
+          //                             const EdgeInsets.only(left: 20, top: 5),
+          //                         child: SizedBox(
+          //                           width: 90,
+          //                           height: 40,
+          //                           child: ElevatedButton(
+          //                               onPressed: (() {}),
+          //                               style: ElevatedButton.styleFrom(
+          //                                   primary: Colors.green),
+          //                               child: const Text("In")),
+          //                         ),
+          //                       ),
+          //                       const SizedBox(width: 20),
+          //                       Text(
+          //                         selectedPerson.toString(),
+          //                         style: const TextStyle(fontSize: 15),
+          //                       )
+          //                     ],
+          //                   ),
+          //                   const Divider(
+          //                     thickness: 1.5,
+          //                     color: Colors.blue,
+          //                   ),
+          //                   const Center(
+          //                     child: Text(
+          //                       "Fee Due",
+          //                       style:
+          //                           TextStyle(fontSize: 15, color: Colors.blue),
+          //                     ),
+          //                   )
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //         )
+          //     ],
+          //   ),
+          // ),
+if(filtered)
+Container(
+  height: MediaQuery.of(context).size.height*.08,
+  width: MediaQuery.of(context).size.width*.08,
+  child: CustomerPage(batch: selectedBatch,category: selecteCat)),
+
+  
+
+
 
         ],
       ),
