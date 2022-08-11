@@ -51,9 +51,10 @@ class ServiceCall {
 
   Future<PhoneValidator> PhoneValidatorApi(
       {required String phoneNumber}) async {
-
-      Map<String,String> _header = {'ContentType':'application/json',
-'token':'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6'};
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6'
+    };
     final response = await http.post(Uri.parse('${base}PhoneValidator'),
         headers: _header, body: {"phone": phoneNumber, "source": "Android"});
 
@@ -69,9 +70,10 @@ class ServiceCall {
 
   Future<OtpValidator> OtpValidatorApi(
       {required String phoneNumber, required String otp}) async {
-
-        Map<String, String> _header = {'ContentType': 'application/json',
-        'token' : 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6' };
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6'
+    };
     final response = await http.post(Uri.parse('${base}OTPValidator'),
         headers: _header,
         body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
@@ -85,24 +87,64 @@ class ServiceCall {
     }
   }
 
-
- Future<CustomerListOut> fetchCustomerOut() async {
-
-        Map<String, String> _header = {'ContentType': 'application/json',
-        'staff-key' : 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=' };
+  Future<CustomerListOut> fetchCustomerOut() async {
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA='
+    };
     final response = await http.post(Uri.parse('${base}CustomerListForOut'),
-        headers: _header,body: {});
-        
+        headers: _header, body: {});
 
     if (response.statusCode == 200) {
       print(response.body);
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
-      
     } else {
       throw Exception('failed to load BatchCategories');
     }
   }
 
+  Future<CustomerListOut> attendanceIn({required String customerKey}) async {
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=',
+      'customer-key': customerKey
+    };
+    final response = await http.post(
+        Uri.parse('${base}SetCustomerAttendanceIn'),
+        headers: _header,
+        body: {});
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      CustomerListOut customerOut =
+          CustomerListOut.fromJson(jsonDecode(response.body));
+      return customerOut;
+    } else {
+      throw Exception('failed to load BatchCategories');
+    }
+  }
+
+  Future<CustomerListOut> attendanceOut({required String key}) async {
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=',
+      'customer-key': key
+    };
+    final response = await http.post(
+        Uri.parse('${base}SetCustomerAttendanceOut'),
+        headers: _header,
+        body: {});
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      CustomerListOut customerOut =
+          CustomerListOut.fromJson(jsonDecode(response.body));
+      return customerOut;
+    } else {
+      throw Exception('failed to load BatchCategories');
+    }
+  }
 }
+//

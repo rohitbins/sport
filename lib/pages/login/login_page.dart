@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 
 import '../../model/phone_validator.dart';
 import '../../service.dart';
-import '../../utils/constants.dart';
 import '../otp/otp_page.dart';
 
 class Login extends StatefulWidget {
@@ -41,7 +40,6 @@ class _LoginState extends State<Login> {
 
   @override
   void initState() {
-    
     super.initState();
   }
 
@@ -53,6 +51,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    _phoneController.text = '9599548107';
+
     return Scaffold(
       body: InkWell(
         onTap: () {
@@ -128,22 +128,7 @@ class _LoginState extends State<Login> {
                       onPressed: () async {
                         pressed = true;
                         if (_key.currentState!.validate()) {
-                          _empty = _phoneController.text.isEmpty;
-
-                          await service.PhoneValidatorApi(
-                                  phoneNumber: _phoneController.text)
-                              .then((PhoneValidator value) {
-                            if (value.isError!) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => OtpPage(
-                                          phoneNumber: _phoneController.text)));
-                            } else {
-                              _invalid = true;
-                            }
-                            setState(() {});
-                          });
+                          serciceCAll();
                         }
                         // api calling
                       },
@@ -163,5 +148,23 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void serciceCAll() async {
+    _empty = _phoneController.text.isEmpty;
+
+    await service.PhoneValidatorApi(phoneNumber: _phoneController.text)
+        .then((PhoneValidator value) {
+      if (value.isError!) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    OtpPage(phoneNumber: _phoneController.text)));
+      } else {
+        _invalid = true;
+      }
+      setState(() {});
+    });
   }
 }
