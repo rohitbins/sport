@@ -3,7 +3,7 @@ import 'package:sport/model/customer_list.dart';
 import 'package:sport/service.dart';
 
 class CustomerPage extends StatefulWidget {
-  CustomerPage({Key? key, required this.customerListData}) : super(key: key);
+  const CustomerPage({Key? key, required this.customerListData}) : super(key: key);
   final CustomerListData customerListData;
 
   @override

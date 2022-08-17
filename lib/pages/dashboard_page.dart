@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sport/pages/down_page.dart';
+
 import 'package:pie_chart/pie_chart.dart';
 
 
@@ -40,7 +40,7 @@ class _DashboardPageState extends State<DashboardPage> {
             }), child: const Text("In")),
 
             ElevatedButton(onPressed: (() {
-              Navigator.push(context, MaterialPageRoute (builder: (context) => const DownPage(),));
+              // Navigator.push(context, MaterialPageRoute (builder: (context) => const DownPage(),));
             }), 
             style: ElevatedButton.styleFrom(
               shape: const CircleBorder()

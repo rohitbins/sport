@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   int pagesIndex = 0;
   final pages = [
   const HomePage1(),
-    InPage(),
+    const InPage(),
   const OutPage()];
   
   final String _home = 'Home';

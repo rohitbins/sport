@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:sport/model/attendance.dart';
 import 'package:sport/model/category_batch.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:sport/model/customer_list_out.dart';
+import 'package:sport/model/payment.dart';
+import 'package:sport/model/personal_sport.dart';
 import 'package:sport/utils/enums.dart';
-
 import 'model/otp_validator.dart';
 import 'model/phone_validator.dart';
 import 'model/request/customer_data.dart';
@@ -138,7 +140,7 @@ class ServiceCall {
         body: {});
 
     if (response.statusCode == 200) {
-      print(response.body);
+     
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
@@ -146,5 +148,59 @@ class ServiceCall {
       throw Exception('failed to load BatchCategories');
     }
   }
+
+
+
+  Future<PersonalSportInfo> fetchInfoData() async{
+    Map<String, String> _header = {'ContentType': 'application/json',
+    'customer-key': 'EQYGf84gWWMJsi8Bz/73ufdftIdOKyta1YohLogAL5U='};
+    final response = await http.post(Uri.parse('${base}CustomerProfile?customer-key=Key'),
+    body: {},headers: _header);
+
+    if (response.statusCode == 200){
+    
+      PersonalSportInfo personalSportInfo = 
+      PersonalSportInfo.fromJson(jsonDecode(response.body));
+
+      return personalSportInfo;
+    }else {
+      throw Exception('Failed to load');
+    }
+  }
+
+
+  Future<List<Attendance>?> fetchAttendance() async {
+    Map<String, String> _header = {'ContentType': 'application/json',
+    'customer-key': 'EQYGf84gWWMJsi8Bz/73ufdftIdOKyta1YohLogAL5U='};
+    final response = await http.post(Uri.parse('${base}CustomerAttendance'),
+    body:{"Indx": "0","IdForNew":"0"},headers: _header);
+   
+      if (response.statusCode == 200){
+        CustomerAttendance customerAttendance = 
+        CustomerAttendance.fromJson(jsonDecode(response.body));
+
+        return 
+        customerAttendance.data.attendanceList;
+
+      }else {
+        throw Exception("Failed to loading");
+      }
+  }
+
+  Future<List<Payment>?> fetchPayment() async {
+    Map<String,String> _header = {'ContentType': 'application/json',
+    "customer-key": "EQYGf84gWWMJsi8Bz/73ufdftIdOKyta1YohLogAL5U="};
+    final response = await http.post(Uri.parse('${base}CustomerPayment'),
+    body: {}, headers: _header);
+    if(response.statusCode == 200) {
+      
+      CustomerPayment customerPayment =
+      CustomerPayment.fromJson(jsonDecode(response.body));
+
+      return customerPayment.data.paymentList;
+    }else {
+      throw Exception("failed to loading");
+    }
+  }
 }
-//
+

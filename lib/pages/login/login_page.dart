@@ -51,7 +51,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    _phoneController.text = '9599548107';
+    _phoneController.text = '9599541807';
 
     return Scaffold(
       body: InkWell(
@@ -70,9 +70,12 @@ class _LoginState extends State<Login> {
                   key: _key,
                   child: Column(children: [
                     const SizedBox(height: 10),
-                    Image.asset(
-                      'assets/images/ff_sports_logo.png',
-                      scale: 1.5,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 50),
+                      child: Image.asset(
+                        'assets/images/ffSportsLogoGuru.png',
+                        scale: 1.65,
+                      ),
                     ),
                     const SizedBox(height: 130),
                     Padding(
