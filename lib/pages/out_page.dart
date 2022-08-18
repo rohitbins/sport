@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sport/model/customer_list_out.dart';
-import 'package:sport/pages/profile.dart';
-import 'package:sport/pages/sport_info.dart';
 import 'package:sport/service.dart';
 
 class OutPage extends StatefulWidget {
@@ -14,6 +12,20 @@ class OutPage extends StatefulWidget {
 class _OutPageState extends State<OutPage> {
   late CustomerListOut futureCustomerOut;
 
+  bool _isLoading = false;
+
+  void _startLoading () async{
+    setState(() {
+      _isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -23,13 +35,14 @@ class _OutPageState extends State<OutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: Container(),
           title: const Text("Out"),
           centerTitle: true,
         ),
         body: Column(
           children: [
             
-            Container(
+            SizedBox(
               height: 600,
               width: MediaQuery.of(context).size.width,
               child: FutureBuilder<CustomerListOut>(
@@ -41,77 +54,148 @@ class _OutPageState extends State<OutPage> {
                           itemCount: snapshot.data!.data!.length,
                           itemBuilder: (BuildContext context, int index) {
                             CustomerOut data = snapshot.data!.data![index];
+
                             return Padding(
-                              padding: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.only(left: 5,right: 5,top: 5),
                               child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                elevation: 5,
-                                child: SizedBox(
-                                  height: 100,
-                                  width: 190,
-                                  child: Column(children: [
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 20, top: 15),
-                                          child: SizedBox(
-                                              height: 40,
-                                              width: 80,
-                                              child: ElevatedButton(
-                                                  style: ElevatedButton.styleFrom(
-                                                      primary: Colors.amber.shade600),
-                                                  onPressed: () {
-                                                    ServiceCall()
-                                                        .attendanceOut(
-                                                            key: data.customerKey)
-                                                        .then((value) {
-                                                      setState(() {});
-                                                    });
-                                                  },
-                                                  child: const Text(
-                                                    "Out",
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.bold),
-                                                  ))),
-                                        ),
-                                        const SizedBox(width: 50),
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 10),
-                                          child: Text(
-                                            data.name,
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    const Divider(thickness: 1.5, color: Colors.blue),
-                                    if (snapshot.data!.data![index].feePending > 0)
-                                      Row(
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(left: 150),
-                                            child: Text(
-                                              "FeeDetail :  ${snapshot.data!.data![index].feePending}",
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 13),
+                                            padding: const EdgeInsets.only(left: 20),
+                                            child: Text(snapshot.data!.data![index].name,
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold
+                                          ),
+                                         ),
+                                        ),
+                                        const SizedBox(height: 3),
+                                        if (snapshot.data!.data![index].feePending > 0 )
+                                        Row(
+                                          children:[
+                                           const Padding(
+                                              padding: EdgeInsets.only(left: 20),
+                                              child: Text("FeePending",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12
+                                              ),
+                                              ),
                                             ),
-                                          )
+                                            Text(
+                                              '(*${snapshot.data!.data![index].feePending})',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                                color: Colors.red
+                                              ),
+                                            )
+                                          ],
+                                        )
                                         ],
-                                      )
-                                  ]),
+                                      ),
+                                    ),
+
+                                    SizedBox(
+                                      height: 60,
+                                      width: 120,
+                                      child: ElevatedButton(
+                                       
+                                        child: _isLoading? CircularProgressIndicator() : Text("Out"),
+                                       
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.amber.shade600
+                                        ),
+                                        onPressed: (){
+                                          _isLoading ? null : _startLoading();
+                                        ServiceCall().attendanceOut(
+                                                     key: data.customerKey).then((value) {
+                                                    setState(() {
+                                                      
+                                                     });
+                                                             });
+                                        }, 
+                                        // child: const Text("Out",
+                                        // style: TextStyle(
+                                        //   fontSize: 18,
+                                        //   fontWeight: FontWeight.bold
+                                        // ),
+                                        // )
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             );
-                          });
+                            // return Card(
+                            //        shape: RoundedRectangleBorder(
+                            //        borderRadius: BorderRadius.circular(15),
+                            //        ),
+                            //        elevation: 5,
+                            //        child: SizedBox(
+                            //        height: 100,
+                            //        width: 190,
+                            //        child: Column(
+                            //        children: [
+                            //        Row(
+                            //         crossAxisAlignment: CrossAxisAlignment.center,
+                            //         children: [
+                            //           SizedBox(
+                            //               height: 40,
+                            //               width: 80,
+                            //               child: ElevatedButton(
+                            //                   style: ElevatedButton.styleFrom(
+                            //                       primary: Colors.amber.shade600),
+                            //                   onPressed: () {
+                            //                     ServiceCall()
+                            //                         .attendanceOut(
+                            //                             key: data.customerKey)
+                            //                         .then((value) {
+                            //                       setState(() {});
+                            //                     });
+                            //                   },
+                            //                   child: const Text(
+                            //                     "Out",
+                            //                     style: TextStyle(
+                            //                         fontSize: 16,
+                            //                         fontWeight: FontWeight.bold),
+                            //                   ),
+                            //                  ),
+                            //                 ),
+                                     
+                            //           Padding(
+                            //             padding: const EdgeInsets.only(top: 10),
+                            //             child: Text(
+                            //               data.name,
+                            //               style: const TextStyle(
+                            //                   fontSize: 15,
+                            //                   fontWeight: FontWeight.bold),
+                            //             ),
+                            //            ),
+                            //         ],
+                            //          ),
+                                
+                            //        if (snapshot.data!.data![index].feePending > 0)
+                            //         Row(
+                            //           children: [
+                            //             Text(
+                            //               "FeeDetail :  ${snapshot.data!.data![index].feePending}",
+                            //                   style: const TextStyle(
+                            //                   fontWeight: FontWeight.bold,
+                            //                   fontSize: 13),
+                            //             ),
+
+                                        
+                            //           ],
+                            //           )
+                            //        ]),
+                            //        ),
+                            //       );
+                                 });
                     }
                     if (snapshot.hasError) {
                       return Text("${snapshot.error}");
@@ -119,19 +203,10 @@ class _OutPageState extends State<OutPage> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   ),
-            ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    ElevatedButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute (builder: (context) => const Profile(),));
-                    }, child: const Text("Profile")),
-
-                 
-                  ],
-                )
+                 ),
+               
           ],
-        ),
-          );
+              ),
+             );
   }
 }

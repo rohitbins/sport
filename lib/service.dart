@@ -151,22 +151,7 @@ class ServiceCall {
 
 
 
-  Future<PersonalSportInfo> fetchInfoData() async{
-    Map<String, String> _header = {'ContentType': 'application/json',
-    'customer-key': 'EQYGf84gWWMJsi8Bz/73ufdftIdOKyta1YohLogAL5U='};
-    final response = await http.post(Uri.parse('${base}CustomerProfile?customer-key=Key'),
-    body: {},headers: _header);
-
-    if (response.statusCode == 200){
-    
-      PersonalSportInfo personalSportInfo = 
-      PersonalSportInfo.fromJson(jsonDecode(response.body));
-
-      return personalSportInfo;
-    }else {
-      throw Exception('Failed to load');
-    }
-  }
+ 
 
 
   Future<List<Attendance>?> fetchAttendance() async {
@@ -202,5 +187,20 @@ class ServiceCall {
       throw Exception("failed to loading");
     }
   }
+
+ Future<PersonalSportModel?> fetchProfileData(String _key) async {
+  Map<String, String> _header = {'ContentType': 'application/json',
+  'staff-key' : 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=', 
+  'customer-key': _key};
+  final response = await http.post(Uri.parse('${base}CustomerProfile'),
+  body:{}, headers: _header );
+  
+  if (response.statusCode ==200){
+    PersonalSportModel personalSportModel = 
+    PersonalSportModel.fromJson(jsonDecode(response.body));
+
+    return personalSportModel;
+  }
+ }
 }
 

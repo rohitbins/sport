@@ -7,7 +7,7 @@ import 'package:sport/utils/enums.dart';
 import '../widget/slot_card.dart';
 
 class TabBarPage extends StatefulWidget {
- TabBarPage({Key? key, required this.callBack}) : super(key: key);
+ const TabBarPage({Key? key, required this.callBack}) : super(key: key);
  final Function callBack;
   @override
   State<TabBarPage> createState() => _TabBarPageState();
@@ -60,8 +60,8 @@ class _TabBarPageState extends State<TabBarPage>
                             shrinkWrap: true,
                             itemCount:
                                 snapshot.data!.data!.categoryList!.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              Category data =
+                                itemBuilder: (BuildContext context, int index) {
+                                  Category data =
                                   snapshot.data!.data!.categoryList![index];
 
                               return SlotCard(
@@ -87,34 +87,27 @@ class _TabBarPageState extends State<TabBarPage>
                                   callBack: () {
                                     setState(() => selectedbatch = index);
                                     selectedId = data.id;
-                                  });
+                            });
                             })
-                      ]);
+                          ]);
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
                     return const Center(child: CircularProgressIndicator());
-                  }),
+            }),
             ),
           ]),
-        ),
+          ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-                                int category= _tabController.index == 0 ? selectedId : 0;
+                     int category= _tabController.index == 0 ? selectedId : 0;
                      int batch= _tabController.index == 1 ? selectedId : 0;
-            print('selected:${_tabController.index}:$selectedId');
+           
             widget.callBack(category,batch);
-//             Navigator.push(
-//                 context,
-//                 MaterialPageRoute(
-//                   builder: (context) => CustomerPage(
-//  ),
-//                 ));
-Navigator.pop(context);
+            Navigator.pop(context);
           },
           child: const Icon(Icons.search),
         ),
-        
-        );
+       );
   }
 }

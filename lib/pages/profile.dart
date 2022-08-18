@@ -1,11 +1,15 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings, unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:sport/model/attendance.dart';
 import 'package:sport/model/payment.dart';
+import 'package:sport/model/personal_sport.dart';
 import 'package:sport/service.dart';
 import 'package:intl/intl.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+  const Profile({Key? key,required this.customerKey}) : super(key: key);
+final String customerKey;
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -18,23 +22,21 @@ String hexColor(String _colorhexcode) {
   return colornew1;
 }
 
- 
-  // late Future<AttendanceList> futureAttendance;
-
   @override
   void initState() {
-    // TODO: implement initState
+  
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      // initialIndex: 0,
-      length: 4, 
+     length: 4, 
       child: Scaffold(
         resizeToAvoidBottomInset:true,
         appBar: AppBar(
+          elevation: 6,
+          shadowColor: Colors.grey,
           title: const Text("Profile"),
           centerTitle: true,
           bottom:  const TabBar(
@@ -42,34 +44,42 @@ String hexColor(String _colorhexcode) {
               fontSize: 11
             ),
             tabs: [
-              Tab(text: "Personal Info"),
-              Tab(text: "SportsInfo"),
+              Tab(text: " Info"),
+              Tab(text: "Sports"),
               Tab(text: "Attendence"),
-              Tab(text: "FeeDetail",)
+              Tab(text: "Fees",)
               ]
          ),
         ),
         body:  TabBarView(
           children: [
-            Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20, top: 5),
-          child: Row(
-            children:[
+            FutureBuilder<PersonalSportModel?>(
+              future: ServiceCall().fetchProfileData(widget.customerKey),
+              builder: (context, snapshot) {
+                if (snapshot.hasData){
+                  return ListView(
+                 children: [
+                     Padding(
+                       padding: const EdgeInsets.all(6.0),
+                       child: Column(
+                        children: [
+                        Padding(
+                        padding: const EdgeInsets.only(left: 20, top: 5),
+                        child: Row(
+                 children:[
               const Icon(Icons.person,
               size: 30,),
               const SizedBox(width: 30),
-             Column(
+              Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-               children: const[
-                 Text("Name :",
+               children:[
+                const Text("Name :",
                  style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
                  ),
                 ),
-                Text("Mayank")
+                Text('${snapshot.data!.data!.personalInfo!.name}')
                ],
              ),
             ],
@@ -89,14 +99,14 @@ String hexColor(String _colorhexcode) {
               const SizedBox(width: 30),
              Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-               children: const [
-                 Text("Contact No :",
+               children:[
+                const Text("Contact No :",
                  style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
                  ),
                 ),
-                Text("999999999")
+                Text(snapshot.data!.data!.personalInfo!.mobile.toString())
                ],
              ),
             ],
@@ -116,14 +126,14 @@ String hexColor(String _colorhexcode) {
               const SizedBox(width: 30),
              Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-               children: const[
-                 Text("Date of Birth :",
+               children:[
+                const Text("Date of Birth :",
                  style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
                  ),
                 ),
-                Text("date of birth")
+                Text(snapshot.data!.data!.personalInfo!.dateOfBirth.toString())
                ],
              ),
             ],
@@ -143,14 +153,14 @@ String hexColor(String _colorhexcode) {
               const SizedBox(width: 30),
              Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-               children: const [
-                 Text("Father's Name :",
+               children:[
+                 const Text("Father's Name :",
                  style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
                  ),
                 ),
-                Text("Papa")
+                Text(snapshot.data!.data!.personalInfo!.fatherName.toString())
                ],
              ),
             ],
@@ -170,14 +180,14 @@ String hexColor(String _colorhexcode) {
               const SizedBox(width: 30),
              Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-               children: const[
-                 Text("Email :",
+               children:[
+                 const Text("Email :",
                  style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
                  ),
                 ),
-                Text("email")
+                Text(snapshot.data!.data!.personalInfo!.email.toString())
                ],
              ),
             ],
@@ -200,14 +210,14 @@ String hexColor(String _colorhexcode) {
              const SizedBox(width: 30),
              Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-               children: const[
-                 Text("Gender :",
+               children:[
+                const Text("Gender :",
                  style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
                  ),
                 ),
-                Text("Male")
+                Text(snapshot.data!.data!.personalInfo!.gender.toString())
                ],
              ),
             ],
@@ -225,17 +235,19 @@ String hexColor(String _colorhexcode) {
               const Icon(Icons.home,
               size: 35,),
               const SizedBox(width: 30),
-             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-               children: const[
-                 Text("Address :",
-                 style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold
-                 ),
-                ),
-                Text("Address")
-               ],
+             Expanded(
+               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   const Text("Address :",
+                   style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold
+                   ),
+                  ),
+                  Text(snapshot.data!.data!.personalInfo!.address.toString())
+                 ],
+               ),
              ),
             ],
            ),
@@ -254,14 +266,14 @@ String hexColor(String _colorhexcode) {
              const SizedBox(width: 30),
              Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-               children: const [
-                 Text("State :",
+               children: [
+                 const Text("State :",
                  style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
                  ),
                 ),
-                Text("State")
+                Text(snapshot.data!.data!.personalInfo!.state.toString())
                ],
              ),
             ],
@@ -281,14 +293,14 @@ String hexColor(String _colorhexcode) {
              const  SizedBox(width: 30),
              Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-               children: const[
-                 Text("City :",
+               children:[
+                 const Text("City :",
                  style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
                  ),
                 ),
-                Text("City")
+                Text(snapshot.data!.data!.personalInfo!.city.toString())
                ],
              ),
             ],
@@ -308,14 +320,14 @@ String hexColor(String _colorhexcode) {
              const SizedBox(width: 30),
              Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-               children:const [
-                 Text("PinCode :",
+               children:[
+                const  Text("PinCode :",
                  style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
                  ),
                 ),
-                Text("22222")
+                Text(snapshot.data!.data!.personalInfo!.pincode.toString())
                ],
              ),
             ],
@@ -328,33 +340,51 @@ String hexColor(String _colorhexcode) {
         ),
       ],
     ),
+                     ),
   
-             Column(
-        children: [
-            Row(
-              children:[
-               const Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child:Icon(Icons.calendar_month),
+                           ],
+                        );
+                }else if (snapshot.hasError){
+                  return Text('${snapshot.error}');
+                }
+                return const Center(child: CircularProgressIndicator());
+              } 
+              ),
+            
+            FutureBuilder<PersonalSportModel?>(
+              future: ServiceCall().fetchProfileData(widget.customerKey),
+              builder: (context, snapshot) {
+                if (snapshot.hasData){
+                  return ListView(
+                    children: [
+                       Padding(
+                         padding: const EdgeInsets.all(6.0),
+                         child: Column(
+                         children: [
+                            Row(
+                            children:[
+                            const Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child:Icon(Icons.calendar_month),
                 ),
-                 const SizedBox(width: 30),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const[
-                  Text("Date of joining",
+                         const SizedBox(width: 30),
+                            Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:[
+                            const Text("Date of joining",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                   ),
-                  SizedBox(height: 2),
-                  Text("yyyy-mm-dd")
+                  const SizedBox(height: 2),
+                  Text(snapshot.data!.data!.sportsInfo!.dateOfJoining.toString())
                 ],
               ),
               ],
             ),
            const Divider(thickness: 1.5,
-           color: Colors.black),
+           color: Colors.grey),
 
            Row(
               children:[
@@ -365,21 +395,21 @@ String hexColor(String _colorhexcode) {
                  const SizedBox(width: 30),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const[
-                  Text("Sport",
+                children:[
+                 const Text("Sport",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                   ),
-                  SizedBox(height: 2),
-                  Text("Sport")
+                 const SizedBox(height: 2),
+                  Text(snapshot.data!.data!.sportsInfo!.sport.toString())
                 ],
               ),
               ],
             ),
            const Divider(thickness: 1.5,
-           color: Colors.black),
+           color: Colors.grey),
 
            Row(
               children:[
@@ -390,21 +420,21 @@ String hexColor(String _colorhexcode) {
                  const SizedBox(width: 30),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const[
-                  Text("Type",
+                children: [
+                  const Text("Type",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                   ),
-                  SizedBox(height: 2),
-                  Text("Type")
+                  const SizedBox(height: 2),
+                  Text(snapshot.data!.data!.sportsInfo!.type.toString())
                 ],
               ),
               ],
             ),
            const Divider(thickness: 1.5,
-           color: Colors.black),
+           color: Colors.grey),
 
            Row(
               children:[
@@ -415,21 +445,21 @@ String hexColor(String _colorhexcode) {
                  const SizedBox(width: 30),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const[
-                  Text("Category",
+                children:[
+                  const Text("Category",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                   ),
-                  SizedBox(height: 2),
-                  Text("Category")
+                  const SizedBox(height: 2),
+                  Text(snapshot.data!.data!.sportsInfo!.category.toString())
                 ],
               ),
               ],
             ),
            const Divider(thickness: 1.5,
-           color: Colors.black),
+           color: Colors.grey),
 
            Row(
               children:[
@@ -440,21 +470,21 @@ String hexColor(String _colorhexcode) {
                  const SizedBox(width: 30),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const[
-                  Text("Batch",
+                children: [
+                  const Text("Batch",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                   ),
-                  SizedBox(height: 2),
-                  Text("Batch")
+                  const SizedBox(height: 2),
+                  Text(snapshot.data!.data!.sportsInfo!.batch.toString())
                 ],
               ),
               ],
             ),
            const Divider(thickness: 1.5,
-           color: Colors.black),
+           color: Colors.grey),
 
            Row(
               children:[
@@ -465,21 +495,21 @@ String hexColor(String _colorhexcode) {
                  const SizedBox(width: 30),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const[
-                  Text("Fee Type",
+                children: [
+                  const Text("Fee Type",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                   ),
-                  SizedBox(height: 2),
-                  Text("Fee Type")
+                  const SizedBox(height: 2),
+                  Text(snapshot.data!.data!.sportsInfo!.feeType.toString())
                 ],
               ),
               ],
             ),
            const Divider(thickness: 1.5,
-           color: Colors.black),
+           color: Colors.grey),
 
            Row(
               children:[
@@ -490,21 +520,21 @@ String hexColor(String _colorhexcode) {
                  const SizedBox(width: 30),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const[
-                  Text("Speciality",
+                children: [
+                  const Text("Speciality",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                   ),
-                  SizedBox(height: 2),
-                  Text("Speciality")
+                  const SizedBox(height: 2),
+                  Text(snapshot.data!.data!.sportsInfo!.speciality.toString())
                 ],
               ),
               ],
             ),
            const Divider(thickness: 1.5,
-           color: Colors.black),
+           color: Colors.grey),
            
            Row(
               children:[
@@ -515,21 +545,21 @@ String hexColor(String _colorhexcode) {
                  const SizedBox(width: 30),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const[
-                  Text("Start Time",
+                children: [
+                  const Text("Start Time",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                   ),
-                  SizedBox(height: 2),
-                  Text("Hr-Min_Sec")
+                  const SizedBox(height: 2),
+                  Text(snapshot.data!.data!.sportsInfo!.startTime.toString())
                 ],
               ),
               ],
             ),
            const Divider(thickness: 1.5,
-           color: Colors.black),
+           color: Colors.grey),
 
            Row(
               children:[
@@ -540,21 +570,21 @@ String hexColor(String _colorhexcode) {
                  const SizedBox(width: 30),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const[
-                  Text("Total Fee",
+                children: [
+                  const Text("Total Fee",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                   ),
-                  SizedBox(height: 2),
-                  Text("Payment")
+                  const SizedBox(height: 2),
+                  Text(snapshot.data!.data!.sportsInfo!.totalFee.toString())
                 ],
               ),
               ],
             ),
            const Divider(thickness: 1.5,
-           color: Colors.black),
+           color: Colors.grey),
 
            Row(
               children:[
@@ -565,21 +595,21 @@ String hexColor(String _colorhexcode) {
                  const SizedBox(width: 30),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const[
-                  Text("Discount",
+                children:[
+                  const Text("Discount",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                   ),
-                  SizedBox(height: 2),
-                  Text("Discount")
+                  const SizedBox(height: 2),
+                  Text(snapshot.data!.data!.sportsInfo!.discount.toString())
                 ],
               ),
               ],
             ),
            const Divider(thickness: 1.5,
-           color: Colors.black),
+           color: Colors.grey),
             Row(
               children:[
                const Padding(
@@ -589,24 +619,35 @@ String hexColor(String _colorhexcode) {
                  const SizedBox(width: 30),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const[
-                  Text("Final Fee",
+                children: [
+                  const Text("Final Fee",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                  ),
-                  SizedBox(height: 2),
-                  Text("Payment")
+                  const SizedBox(height: 2),
+                  Text(snapshot.data!.data!.sportsInfo!.finalFee.toString())
                 ],
               ),
               ],
             ),
              const Divider(thickness: 1.5,
-           color: Colors.black),
+           color: Colors.grey),
         ],
       ),
+                       ),
     
+                    ],
+                  );
+                }else if (snapshot.hasError){
+                  return Text('${snapshot.error}');
+                }
+                return const Center(child: CircularProgressIndicator());
+              }
+              ),
+
+            
               FutureBuilder<List<Attendance>?>(
                 future: ServiceCall().fetchAttendance(),
                 builder: (context, snapshot) {
@@ -646,9 +687,9 @@ String hexColor(String _colorhexcode) {
   Widget attendanceCard(Attendance _attendance) {
     List<String> duration = [];
     DateFormat dateFormat = DateFormat("dd\nMMM");
-duration = _attendance.duration.replaceAll('hr', '').replaceAll('min', '').split(' ');
+    duration = _attendance.duration.replaceAll('hr', '').replaceAll('min', '').split(' ');
     return Padding(
-      padding: const EdgeInsets.only(left: 6,right: 6),
+      padding: const EdgeInsets.only(left: 6,right: 6, top: 5),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10)
@@ -656,24 +697,26 @@ duration = _attendance.duration.replaceAll('hr', '').replaceAll('min', '').split
         elevation: 4,
         child:Row(children: [ 
           Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 2,vertical: 4),
-            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 6),
-            decoration: BoxDecoration(color: Colors.grey,
-            borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
+            padding: const EdgeInsets.only(left: 6),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 3,bottom: 3),
+              child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 2,vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 6),
+              decoration: BoxDecoration(color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(10),
+              ),
               child: Text(dateFormat.format(
                 DateTime.parse(_attendance.inDate)).toString(),
-                // textAlign: TextAlign.center,
+                textAlign: TextAlign.center,
                 style:TextStyle(
-                fontSize: 20,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
                 color: Color(int.parse(hexColor(_attendance.dateBGColorHEX)))
         ),
        ),
-      ),
    ),
+            ),
           ),
       const SizedBox(width:20),
         
@@ -748,7 +791,7 @@ Widget paymentCard(Payment payment) {
   DateFormat dateFormat = DateFormat("dd\nMMM");
 
   return Padding(
-    padding: const EdgeInsets.only(left: 6,right: 6),
+    padding: const EdgeInsets.only(left: 6,right: 6, top: 5),
     child: Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10)
@@ -756,24 +799,27 @@ Widget paymentCard(Payment payment) {
       elevation: 4,
       child: Row(children: [
         Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 2,vertical: 4),
-              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 6),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.grey
-            ),
-              child: Center(
+          padding: const EdgeInsets.only(left: 6),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 3,bottom: 3),
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 2,vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey[300]
+              ),
                 child: Text(dateFormat.format (
                 DateTime.parse(payment.date)),
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
                 color: Color(int.parse(hexColor(payment.dateBGColorHex))) 
-           ),
-          ),
-              ),
+             ),
+            ),
        ),
+          ),
         ),
        const SizedBox(width: 10),
           Expanded(
@@ -787,6 +833,7 @@ Widget paymentCard(Payment payment) {
                   fontSize: 18,
                   color: Color(int.parse(hexColor(payment.firstTextColorHex)))
                 ),),
+               const SizedBox(height: 3),
                 Text(payment.secondTextText,
                 style: TextStyle(
                 fontSize: 11,
