@@ -51,7 +51,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    _phoneController.text = '9599541807';
+    _phoneController.text = '9811027161';
 
     return Scaffold(
       body: InkWell(
@@ -158,7 +158,7 @@ class _LoginState extends State<Login> {
 
     await service.PhoneValidatorApi(phoneNumber: _phoneController.text)
         .then((PhoneValidator value) {
-      if (value.isError!) {
+      if (!value.isError!) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(

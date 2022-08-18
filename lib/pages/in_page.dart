@@ -1,11 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/category_batch.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:sport/pages/Tab_page.dart';
 import 'package:sport/service.dart';
 import '../model/request/customer_data.dart';
+import '../utils/constants.dart';
 import '../utils/enums.dart';
 import 'customer_Page.dart';
 
@@ -40,6 +42,7 @@ class _InPageState extends State<InPage> {
   @override
   void initState() {
     super.initState();
+    getCustomerList(0, 0);
     getData();
     futureBatchCategories = ServiceCall().fetchBatchCatgories();
   }
@@ -50,44 +53,32 @@ class _InPageState extends State<InPage> {
       appBar: AppBar(
         actions: [
           ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            TabBarPage(callBack: (category, batc) {
-                          callForData() {
-                            selecteCat = category;
-                            selectedBatch = batc;
-                          }
-                        }),
-                      )).whenComplete(() async {
-                    await ServiceCall()
-                        .fetchCustomerData(
-                            customerDataRequest: CustomerDataRequest(
-                                batchId: '$selectedBatch',
-                                categoryId: '$selectedCat'))
-                        .then((value) {
-                      setState(() {
-                        futureCustomerData = value;
-                        filtered = true;
-                      });
-                    });
-                  });
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [Text("Filter"), Icon(Icons.filter_alt)],
-                )),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          TabBarPage(callBack: (category, batc) {
+                        callForData() {
+                          selecteCat = category;
+                          selectedBatch = batc;
+                        }
+                      }),
+                    )).whenComplete(() async {
+                  getCustomerList(selectedCat, selectedBatch);
+                });
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [Text("Filter"), Icon(Icons.filter_alt)],
+              )),
         ],
         title: const Text("In"),
         centerTitle: true,
         leading: Container(),
-       ),
-      body: ListView(
-        children: [
-          
-          if (filtered)
+      ),
+      body: ListView(children: [
+        if (filtered)
           SizedBox(
               height: MediaQuery.of(context).size.height * .9,
               width: MediaQuery.of(context).size.width * .08,
@@ -100,11 +91,22 @@ class _InPageState extends State<InPage> {
     await ServiceCall().fetchBatchCatgories().then((value) {
       sports.addAll(value.data!.categoryList!);
       selectedPerson = sports.first.category;
-
       batch.addAll(value.data!.batchList!);
       _selectedTime = batch.first.batch;
-
       setState(() {});
+    });
+  }
+
+  void getCustomerList(int categoryId, int batchId) {
+    ServiceCall()
+        .fetchCustomerData(
+            customerDataRequest: CustomerDataRequest(
+                batchId: '$selectedBatch', categoryId: '$selectedCat'))
+        .then((value) {
+      setState(() {
+        futureCustomerData = value;
+        filtered = true;
+      });
     });
   }
 }

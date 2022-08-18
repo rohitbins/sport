@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widget/attendance_card.dart';
 import '../widget/sportPie.dart';
+import 'login/login_page.dart';
 
 class HomePage1 extends StatefulWidget {
   const HomePage1({Key? key}) : super(key: key);
@@ -15,9 +17,18 @@ class _HomePage1State extends State<HomePage1> {
   final String attendanceText = 'Attendance';
   final String feeText = 'Fee';
   List<Color> colorList = [Colors.green, Colors.orange];
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  List<String> drawerElements = [
+    'My Dashboard',
+    'My Attendance',
+    'My Payment',
+    'Logout'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: drawer(drawerElements),
       appBar: AppBar(
         title: const Text("Home Page"),
         centerTitle: true,
@@ -65,14 +76,70 @@ class _HomePage1State extends State<HomePage1> {
                   SportPie(colorList: colorList, dataSet: attendanceList),
                 ]),
 
-                // Center(
-                //   child: ElevatedButton(onPressed: (){
-                //     Navigator.push(context, MaterialPageRoute (builder: (context) => TabBarPage(),));
-                //   }, child: const Text("Push")),
-                // )
+            // Center(
+            //   child: ElevatedButton(onPressed: (){
+            //     Navigator.push(context, MaterialPageRoute (builder: (context) => TabBarPage(),));
+            //   }, child: const Text("Push")),
+            // )
           ]),
-          ),
-         ),
-        );
+        ),
+      ),
+    );
+  }
+
+  drawer(List<String> drawerElement) {
+    return Drawer(
+      child: ListView.builder(
+        itemCount: drawerElements.length + 1,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Drawer Header'),
+            );
+          } else {
+            return ListTile(
+              leading: Icon(
+                Icons.logout_outlined,
+                color: Colors.blue[900],
+              ),
+              title: Text(drawerElements[index - 1]),
+              onTap: () {
+                onDrawerElement(index, context);
+              },
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  void onDrawerElement(int i, context) {
+    print(i);
+    switch (i) {
+      case 0:
+        // do something
+        break;
+      case 1:
+        // do something else
+        break;
+      case 2:
+        // do something else
+        break;
+      case 3:
+        break;
+      case 4:
+        {
+          Navigator.pop(context);
+          _prefs.then((value) {
+            value.clear();
+          });
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => const Login()));
+        }
+        break;
+    }
   }
 }

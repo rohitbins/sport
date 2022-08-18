@@ -10,3 +10,5 @@ String? Year;
 String? Messg;
 String? LOGO;
 String? NAME;
+
+const String splash = 'assets/images/splash.jpeg';

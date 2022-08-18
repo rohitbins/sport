@@ -2,8 +2,10 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
-import 'package:sport/pages/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../service.dart';
+import '../router.dart';
 
 class OtpPage extends StatefulWidget {
   OtpPage({Key? key, required this.phoneNumber}) : super(key: key);
@@ -13,9 +15,9 @@ class OtpPage extends StatefulWidget {
 }
 
 class _OtpState extends State<OtpPage> {
-  // String? otpMessage;
   bool error = false;
   ServiceCall service = ServiceCall();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   @override
   Widget build(BuildContext context) {
@@ -80,15 +82,20 @@ class _OtpState extends State<OtpPage> {
             style: const TextStyle(fontSize: 40, color: Colors.blueGrey),
             textFieldAlignment: MainAxisAlignment.spaceAround,
             fieldStyle: FieldStyle.box,
-            onCompleted: (pin) {
+            onCompleted: (pin) async {
               service.OtpValidatorApi(
                       otp: pin.toString(), phoneNumber: widget.phoneNumber)
                   .then((value) {
-                if (value.isError) {
+                if (!value.isError) {
+                  _prefs.then((_val) {
+                    _val.setString('customerKey', value.data!.customerKey!);
+                    _val.setString(
+                        'academyLogoURL', value.data!.academyLogoURL!);
+                  });
                   // KEY = value.data!.customerKey!;
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(builder: (context) => const MyRoute()),
                   );
                 } else {
                   const Text('');
