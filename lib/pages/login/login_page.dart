@@ -159,7 +159,7 @@ class _LoginState extends State<Login> {
     await service.PhoneValidatorApi(phoneNumber: _phoneController.text)
         .then((PhoneValidator value) {
       if (value.isError!) {
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) =>
