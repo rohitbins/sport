@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sport/pages/login/login_page.dart';
 
 import 'pages/splash/splash.dart';
 
@@ -14,8 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        drawerTheme: DrawerThemeData(backgroundColor: Colors.blueGrey.shade100),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromRGBO(6, 41, 74, 1),
+        ),
         scaffoldBackgroundColor: Colors.grey.shade200,
-        primaryColor: Colors.blue.shade900,
+        primaryColor: const Color.fromRGBO(6, 41, 74, 1),
       ),
       home: Splash(),
     );
