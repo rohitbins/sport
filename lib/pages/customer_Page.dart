@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sport/model/customer_list.dart';
-import 'package:sport/pages/profile.dart';
+import 'package:sport/pages/profile/profile.dart';
 
 class CustomerPage extends StatefulWidget {
   const CustomerPage({Key? key, required this.customerListData})

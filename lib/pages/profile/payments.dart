@@ -72,14 +72,14 @@ class _PaymentsState extends State<Payments> {
         Expanded(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            // Text(
-            //   payment.firstText,
-            //   style: TextStyle(
-            //       color: Color(int.parse(
-            //           hexColor(payment.firstTextColorHex.toString()))),
-            //       fontWeight: FontWeight.bold,
-            //       fontSize: 18),
-            // ),
+            Text(
+              payment.firstText,
+              style: TextStyle(
+                  color: Color(int.parse(
+                      hexColor(payment.firstTextColorHex.toString()))),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),
+            ),
             const SizedBox(height: 5),
             Text(
               payment.secondTextText,
