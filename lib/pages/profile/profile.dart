@@ -22,14 +22,12 @@ class _ProfileState extends State<Profile> {
   late List<dynamic> _pageOptions;
   @override
   void initState() {
-   
     super.initState();
-      _pageOptions = [
+    _pageOptions = [
       PersonalInfoPage(customerKey: widget.customerKey),
       SportInfo(customerKey: widget.customerKey),
-      const Payments(),
       const Attendence(),
-      const Payments()
+      const Payments(),
     ];
   }
 
@@ -80,5 +78,4 @@ class _ProfileState extends State<Profile> {
           body: _pageOptions[selectedIndex]),
     );
   }
-
 }

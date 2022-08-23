@@ -88,11 +88,10 @@ class _OtpState extends State<OtpPage> {
                   .then((value) {
                 if (!value.isError) {
                   _prefs.then((_val) {
-                    _val.setString('customerKey', value.data!.customerKey!);
+                    _val.setString('staffKey', value.data!.staffKey!);
                     _val.setString(
                         'academyLogoURL', value.data!.academyLogoURL!);
                   });
-                  // KEY = value.data!.customerKey!;
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const MyRoute()),

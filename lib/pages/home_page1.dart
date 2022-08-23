@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/pages/my_attendance.dart';
-import 'package:sport/pages/my_payment.dart';
 import '../widget/attendance_card.dart';
 import '../widget/sportPie.dart';
 import 'login/login_page.dart';

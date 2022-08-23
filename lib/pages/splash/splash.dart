@@ -26,7 +26,7 @@ class Splash extends StatelessWidget {
 
   void checkpath(BuildContext context) {
     _prefs.then((value) {
-      if (value.getString('customerKey') != null) {
+      if (value.getString('staffKey') != null) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => MyRoute()));
       } else {

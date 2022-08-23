@@ -1,6 +1,9 @@
 enum EndPoints {
   staffAcademyCategoryAndBatch,
   customerListByBatchAndCategory,
+  getStaffAttendanceList,
+  setStaffAttendanceOut,
+  setStaffAttendanceIn
 }
 
 extension EndPointsConfig on EndPoints {
@@ -10,6 +13,12 @@ extension EndPointsConfig on EndPoints {
         return 'CustomerListByBatchAndCategory';
       case EndPoints.staffAcademyCategoryAndBatch:
         return 'StaffAcademyCategoryAndBatch';
+      case EndPoints.getStaffAttendanceList:
+        return 'GetStaffAttendanceList';
+      case EndPoints.setStaffAttendanceOut:
+        return 'SetStaffAttendanceOut';
+      case EndPoints.setStaffAttendanceIn:
+        return 'SetStaffAttendanceIn';
     }
   }
 }

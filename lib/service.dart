@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/attendance.dart';
 import 'package:sport/model/category_batch.dart';
 import 'package:sport/model/customer_list.dart';
@@ -7,17 +8,34 @@ import 'package:http/http.dart' as http;
 import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/model/payment.dart';
 import 'package:sport/model/personal_sport.dart';
+import 'package:sport/model/staff_attendance_model.dart';
 import 'package:sport/utils/enums.dart';
+import 'model/baseresponse.dart';
+import 'model/common_response.dart';
 import 'model/otp_validator.dart';
 import 'model/phone_validator.dart';
 import 'model/request/customer_data.dart';
 
 class ServiceCall {
-  String base = 'http://api.sportsb.co.in/api/';
-  Map<String, String> headers = {
-    'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=',
-    'ContentType': 'application/json'
-  };
+  ServiceCall() {
+    base = 'http://api.sportsb.co.in/api/';
+    headers = {
+      'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=',
+      'ContentType': 'application/json'
+    };
+    getDataFromPreference();
+  }
+  late String staffKey = '';
+  getDataFromPreference() async {
+    _prefs.then((value) {
+      staffKey = value.getString('staffKey')!;
+    });
+  }
+
+  late final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late String base;
+  late Map<String, String> headers;
+
   Future<CategoryAndBatch> fetchBatchCatgories() async {
     final response = await http.post(
         Uri.parse('$base${EndPoints.staffAcademyCategoryAndBatch.apiValue}'),
@@ -92,7 +110,7 @@ class ServiceCall {
   Future<CustomerListOut> fetchCustomerOut() async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA='
+      'staff-key': staffKey
     };
     final response = await http.post(Uri.parse('${base}CustomerListForOut'),
         headers: _header, body: {});
@@ -110,7 +128,7 @@ class ServiceCall {
   Future<CustomerListOut> attendanceIn({required String customerKey}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=',
+      'staff-key': staffKey,
       'customer-key': customerKey
     };
     final response = await http.post(
@@ -131,7 +149,7 @@ class ServiceCall {
   Future<CustomerListOut> attendanceOut({required String key}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=',
+      'staff-key': staffKey,
       'customer-key': key
     };
     final response = await http.post(
@@ -186,7 +204,7 @@ class ServiceCall {
   Future<PersonalSportModel?> fetchProfileData(String _key) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': _key,
+      'staff-key': staffKey,
       'customer-key': _key
     };
     final response = await http.post(Uri.parse('${base}CustomerProfile'),
@@ -197,6 +215,46 @@ class ServiceCall {
           PersonalSportModel.fromJson(jsonDecode(response.body));
 
       return personalSportModel;
+    }
+  }
+
+  Future<StaffAttendanceModel?> GetStaffAttendanceList() async {
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      'staff-key': staffKey
+    };
+
+    final response = await http.post(
+        Uri.parse('$base${EndPoints.getStaffAttendanceList.apiValue}'),
+        headers: headers,
+        body: {});
+
+    if (response.statusCode == 200) {
+      StaffAttendanceModel staffAttendanceModel =
+          StaffAttendanceModel.fromJson(jsonDecode(response.body));
+
+      return staffAttendanceModel;
+    }
+  }
+
+  Future<BaseResponseModel?> updateStaffAttendance({required bool isIn}) async {
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      'staff-key': staffKey
+    };
+
+    final response = await http.post(
+        isIn
+            ? Uri.parse('$base${EndPoints.setStaffAttendanceOut.apiValue}')
+            : Uri.parse('$base${EndPoints.setStaffAttendanceIn.apiValue}'),
+        headers: headers,
+        body: {});
+
+    if (response.statusCode == 200) {
+      BaseResponseModel baseresponse =
+          BaseResponseModel.fromJson(jsonDecode(response.body));
+
+      return baseresponse;
     }
   }
 }
