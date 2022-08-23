@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sport/pages/home_page.dart';
 
 import '../../utils/constants.dart';
 import '../login/login_page.dart';

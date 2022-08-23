@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/pages/my_attendance.dart';
 import 'package:sport/pages/my_payment.dart';
 import '../widget/attendance_card.dart';
 import '../widget/sportPie.dart';
-
+import 'login/login_page.dart';
 
 class HomePage1 extends StatefulWidget {
   const HomePage1({Key? key}) : super(key: key);
@@ -18,44 +19,47 @@ class _HomePage1State extends State<HomePage1> {
   final String attendanceText = 'Attendance';
   final String feeText = 'Fee';
   List<Color> colorList = [Colors.green, Colors.orange];
-
-  var MenuItem = <String>['My Attendance', 'My Payment'];
-  void onSelected (item) {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  var MenuItem = <String>['My Attendance', 'Logout'];
+  void onSelected(item) {
     switch (item) {
       case 'My Attendance':
-      {
-        Navigator.push(context, MaterialPageRoute (builder: (context) => const MyAttendance(),));
-      }
-    break;
+        {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MyAttendance(),
+              ));
+        }
+        break;
 
-
-    case 'My Payment':
-    {
-      Navigator.push(context, MaterialPageRoute (builder: (context) => const MyPayment(),));
-    }
-    break;
+      case 'Logout':
+        {
+          _prefs.then((value) {
+            value.clear();
+          });
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => const Login()));
+        }
+        break;
     }
   }
 
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer: drawer(drawerElements),
       appBar: AppBar(
         title: const Text("Home Page"),
         centerTitle: true,
-
         actions: [
           PopupMenuButton<String>(
-            onSelected: onSelected,
-            itemBuilder: (BuildContext context) {
-              return MenuItem.map((String choice){
-                return PopupMenuItem<String>(
-                  child: Text(choice),
-                  value: choice);
-              }).toList();
-            })
+              onSelected: onSelected,
+              itemBuilder: (BuildContext context) {
+                return MenuItem.map((String choice) {
+                  return PopupMenuItem<String>(
+                      child: Text(choice), value: choice);
+                }).toList();
+              })
         ],
       ),
       body: SingleChildScrollView(
@@ -101,73 +105,9 @@ class _HomePage1State extends State<HomePage1> {
                   ),
                   SportPie(colorList: colorList, dataSet: attendanceList),
                 ]),
-
-            
           ]),
         ),
       ),
     );
   }
-
-  // drawer(List<String> drawerElement) {
-  //   return Drawer(
-  //     child: ListView.builder(
-  //       itemCount: drawerElements.length + 1,
-  //       itemBuilder: (context, index) {
-  //         if (index == 0) {
-  //           return const DrawerHeader(
-  //             decoration: BoxDecoration(
-  //               color: Colors.blue,
-  //             ),
-  //             child: Text('Drawer Header'),
-  //           );
-  //         } else {
-  //           return ListTile(
-  //             leading: Icon(
-  //               icons[index - 1]
-  //             ),
-  //             title: Text(drawerElements[index - 1]),
-  //             onTap: () {
-  //               onDrawerElement(index, context);
-  //             },
-  //           );
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
-
-  // void onDrawerElement(int i, context) {
-  //   print(i);
-  //   switch (i) {
-  //     case 0:
-       
-  //       break;
-  //     case 1:
-  //        {
-  //         Navigator.push(context, MaterialPageRoute (builder: (context) => const DashboardPage(),));
-  //       }
-  //       break;
-  //     case 2:
-  //      {
-  //         Navigator.push(context, MaterialPageRoute (builder: (context) => const MyAttendance(),));
-  //       }
-  //       break;
-  //     case 3:
-  //      {
-  //         Navigator.push(context, MaterialPageRoute (builder: (context) => const MyPayment(),));
-  //       }
-  //       break;
-  //     case 4:
-  //       {
-  //         Navigator.pop(context);
-  //         _prefs.then((value) {
-  //           value.clear();
-  //         });
-  //         Navigator.pushReplacement(
-  //             context, MaterialPageRoute(builder: (context) => const Login()));
-  //       }
-  //       break;
-  //   }
-  // }
 }
