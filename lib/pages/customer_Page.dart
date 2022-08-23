@@ -11,8 +11,11 @@ class CustomerPage extends StatefulWidget {
   State<CustomerPage> createState() => _CustomerPageState();
 }
 
+bool loginin = false;
+
 class _CustomerPageState extends State<CustomerPage>
     with SingleTickerProviderStateMixin {
+
   @override
   Widget build(BuildContext context) {
     List<CustomerData> dataList = widget.customerListData.data!;
@@ -25,7 +28,7 @@ class _CustomerPageState extends State<CustomerPage>
                   fontSize: 20, color: Colors.grey[400], letterSpacing: 2),
             ),
           )
-        : ListView.builder(
+          : ListView.builder(
             shrinkWrap: true,
             itemCount: dataList.length,
             itemBuilder: (BuildContext context, int index) {
@@ -40,67 +43,98 @@ class _CustomerPageState extends State<CustomerPage>
                                 customerKey: customerData.customerKey!,
                               )));
                 },
-                child: Ink(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
-                    child: Card(
+
+                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Card(
+                      elevation: 6,
+                      color: loginin ? Colors.green : Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        side: BorderSide(
+                          color: Colors.grey.withOpacity(0.2),
+                          width: 1,
+                        )
+                      ),
                       child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      customerData.name!.trim(),
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    Text(
-                                      customerData.categoryType!,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade600,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    Text(
-                                      customerData.batch.toString(),
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade600,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    const SizedBox(width: 4),
-                                    if (customerData.feePending != 0)
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            "Fee Pending",
-                                            style: TextStyle(fontSize: 12),
-                                          ),
-                                          Text(
-                                            '(*${customerData.feePending})',
-                                            style: const TextStyle(
-                                                color: Colors.red,
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        ],
-                                      ),
-                                  ]),
+                        children: [
+                          Expanded(
+                            child: Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                bottomLeft: Radius.circular(15))
                             ),
-                            Container(
-                              height: 60,
+                              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children:[
+                                  Text(customerData.name!.trim(),
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),),
+                                  Text(customerData.categoryType!,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.w400),),
+                                  Text(customerData.batch.toString(),
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.w400),),
+                                   if (customerData.feePending != 0)
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          "Fee Pending",
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                        Text(
+                                          '(*${customerData.feePending})',
+                                          style: const TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
+                                ],
+                             ),
+                            ),
+                           ),
+                           InkWell(
+                            onTap: (){
+                              setState(() {
+                                 loginin = !loginin;
+                              });
+                              
+                             
+                            },
+                            child: Container(
                               width: 100,
-                              color: Colors.green,
-                            )
-                          ]),
+                              alignment: Alignment.center,
+                              constraints: const BoxConstraints(maxHeight: 100),
+                              child: Text(!loginin ? 'Playing....' : 'In',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red
+                              ),),
+                            ),
+                           )
+                        ],
+                      ),
                     ),
-                  ),
-                ),
+                    
+                  ],
+                 ),
+                 
+               
               );
-            });
+              },
+            );
   }
 }

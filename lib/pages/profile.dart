@@ -694,7 +694,8 @@ String hexColor(String _colorhexcode) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10)
         ),
-        elevation: 4,
+        elevation: 6,
+        shadowColor: Colors.grey,
         child:Row(children: [ 
           Padding(
             padding: const EdgeInsets.only(left: 6),
@@ -796,7 +797,8 @@ Widget paymentCard(Payment payment) {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10)
       ),
-      elevation: 4,
+      shadowColor: Colors.grey,
+      elevation: 6,
       child: Row(children: [
         Padding(
           padding: const EdgeInsets.only(left: 6),
