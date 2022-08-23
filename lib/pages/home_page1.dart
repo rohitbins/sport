@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sport/pages/dashboard_page.dart';
+import 'package:sport/pages/my_attendance.dart';
+import 'package:sport/pages/my_payment.dart';
 import '../widget/attendance_card.dart';
 import '../widget/sportPie.dart';
 import 'login/login_page.dart';
@@ -76,11 +79,7 @@ class _HomePage1State extends State<HomePage1> {
                   SportPie(colorList: colorList, dataSet: attendanceList),
                 ]),
 
-            // Center(
-            //   child: ElevatedButton(onPressed: (){
-            //     Navigator.push(context, MaterialPageRoute (builder: (context) => TabBarPage(),));
-            //   }, child: const Text("Push")),
-            // )
+            
           ]),
         ),
       ),
@@ -102,7 +101,7 @@ class _HomePage1State extends State<HomePage1> {
           } else {
             return ListTile(
               leading: Icon(
-                Icons.logout_outlined,
+                Icons.person,
                 color: Colors.blue[900],
               ),
               title: Text(drawerElements[index - 1]),
@@ -120,15 +119,22 @@ class _HomePage1State extends State<HomePage1> {
     print(i);
     switch (i) {
       case 0:
-        // do something
+       
         break;
       case 1:
-        // do something else
+         {
+          Navigator.push(context, MaterialPageRoute (builder: (context) => const DashboardPage(),));
+        }
         break;
       case 2:
-        // do something else
+       {
+          Navigator.push(context, MaterialPageRoute (builder: (context) => const MyAttendance(),));
+        }
         break;
       case 3:
+       {
+          Navigator.push(context, MaterialPageRoute (builder: (context) => const MyPayment(),));
+        }
         break;
       case 4:
         {

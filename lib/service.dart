@@ -140,7 +140,6 @@ class ServiceCall {
         body: {});
 
     if (response.statusCode == 200) {
-     
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
@@ -149,58 +148,55 @@ class ServiceCall {
     }
   }
 
-
-
- 
-
-
   Future<List<Attendance>?> fetchAttendance() async {
-    Map<String, String> _header = {'ContentType': 'application/json',
-    'customer-key': 'EQYGf84gWWMJsi8Bz/73ufdftIdOKyta1YohLogAL5U='};
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      'customer-key': 'EQYGf84gWWMJsi8Bz/73ufdftIdOKyta1YohLogAL5U='
+    };
     final response = await http.post(Uri.parse('${base}CustomerAttendance'),
-    body:{"Indx": "0","IdForNew":"0"},headers: _header);
-   
-      if (response.statusCode == 200){
-        CustomerAttendance customerAttendance = 
-        CustomerAttendance.fromJson(jsonDecode(response.body));
+        body: {"Indx": "0", "IdForNew": "0"}, headers: _header);
 
-        return 
-        customerAttendance.data.attendanceList;
+    if (response.statusCode == 200) {
+      CustomerAttendance customerAttendance =
+          CustomerAttendance.fromJson(jsonDecode(response.body));
 
-      }else {
-        throw Exception("Failed to loading");
-      }
+      return customerAttendance.data.attendanceList;
+    } else {
+      throw Exception("Failed to loading");
+    }
   }
 
   Future<List<Payment>?> fetchPayment() async {
-    Map<String,String> _header = {'ContentType': 'application/json',
-    "customer-key": "EQYGf84gWWMJsi8Bz/73ufdftIdOKyta1YohLogAL5U="};
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      "customer-key": "EQYGf84gWWMJsi8Bz/73ufdftIdOKyta1YohLogAL5U="
+    };
     final response = await http.post(Uri.parse('${base}CustomerPayment'),
-    body: {}, headers: _header);
-    if(response.statusCode == 200) {
-      
+        body: {}, headers: _header);
+    if (response.statusCode == 200) {
       CustomerPayment customerPayment =
-      CustomerPayment.fromJson(jsonDecode(response.body));
+          CustomerPayment.fromJson(jsonDecode(response.body));
 
       return customerPayment.data.paymentList;
-    }else {
+    } else {
       throw Exception("failed to loading");
     }
   }
 
- Future<PersonalSportModel?> fetchProfileData(String _key) async {
-  Map<String, String> _header = {'ContentType': 'application/json',
-  'staff-key' : 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=', 
-  'customer-key': _key};
-  final response = await http.post(Uri.parse('${base}CustomerProfile'),
-  body:{}, headers: _header );
-  
-  if (response.statusCode ==200){
-    PersonalSportModel personalSportModel = 
-    PersonalSportModel.fromJson(jsonDecode(response.body));
+  Future<PersonalSportModel?> fetchProfileData(String _key) async {
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      'staff-key': _key,
+      'customer-key': _key
+    };
+    final response = await http.post(Uri.parse('${base}CustomerProfile'),
+        body: {}, headers: _header);
 
-    return personalSportModel;
+    if (response.statusCode == 200) {
+      PersonalSportModel personalSportModel =
+          PersonalSportModel.fromJson(jsonDecode(response.body));
+
+      return personalSportModel;
+    }
   }
- }
 }
-

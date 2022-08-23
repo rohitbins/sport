@@ -1,5 +1,4 @@
 enum EndPoints {
-  base,
   staffAcademyCategoryAndBatch,
   customerListByBatchAndCategory,
 }
@@ -10,8 +9,6 @@ extension EndPointsConfig on EndPoints {
       case EndPoints.customerListByBatchAndCategory:
         return 'CustomerListByBatchAndCategory';
       case EndPoints.staffAcademyCategoryAndBatch:
-        return 'StaffAcademyCategoryAndBatch';
-      case EndPoints.base:
         return 'StaffAcademyCategoryAndBatch';
     }
   }

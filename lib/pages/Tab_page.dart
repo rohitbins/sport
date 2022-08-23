@@ -7,8 +7,8 @@ import 'package:sport/utils/enums.dart';
 import '../widget/slot_card.dart';
 
 class TabBarPage extends StatefulWidget {
- const TabBarPage({Key? key, required this.callBack}) : super(key: key);
- final Function callBack;
+  const TabBarPage({Key? key, required this.callBack}) : super(key: key);
+  final Function callBack;
   @override
   State<TabBarPage> createState() => _TabBarPageState();
 }
@@ -34,18 +34,15 @@ class _TabBarPageState extends State<TabBarPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Tab Page"),
-          centerTitle: true,
-        ),
-        body: DefaultTabController(
+      body: SafeArea(
+        child: DefaultTabController(
           length: tabs.length,
           child: Column(children: [
             Container(
-              color: const Color.fromARGB(255, 109, 176, 231),
+              color: Color.fromRGBO(6, 41, 74, 1),
               constraints: const BoxConstraints.expand(height: 50),
               child: TabBar(
-                  indicatorColor: Colors.blue.shade900,
+                  indicatorColor: Colors.blue.shade200,
                   isScrollable: false,
                   controller: _tabController,
                   tabs: [...tabs.map((e) => Tab(text: e))]),
@@ -60,8 +57,8 @@ class _TabBarPageState extends State<TabBarPage>
                             shrinkWrap: true,
                             itemCount:
                                 snapshot.data!.data!.categoryList!.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  Category data =
+                            itemBuilder: (BuildContext context, int index) {
+                              Category data =
                                   snapshot.data!.data!.categoryList![index];
 
                               return SlotCard(
@@ -87,27 +84,28 @@ class _TabBarPageState extends State<TabBarPage>
                                   callBack: () {
                                     setState(() => selectedbatch = index);
                                     selectedId = data.id;
-                            });
+                                  });
                             })
-                          ]);
+                      ]);
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
                     return const Center(child: CircularProgressIndicator());
-            }),
+                  }),
             ),
           ]),
-          ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-                     int category= _tabController.index == 0 ? selectedId : 0;
-                     int batch= _tabController.index == 1 ? selectedId : 0;
-           
-            widget.callBack(category,batch);
-            Navigator.pop(context);
-          },
-          child: const Icon(Icons.search),
         ),
-       );
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          int category = _tabController.index == 0 ? selectedId : 0;
+          int batch = _tabController.index == 1 ? selectedId : 0;
+
+          widget.callBack(category, batch);
+          Navigator.pop(context);
+        },
+        child: const Icon(Icons.search),
+      ),
+    );
   }
 }

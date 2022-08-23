@@ -28,43 +28,43 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        height: 60,
-        width: MediaQuery.of(context).size.width,
-        color: Colors.orange,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(onPressed: (() {
+      // bottomNavigationBar: Container(
+      //   height: 60,
+      //   width: MediaQuery.of(context).size.width,
+      //   color: Colors.orange,
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //     children: [
+      //       ElevatedButton(onPressed: (() {
               
-            }), child: const Text("In")),
+      //       }), child: const Text("In")),
 
-            ElevatedButton(onPressed: (() {
-              // Navigator.push(context, MaterialPageRoute (builder: (context) => const DownPage(),));
-            }), 
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder()
-            ),
-            child: const Text("Ok")),
+      //       ElevatedButton(onPressed: (() {
+      //         // Navigator.push(context, MaterialPageRoute (builder: (context) => const DownPage(),));
+      //       }), 
+      //       style: ElevatedButton.styleFrom(
+      //         shape: const CircleBorder()
+      //       ),
+      //       child: const Text("Ok")),
 
-            ElevatedButton(onPressed: (() {
+      //       ElevatedButton(onPressed: (() {
               
-            }), 
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green
-            ),
-            child: const Text("In")),
+      //       }), 
+      //       style: ElevatedButton.styleFrom(
+      //         primary: Colors.green
+      //       ),
+      //       child: const Text("In")),
 
-            ElevatedButton(onPressed: (() {
+      //       ElevatedButton(onPressed: (() {
               
-            }),
-            style: ElevatedButton.styleFrom(
-              primary: const Color.fromARGB(255, 112, 89, 18)
-            ),
-             child: const Text("Out"))
-          ],
-        ),
-      ),
+      //       }),
+      //       style: ElevatedButton.styleFrom(
+      //         primary: const Color.fromARGB(255, 112, 89, 18)
+      //       ),
+      //        child: const Text("Out"))
+      //     ],
+      //   ),
+      // ),
 
       appBar: AppBar(
         title: const Text("Dashboard"),
@@ -73,35 +73,38 @@ class _DashboardPageState extends State<DashboardPage> {
       body:Center(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Container(
-                height: 100,
-                width: 380,
-                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                   color: const Color.fromARGB(255, 214, 187, 187),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: []
+              ),
+              child: Card(
+                shadowColor: Colors.grey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)
                 ),
-                child:  Row(
+               child:  Row(
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 70,vertical: 30),
-                    child: SizedBox(
-                      height: 70,
-                      width: 90,
-                      child: ElevatedButton(onPressed: (() {
-                        
-                      }), 
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green
+                    child: Card(
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(onPressed: (() {
+                          
+                        }), 
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green
+                        ),
+                        child: const Text("In",
+                        style: TextStyle(
+                          fontSize: 20
+                        ),)),
                       ),
-                      child: const Text("In",
-                      style: TextStyle(
-                        fontSize: 20
-                      ),)),
                     ),
                   ),
-
+            
                   const Padding(
                     padding:EdgeInsets.symmetric(horizontal: 30,vertical: 10),
                     child:Text("Last Out",
@@ -111,11 +114,10 @@ class _DashboardPageState extends State<DashboardPage> {
                   )
                 ],
               ),
-              ),
+             ),
             ),
-            const SizedBox(height: 10),
-
-            Container(
+              const SizedBox(height:20),
+                Container(
               height: 240,
               width: 380,
               decoration: BoxDecoration(
@@ -156,8 +158,8 @@ class _DashboardPageState extends State<DashboardPage> {
                  ],
              ),
             ),
-                  const SizedBox(height: 10),
-                       Container(
+            const SizedBox(height: 20),
+                      Container(
                         height: 120,
                         width: 380,
                         decoration: BoxDecoration(
@@ -171,10 +173,10 @@ class _DashboardPageState extends State<DashboardPage> {
                           fontSize: 18
                         ),),
                       )
-           ],
-           ),
-      )
+            ]),
+       ),
+      );
       
-    );
+    
   }
 }

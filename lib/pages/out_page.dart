@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/service.dart';
 
-import '../widget/secondery_button.dart';
+import 'customer_Page.dart';
+import 'profile/profile.dart';
 
 class OutPage extends StatefulWidget {
   const OutPage({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class OutPage extends StatefulWidget {
 class _OutPageState extends State<OutPage> {
   late CustomerListOut futureCustomerOut;
 
+  String clickedKey = '';
   @override
   void initState() {
     super.initState();
@@ -29,171 +31,159 @@ class _OutPageState extends State<OutPage> {
         title: const Text("Out"),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 600,
-            width: MediaQuery.of(context).size.width,
-            child: FutureBuilder<CustomerListOut>(
-                future: ServiceCall().fetchCustomerOut(),
-                builder: (context, AsyncSnapshot<CustomerListOut> snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.data!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          CustomerOut data = snapshot.data!.data![index];
-                               return Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                     Card(
-                                      elevation: 6,
-                                      color: Colors.amber,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        side: BorderSide(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          width: 1,
-                                        )
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              decoration: const BoxDecoration(
-                                                 color: Colors.white,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(15),
-                                                  bottomLeft: Radius.circular(15)
-                                                )
-                                              ),
-                                             
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children:[
-                                                    Text(snapshot.data!.data![index].name,
-                                            style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),),
+      body: FutureBuilder<CustomerListOut>(
+          future: ServiceCall().fetchCustomerOut(),
+          builder: (context, AsyncSnapshot<CustomerListOut> snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    CustomerOut data = snapshot.data!.data![index];
 
-                                                 const SizedBox(height: 3),
-                                                 if(snapshot.data!.data![index].feePending > 0)
-                                                 Row(
-                                                  children: const[
-                                                    Text("FeePending",
-                                                    style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 12
-                                                    ),),
+                    return OutCard(
+                        callback: (_val) {
+                          setState(() {
+                            clickedKey = _val;
+                          });
+                          Future.delayed(const Duration(seconds: 2))
+                              .then((value) {});
 
-                                                    // Text('(*${snapshot.data!.data![index].feePending})')
-                                                  ],
-                                                 )
-                                                 
-                                                  ],
-                                         ),
-                                        ),
-                                       ),
-                                       ),
-                                        outButton(data)
-                                        ],
-                                        
-                                      ),
-                                      
-                                     )
-                                ],
-                               );
-                          // return Padding(
-                          //   padding: const EdgeInsets.only(
-                          //       left: 5, right: 5, top: 5),
-                          //   child: Card(
-                          //     child: Row(
-                          //       children: [
-                          //         Expanded(
-                          //           child: Column(
-                          //             crossAxisAlignment:
-                          //                 CrossAxisAlignment.start,
-                          //             children: [
-                          //               Padding(
-                          //                 padding:
-                          //                     const EdgeInsets.only(left: 20),
-                          //                 child: Text(
-                          //                   snapshot.data!.data![index].name,
-                          //                   style: const TextStyle(
-                          //                       fontSize: 18,
-                          //                       fontWeight: FontWeight.bold),
-                          //                 ),
-                          //               ),
-                          //               const SizedBox(height: 3),
-                          //               if (snapshot
-                          //                       .data!.data![index].feePending > 0)
-                          //                 Row(
-                          //                   children: [
-                          //                     const Padding(
-                          //                       padding:
-                          //                           EdgeInsets.only(left: 20),
-                          //                       child: Text(
-                          //                         "FeePending",
-                          //                         style: TextStyle(
-                          //                             fontWeight:
-                          //                                 FontWeight.bold,
-                          //                             fontSize: 12),
-                          //                       ),
-                          //                     ),
-                          //                     Text(
-                          //                       '(*${snapshot.data!.data![index].feePending})',
-                          //                       style: const TextStyle(
-                          //                           fontWeight: FontWeight.bold,
-                          //                           fontSize: 12,
-                          //                           color: Colors.red),
-                          //                     )
-                          //                   ],
-                          //                 )
-                          //             ],
-                          //           ),
-                          //         ),
-                                  outButton(data);
-                          //       ],
-                          //     ),
-                          //   ),
-                          // );
-                         
-                        });
-                  }
-                  if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
-                  }
-                  return const Center(child: CircularProgressIndicator());
-                }),
-                ),
-        ],
-              ),
-             );
+                          ServiceCall()
+                              .attendanceOut(key: data.customerKey)
+                              .then((value) {
+                            setState(() {});
+                          });
+                        },
+                        customerData: data,
+                        selectedKey: clickedKey);
+                  });
+            }
+            if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            return const Center(child: CircularProgressIndicator());
+          }),
+    );
   }
 
   outButton(CustomerOut data) {
-    bool _isLoading = false;
     return SizedBox(
       height: 60,
       width: 120,
-      child: InkWell(
-        child: _isLoading ? const Center(child: CircularProgressIndicator()) : const Center(child: Text("Out",
-        style: TextStyle(
-          fontSize: 18,
-          color: Colors.white,
-          fontWeight: FontWeight.bold
-        ),)),
-        
-        onTap: () {
-          _isLoading = !_isLoading;
-          Future.delayed(const Duration(seconds: 2)).then((value) {});
-          // _isLoading ? null : _startLoading();
-          ServiceCall().attendanceOut(key: data.customerKey).then((value) {
-            setState(() {});
-          });
-        },
+      child: ElevatedButton(
+        child: Text("Out"),
+        style: ElevatedButton.styleFrom(primary: Colors.amber.shade600),
+        onPressed: () {},
+      ),
+    );
+  }
+}
+
+class OutCard extends StatelessWidget {
+  const OutCard({
+    Key? key,
+    required this.customerData,
+    required this.callback,
+    required this.selectedKey,
+  }) : super(key: key);
+  final CustomerOut customerData;
+  final Function callback;
+  final String selectedKey;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Profile(
+                      name: customerData.name,
+                      customerKey: customerData.customerKey,
+                    )));
+      },
+      child: Card(
+        elevation: 6,
+        color: customerData.isPlaying! > 0 ? Colors.white : Colors.yellow,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20), // if you need this
+          side: BorderSide(
+            color: Colors.grey.withOpacity(0.2),
+            width: 1,
+          ),
+        ),
+        child: Row(children: [
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                ),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      customerData.name.trim(),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      customerData.categoryType!,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    Text(
+                      customerData.batch.toString(),
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(width: 4),
+                    if (customerData.feePending != 0)
+                      Row(
+                        children: [
+                          const Text(
+                            "Fee Pending",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                          Text(
+                            '(*${customerData.feePending})',
+                            style: const TextStyle(
+                                color: Colors.red,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      )
+                    else
+                      Text(''),
+                  ]),
+            ),
+          ),
+          InkWell(
+            onDoubleTap: () => callback(customerData.customerKey),
+            onTap: () {},
+            child: Container(
+              width: 80,
+              alignment: Alignment.center,
+              constraints: const BoxConstraints(maxHeight: 4 * 15.0),
+              child: (selectedKey != customerData.customerKey)
+                  ? const Text('Out')
+                  : const Center(
+                      child: CircularProgressIndicator(color: Colors.white),
+                    ),
+            ),
+          )
+        ]),
       ),
     );
   }
