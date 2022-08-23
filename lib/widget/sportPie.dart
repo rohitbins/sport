@@ -25,9 +25,7 @@ class _sportPieState extends State<SportPie> {
               showLegends: true,
             ),
           ),
-          const Divider(
-            color: Colors.grey,
-          ),
+         
         ],
       ),
     );

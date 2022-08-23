@@ -19,6 +19,53 @@ class _MyPaymentState extends State<MyPayment> {
         ),),
         centerTitle: true,
       ),
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 70,
+              width: 370,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 7,
+                    spreadRadius: 3,
+                    offset: Offset(2,2)
+                  )
+                ]
+              ),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const[
+                   Text("Date",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),),
+                   Text("Detail",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),),
+                   Text("Amount", style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),)
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

@@ -28,6 +28,13 @@ class _HomePage1State extends State<HomePage1> {
     'My Payment',
     'Logout'
   ];
+
+  List<IconData> icons = [
+   Icons.person,
+   Icons.access_alarm_outlined,
+   Icons.currency_rupee,
+   Icons.logout
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +79,7 @@ class _HomePage1State extends State<HomePage1> {
                     style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
                   SportPie(colorList: colorList, dataSet: fee),
+                  const SizedBox(height: 10),
                   Text(
                     attendanceText,
                     style: const TextStyle(fontWeight: FontWeight.w600),
@@ -101,8 +109,7 @@ class _HomePage1State extends State<HomePage1> {
           } else {
             return ListTile(
               leading: Icon(
-                Icons.person,
-                color: Colors.blue[900],
+                icons[index - 1]
               ),
               title: Text(drawerElements[index - 1]),
               onTap: () {
