@@ -19,26 +19,26 @@ class CustomerListOut extends CommonResponse {
 @JsonSerializable()
 class CustomerOut {
   CustomerOut({
-    this.batch,
-    this.categoryType,
+   required this.batch,
+   required this.categoryType,
    required this.feePending,
    required this.id,
    required this.name,
    required this.customerKey,
-    this.inTime,
+   required this.inTime,
     this.totalPlay,
-    this.isPlaying,
+   required this.isPlaying,
   
 
   });
 
   int id;
   String name;
-  String? batch;
-  String? categoryType;
+  String batch;
+  String categoryType;
   int feePending;
-  int? isPlaying;
-  String? inTime;
+  int isPlaying;
+  String inTime;
   String? totalPlay;
   String customerKey;
 

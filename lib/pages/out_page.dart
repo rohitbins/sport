@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/service.dart';
-
-import 'customer_Page.dart';
 import 'profile/profile.dart';
 
 class OutPage extends StatefulWidget {
@@ -105,7 +103,7 @@ class OutCard extends StatelessWidget {
       },
       child: Card(
         elevation: 6,
-        color: customerData.isPlaying! > 0 ? Colors.white : Colors.yellow,
+        color: customerData.isPlaying > 0 ? Colors.white : Colors.yellow,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // if you need this
           side: BorderSide(
@@ -134,7 +132,7 @@ class OutCard extends StatelessWidget {
                           fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      customerData.categoryType!,
+                      customerData.categoryType,
                       style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey.shade600,

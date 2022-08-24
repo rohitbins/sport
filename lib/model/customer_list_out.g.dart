@@ -25,15 +25,15 @@ Map<String, dynamic> _$CustomerListOutToJson(CustomerListOut instance) =>
     };
 
 CustomerOut _$CustomerOutFromJson(Map<String, dynamic> json) => CustomerOut(
-      batch: json['batch'] as String?,
-      categoryType: json['categoryType'] as String?,
+      batch: json['batch'] as String,
+      categoryType: json['categoryType'] as String,
       feePending: json['feePending'] as int,
       id: json['id'] as int,
       name: json['name'] as String,
       customerKey: json['customerKey'] as String,
-      inTime: json['inTime'] as String?,
+      inTime: json['inTime'] as String,
       totalPlay: json['totalPlay'] as String?,
-      isPlaying: json['isPlaying'] as int?,
+      isPlaying: json['isPlaying'] as int,
     );
 
 Map<String, dynamic> _$CustomerOutToJson(CustomerOut instance) =>
