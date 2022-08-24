@@ -1,6 +1,9 @@
 enum EndPoints {
+  guruPhoneValidator,
+  guruOTPValidator,
   staffAcademyCategoryAndBatch,
   customerListByBatchAndCategory,
+  setCustomerAttendanceIn,
   getStaffAttendanceList,
   setStaffAttendanceOut,
   setStaffAttendanceIn
@@ -19,6 +22,12 @@ extension EndPointsConfig on EndPoints {
         return 'SetStaffAttendanceOut';
       case EndPoints.setStaffAttendanceIn:
         return 'SetStaffAttendanceIn';
+      case EndPoints.guruPhoneValidator:
+        return 'GuruPhoneValidator';
+      case EndPoints.guruOTPValidator:
+        return 'GuruOTPValidator';
+      case EndPoints.setCustomerAttendanceIn:
+        return 'SetCustomerAttendanceIn';
     }
   }
 }
