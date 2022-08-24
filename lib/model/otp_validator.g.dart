@@ -25,12 +25,12 @@ Map<String, dynamic> _$OtpValidatorToJson(OtpValidator instance) =>
 
 OtpData _$OtpDataFromJson(Map<String, dynamic> json) => OtpData(
       academyLogoURL: json['academyLogoURL'] as String?,
-      staffKey: json['customerKey'] as String?,
+      staffKey: json['staffKey'] as String?,
       name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$OtpDataToJson(OtpData instance) => <String, dynamic>{
       'name': instance.name,
-      'customerKey': instance.staffKey,
+      'staffKey': instance.staffKey,
       'academyLogoURL': instance.academyLogoURL,
     };

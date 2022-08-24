@@ -23,14 +23,14 @@ class ServiceCall {
       'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=',
       'ContentType': 'application/json'
     };
-    getDataFromPreference();
+    // getDataFromPreference();
   }
-  late String staffKey = '';
-  getDataFromPreference() async {
-    _prefs.then((value) {
-      staffKey = value.getString('staffKey')!;
-    });
-  }
+  // late String staffKey = '';
+  // getDataFromPreference() async {
+  //   _prefs.then((value) {
+  //     staffKey = value.getString('staffKey')!;
+  //   });
+  // }
 
   late final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late String base;
@@ -75,8 +75,10 @@ class ServiceCall {
       'ContentType': 'application/json',
       'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6'
     };
-    final response = await http.post(Uri.parse('${base}PhoneValidator'),
-        headers: _header, body: {"phone": phoneNumber, "source": "Android"});
+    final response = await http.post(
+        Uri.parse('$base${EndPoints.guruPhoneValidator.apiValue}'),
+        headers: _header,
+        body: {"phone": phoneNumber, "source": "Android"});
 
     if (response.statusCode == 200) {
       print(response.body);
@@ -94,7 +96,8 @@ class ServiceCall {
       'ContentType': 'application/json',
       'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6'
     };
-    final response = await http.post(Uri.parse('${base}OTPValidator'),
+    final response = await http.post(
+        Uri.parse('$base${EndPoints.guruOTPValidator.apiValue}'),
         headers: _header,
         body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
 
@@ -110,7 +113,7 @@ class ServiceCall {
   Future<CustomerListOut> fetchCustomerOut() async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': staffKey
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!)
     };
     final response = await http.post(Uri.parse('${base}CustomerListForOut'),
         headers: _header, body: {});
@@ -125,10 +128,11 @@ class ServiceCall {
     }
   }
 
-  Future<CustomerListOut> attendanceIn({required String customerKey}) async {
+  Future<CustomerListOut> staffAttendanceIn(
+      {required String customerKey}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': staffKey,
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
       'customer-key': customerKey
     };
     final response = await http.post(
@@ -146,10 +150,31 @@ class ServiceCall {
     }
   }
 
+  Future<CustomerListOut> attendanceIn({required String customerKey}) async {
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
+      'customer-key': customerKey
+    };
+    final response = await http.post(
+        Uri.parse('$base${EndPoints.setCustomerAttendanceIn.apiValue}'),
+        headers: _header,
+        body: {});
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      CustomerListOut customerOut =
+          CustomerListOut.fromJson(jsonDecode(response.body));
+      return customerOut;
+    } else {
+      throw Exception('failed to load BatchCategories');
+    }
+  }
+
   Future<CustomerListOut> attendanceOut({required String key}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': staffKey,
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
       'customer-key': key
     };
     final response = await http.post(
@@ -204,7 +229,7 @@ class ServiceCall {
   Future<PersonalSportModel?> fetchProfileData(String _key) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': staffKey,
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
       'customer-key': _key
     };
     final response = await http.post(Uri.parse('${base}CustomerProfile'),
@@ -221,7 +246,7 @@ class ServiceCall {
   Future<StaffAttendanceModel?> GetStaffAttendanceList() async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': staffKey
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!)
     };
 
     final response = await http.post(
@@ -240,7 +265,7 @@ class ServiceCall {
   Future<BaseResponseModel?> updateStaffAttendance({required bool isIn}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': staffKey
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!)
     };
 
     final response = await http.post(
