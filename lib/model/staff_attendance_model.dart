@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new, unnecessary_this, prefer_collection_literals
+
 class StaffAttendanceModel {
   int? statusCode;
   bool? isError;

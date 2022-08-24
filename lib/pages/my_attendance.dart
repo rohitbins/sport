@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: curly_braces_in_flow_control_structures
 
+import 'package:flutter/material.dart';
 import '../model/staff_attendance_model.dart';
 import '../service.dart';
 
@@ -45,7 +46,7 @@ class _MyAttendanceState extends State<MyAttendance> {
           "My Attendance",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
-        centerTitle: true,
+             centerTitle: true,
       ),
       body: staffAttendanceModel.data != null
           ? ListView.builder(
@@ -62,16 +63,17 @@ class _MyAttendanceState extends State<MyAttendance> {
             )
           : const Center(
               child: CircularProgressIndicator(),
-            ),
+     ),
     );
   }
 
   Widget _todays(StaffData data) {
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+    return Container(
+      color: Colors.white,
+      // elevation: 4,
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -90,19 +92,22 @@ class _MyAttendanceState extends State<MyAttendance> {
                           .then((value) {
                         setState(() {
                           if (value!.message == "Done")
-                            staffInside = !staffInside;
+                           staffInside = !staffInside;
                           clicked = !clicked;
                         });
                         fetchData();
                       });
                     })
-                : CircularProgressIndicator(),
+                : const CircularProgressIndicator(),
             Row(
               children: [
-                Text(
-                  "Last ${!staffInside ? 'Out' : 'In'} Time : ",
-                  style: TextStyle(
-                      letterSpacing: 1.4, fontWeight: FontWeight.bold),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 14),
+                  child: Text(
+                    "Last ${!staffInside ? 'Out' : 'In'} Time : ",
+                    style: const TextStyle(
+                        letterSpacing: 1.4, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 Column(
                   children: [
@@ -111,16 +116,13 @@ class _MyAttendanceState extends State<MyAttendance> {
                     ),
                     Text(
                       data.inDate!,
-                      style: TextStyle(fontSize: 10),
-                    ),
-                  ],
-                )
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+                      style: const TextStyle(fontSize: 10),
+                ), ],
+                ),],
+               ),],
+                ),
+               ),
+              );
   }
 
   Widget myCard(StaffData data) {
@@ -154,7 +156,7 @@ class _MyAttendanceState extends State<MyAttendance> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
-            ),
+           ),
           ),
         Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
           RichText(
@@ -170,9 +172,11 @@ class _MyAttendanceState extends State<MyAttendance> {
                       style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
-                          fontSize: 14))
+                          fontSize: 14,
+                   ),
+                   )
                 ]),
-          ),
+                ),
           const SizedBox(height: 20),
           RichText(
             text: TextSpan(
@@ -188,9 +192,9 @@ class _MyAttendanceState extends State<MyAttendance> {
                           color: Colors.amber,
                           fontWeight: FontWeight.bold,
                           fontSize: 14))
-                ]),
-          )
-        ]),
+         ]),
+         ),
+       ]),
         if (data.totalInTime != '')
           Expanded(
               child:
@@ -203,13 +207,13 @@ class _MyAttendanceState extends State<MyAttendance> {
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                   color: Color.fromRGBO(41, 128, 185, 1),
-                ),
+               ),
               ),
               const Text(
                 'Hr',
                 style:
                     TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
-              )
+               )
             ]),
             const SizedBox(width: 7),
             Column(children: const [
@@ -232,11 +236,12 @@ class _MyAttendanceState extends State<MyAttendance> {
                 'Min',
                 style:
                     TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
-              )
+              ),
             ]),
-          ]))
-      ]),
-    );
+           ]),
+           ),
+         ]),
+         );
   }
 
   String getHours(String duration) {
