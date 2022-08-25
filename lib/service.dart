@@ -208,10 +208,11 @@ class ServiceCall {
     }
   }
 
-  Future<List<Payment>?> fetchPayment() async {
+  Future<List<Payment>?> fetchPayment({required String customerkey}) async {
+    var customerKey;
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      "customer-key": "EQYGf84gWWMJsi8Bz/73ufdftIdOKyta1YohLogAL5U="
+      "customer-key": customerKey
     };
     final response = await http.post(Uri.parse('${base}CustomerPayment'),
         body: {}, headers: _header);
