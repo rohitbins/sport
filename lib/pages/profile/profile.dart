@@ -26,8 +26,8 @@ class _ProfileState extends State<Profile> {
     _pageOptions = [
       PersonalInfoPage(customerKey: widget.customerKey),
       SportInfo(customerKey: widget.customerKey),
-      const Attendence(),
-      const Payments(),
+      Attendence(customerkey: widget.customerKey),
+      Payments(customerkey: widget.customerKey),
     ];
   }
 

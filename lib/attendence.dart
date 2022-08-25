@@ -7,7 +7,8 @@ import 'utils/constants.dart';
 import 'utils/functions.dart';
 
 class Attendence extends StatefulWidget {
-  const Attendence({Key? key}) : super(key: key);
+  const Attendence({Key? key, required this.customerkey}) : super(key: key);
+  final String customerkey;
 
   @override
   State<Attendence> createState() => _AttendenceState();
@@ -31,7 +32,7 @@ class _AttendenceState extends State<Attendence> {
   }
 
   _getAttendence() async {
-    ServiceCall().fetchAttendance().then((value) {
+    ServiceCall().fetchAttendance(customerkey: widget.customerkey).then((value) {
       setState(() {
         fetchList = value;
       });

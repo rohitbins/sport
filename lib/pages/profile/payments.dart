@@ -3,20 +3,22 @@ import 'package:sport/utils/functions.dart';
 import '../../model/payment.dart';
 import '../../service.dart';
 import '../../utils/constants.dart';
-import 'profile.dart';
+
 
 class Payments extends StatefulWidget {
-  const Payments({Key? key}) : super(key: key);
+  const Payments({Key? key, required this.customerkey}) : super(key: key);
+
+  final String customerkey;
   @override
   State<Payments> createState() => _PaymentsState();
 }
-
-class _PaymentsState extends State<Payments> {
+  class _PaymentsState extends State<Payments> {
   @override
   Widget build(BuildContext context) {
+    print('jjjjj:${widget.customerkey}');
     return Scaffold(
         body: FutureBuilder<List<Payment>?>(
-            future: ServiceCall().fetchPayment(customerkey: 'customerkey'),
+            future: ServiceCall().fetchPayment( customerkey: widget.customerkey),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(

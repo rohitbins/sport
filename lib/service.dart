@@ -11,6 +11,7 @@ import 'package:sport/model/personal_sport.dart';
 import 'package:sport/model/staff_attendance_model.dart';
 import 'package:sport/utils/enums.dart';
 import 'model/baseresponse.dart';
+import 'model/common_response.dart';
 import 'model/otp_validator.dart';
 import 'model/phone_validator.dart';
 import 'model/request/customer_data.dart';
@@ -18,7 +19,10 @@ import 'model/request/customer_data.dart';
 class ServiceCall {
   ServiceCall() {
     base = 'http://api.sportsb.co.in/api/';
-
+    headers = {
+      'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=',
+      'ContentType': 'application/json'
+    };
     // getDataFromPreference();
   }
   // late String staffKey = '';
@@ -30,15 +34,13 @@ class ServiceCall {
 
   late final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late String base;
+  late Map<String, String> headers;
 
+// Category and Batch
   Future<CategoryAndBatch> fetchBatchCatgories() async {
     final response = await http.post(
         Uri.parse('$base${EndPoints.staffAcademyCategoryAndBatch.apiValue}'),
-        headers: {
-          'staff-key':
-              await _prefs.then((value) => value.getString(('staffKey'))!),
-          'ContentType': 'application/json'
-        },
+        headers: headers,
         body: {});
 
     if (response.statusCode == 200) {
@@ -50,12 +52,9 @@ class ServiceCall {
     }
   }
 
+// Customer List Data////////
   Future<CustomerListData> fetchCustomerData(
       {required CustomerDataRequest customerDataRequest}) async {
-    var headers = {
-      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
-      'ContentType': 'application/json'
-    };
     final response = await http.post(
         Uri.parse('$base${EndPoints.customerListByBatchAndCategory.apiValue}'),
         body: customerDataRequest.toJson(),
@@ -72,15 +71,16 @@ class ServiceCall {
     }
   }
 
+// Phone Validator///////
   Future<PhoneValidator> PhoneValidatorApi(
       {required String phoneNumber}) async {
-    var headers = {
-      'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6',
-      'ContentType': 'application/json'
+    Map<String, String> _header = {
+      'ContentType': 'application/json',
+      'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6'
     };
     final response = await http.post(
         Uri.parse('$base${EndPoints.guruPhoneValidator.apiValue}'),
-        headers: headers,
+        headers: _header,
         body: {"phone": phoneNumber, "source": "Android"});
 
     if (response.statusCode == 200) {
@@ -93,14 +93,14 @@ class ServiceCall {
     }
   }
 
+// Otp Validator//////
   Future<OtpValidator> OtpValidatorApi(
       {required String phoneNumber, required String otp}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6'
     };
-    final response = await http.post(
-        Uri.parse('${base}${EndPoints.guruOTPValidator.apiValue}'),
+    final response = await http.post(Uri.parse('${base}${EndPoints.guruOTPValidator.apiValue}'),
         headers: _header,
         body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
 
@@ -113,15 +113,14 @@ class ServiceCall {
     }
   }
 
+// Customer List Out////////
   Future<CustomerListOut> fetchCustomerOut() async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!)
     };
-    final response = await http.post(
-        Uri.parse('${base}${EndPoints.customerListForOut.apiValue}'),
-        headers: _header,
-        body: {});
+    final response = await http.post(Uri.parse('${base}${EndPoints.customerListForOut.apiValue}'),
+        headers: _header, body: {});
 
     if (response.statusCode == 200) {
       print(response.body);
@@ -133,6 +132,7 @@ class ServiceCall {
     }
   }
 
+// Staff Attendance In///////
   Future<CustomerListOut> staffAttendanceIn(
       {required String customerKey}) async {
     Map<String, String> _header = {
@@ -155,6 +155,8 @@ class ServiceCall {
     }
   }
 
+
+// Customer Attendance In/////////
   Future<CustomerListOut> attendanceIn({required String customerKey}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
@@ -176,6 +178,7 @@ class ServiceCall {
     }
   }
 
+// Customer Attendance Out //////
   Future<CustomerListOut> attendanceOut({required String key}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
@@ -196,10 +199,11 @@ class ServiceCall {
     }
   }
 
-  Future<List<Attendance>?> fetchAttendance() async {
+// Customer Attendance /////////
+  Future<List<Attendance>?> fetchAttendance({required String customerkey}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'customer-key': 'EQYGf84gWWMJsi8Bz/73ufdftIdOKyta1YohLogAL5U='
+      'customer-key': customerkey
     };
     final response = await http.post(Uri.parse('${base}CustomerAttendance'),
         body: {"Indx": "0", "IdForNew": "0"}, headers: _header);
@@ -214,11 +218,11 @@ class ServiceCall {
     }
   }
 
+//CUstomer Payment/////
   Future<List<Payment>?> fetchPayment({required String customerkey}) async {
-    var customerKey;
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      "customer-key": customerKey
+      "customer-key": customerkey
     };
     final response = await http.post(Uri.parse('${base}CustomerPayment'),
         body: {}, headers: _header);
@@ -232,6 +236,8 @@ class ServiceCall {
     }
   }
 
+
+// Profile Data ////////
   Future<PersonalSportModel?> fetchProfileData(String _key) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
@@ -249,16 +255,16 @@ class ServiceCall {
     }
   }
 
+// Staff Attendance List ///////
   Future<StaffAttendanceModel?> GetStaffAttendanceList() async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!)
     };
 
-    print('headers"${_header.toString()}}');
     final response = await http.post(
         Uri.parse('$base${EndPoints.getStaffAttendanceList.apiValue}'),
-        headers: _header,
+        headers: headers,
         body: {});
 
     if (response.statusCode == 200) {
@@ -269,6 +275,7 @@ class ServiceCall {
     }
   }
 
+// UpDate Staff Attendance //////
   Future<BaseResponseModel?> updateStaffAttendance({required bool isIn}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
@@ -279,7 +286,7 @@ class ServiceCall {
         isIn
             ? Uri.parse('$base${EndPoints.setStaffAttendanceOut.apiValue}')
             : Uri.parse('$base${EndPoints.setStaffAttendanceIn.apiValue}'),
-        headers: _header,
+        headers: headers,
         body: {});
 
     if (response.statusCode == 200) {
