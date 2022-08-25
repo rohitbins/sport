@@ -41,19 +41,27 @@ Map<String, dynamic> _$MyDataToJson(MyData instance) => <String, dynamic>{
 Batch _$BatchFromJson(Map<String, dynamic> json) => Batch(
       id: json['id'] as int,
       batch: json['batch'] as String,
+      sport: json['sport'] as String,
+      sportLogo: json['sportLogo'] as String,
     );
 
 Map<String, dynamic> _$BatchToJson(Batch instance) => <String, dynamic>{
       'id': instance.id,
       'batch': instance.batch,
+      'sport': instance.sport,
+      'sportLogo': instance.sportLogo,
     };
 
 Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       id: json['id'] as int,
       category: json['category'] as String,
+      sport: json['sport'] as String,
+      sportLogo: json['sportLogo'] as String,
     );
 
 Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
       'id': instance.id,
       'category': instance.category,
+      'sport': instance.sport,
+      'sportLogo': instance.sportLogo,
     };

@@ -152,13 +152,7 @@ class _AttendenceState extends State<Attendence> {
                                 ]),
                             Expanded(
                                 child:
-                                    // (fetchList![index]
-                                    //             .duration
-                                    //             .contains('hr') ||
-                                    //         fetchList![index]
-                                    //             .duration
-                                    //             .contains('min'))
-                                    //     ?
+                                   
                                     Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -169,7 +163,7 @@ class _AttendenceState extends State<Attendence> {
                                       playDuration(fetchList![index].duration)
                                           .first,
                                       style: const TextStyle(
-                                        fontSize: 30,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                         color: Color.fromRGBO(41, 128, 185, 1),
                                       ),
@@ -197,7 +191,7 @@ class _AttendenceState extends State<Attendence> {
                                       playDuration(fetchList![index].duration)
                                           .last,
                                       style: const TextStyle(
-                                          fontSize: 30,
+                                          fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black54),
                                     ),
@@ -209,24 +203,7 @@ class _AttendenceState extends State<Attendence> {
                                     )
                                   ]),
                                 ])
-                                // : Padding(
-                                //     padding: const EdgeInsets.only(left: 30),
-                                //     child: Row(
-                                //         mainAxisAlignment:
-                                //             MainAxisAlignment.center,
-                                //         children: [
-                                //           BlinkText(
-                                //             fetchList![index].duration,
-                                //             duration:
-                                //                 const Duration(seconds: 1),
-                                //             beginColor: Colors.white,
-                                //             endColor: Colors.red,
-                                //             style: const TextStyle(
-                                //                 fontSize: 20,
-                                //                 fontWeight: FontWeight.bold),
-                                //           ),
-                                //         ]),
-                                //   ),
+                               
                                 )
                           ]),
                         ),

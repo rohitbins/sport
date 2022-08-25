@@ -24,13 +24,8 @@ class _CustomerPageState extends State<CustomerPage>
   Widget build(BuildContext context) {
     List<CustomerData> dataList = widget.customerListData.data!;
     return dataList.isEmpty
-        ? Center(
-            child: Text(
-              'Sorry no data found',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 20, color: Colors.grey[400], letterSpacing: 2),
-            ),
+        ? const Center(
+           child: CircularProgressIndicator()
           )
           : ListView.builder(
             shrinkWrap: true,
@@ -176,10 +171,10 @@ class InCard extends StatelessWidget {
                               color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold)),
-            ),
+          ),
           )
-        ]),
-      ),
-    );
+       ]),
+       ),
+      );
   }
 }

@@ -15,6 +15,8 @@ class TabBarPage extends StatefulWidget {
 
 class _TabBarPageState extends State<TabBarPage>
     with SingleTickerProviderStateMixin {
+
+  bool isSelectedbatch = false;
   late Future<CategoryAndBatch> futureBatchCategories;
   late CustomerListData futureCustomerData;
   late TabController _tabController;
@@ -39,7 +41,7 @@ class _TabBarPageState extends State<TabBarPage>
           length: tabs.length,
           child: Column(children: [
             Container(
-              color: Color.fromRGBO(6, 41, 74, 1),
+              color: const Color.fromRGBO(6, 41, 74, 1),
               constraints: const BoxConstraints.expand(height: 50),
               child: TabBar(
                   indicatorColor: Colors.blue.shade200,
@@ -60,33 +62,107 @@ class _TabBarPageState extends State<TabBarPage>
                             itemBuilder: (BuildContext context, int index) {
                               Category data =
                                   snapshot.data!.data!.categoryList![index];
-
-                              return SlotCard(
-                                  title: data.category.split(':').first,
-                                  subTitle: data.category.split(':').last,
-                                  selectedbatch: selectedCat == index,
-                                  callBack: () {
-                                    setState(() => selectedCat = index);
-                                    selectedId = data.id;
-                                  });
-                            }),
+                                
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 10,right: 10,top: 8),
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedCat = index;
+                                      });
+                                    },
+                                    child: Card(
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12)
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                         children: [
+                                         Image.network(data.sportLogo,
+                                         height: 50,width: 50,),
+                                        
+                                        //  Expanded(child: Text(data.sport,
+                                        //  style: TextStyle(
+                                        //   fontSize: 16,
+                                        //   color: Colors.blue.shade800
+                                        //  ),)),
+                                        
+                                         Expanded(
+                                           child: Text(data.category,
+                                           style: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold
+                                           ),
+                                          ),
+                                         ),
+                                        if(selectedCat == index) Container(
+                                                  alignment: Alignment.center,
+                                                  margin: const EdgeInsets.only(right: 30),
+                                                  decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                  width: 10,
+                                                  color: Colors.greenAccent,
+                                                    ),
+                                                   ),
+                                        )
+                                    ],
+                                    ),
+                                   ),
+                                  ),
+                                );
+                              }),
                         ListView.builder(
                             shrinkWrap: true,
                             itemCount: snapshot.data!.data!.batchList!.length,
                             itemBuilder: (BuildContext context, int index) {
                               Batch data =
                                   snapshot.data!.data!.batchList![index];
-
-                              return SlotCard(
-                                  title: data.batch.split(':').first,
-                                  subTitle: data.batch.split(':').last,
-                                  selectedbatch: selectedbatch == index,
-                                  callBack: () {
+                                  return Padding(
+                                   padding: const EdgeInsets.only(left: 10,right: 10,top:8),
+                                   child: InkWell(
+                                    onTap: () {
+                                      
                                     setState(() => selectedbatch = index);
-                                    selectedId = data.id;
-                                  });
-                            })
-                      ]);
+                                    },
+                                     child: Card(
+                                      elevation: 4,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12)
+                                      ),
+                                         child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                      
+                                         children: [
+                                             Image.network(data.sportLogo,
+                                             height: 80, width: 50,),
+                                            Expanded(
+                                               child: Text(data.batch,
+                                               style: const TextStyle(
+                                                fontSize: 16,
+                                                letterSpacing: .8,
+                                                fontWeight: FontWeight.bold
+                                               ),),
+                                             ) ,
+                                             if(selectedbatch==index)Container(
+                                                  alignment: Alignment.center,
+                                                  margin: const EdgeInsets.only(right: 30),
+                                                  decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                  width: 10,
+                                                  color: Colors.greenAccent,
+                                                    ),
+                                                   ),
+                                                   )
+                                             ],
+                                                ),
+                                               ),
+                                              ),
+                                             );
+                                            })
+                                          ]);
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }

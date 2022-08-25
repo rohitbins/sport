@@ -30,23 +30,34 @@ class Batch {
   Batch({
    required this.id,
    required this.batch,
+   required this.sport,
+   required this.sportLogo
   });
 
   int id;
 
   String batch;
-
+  String sport;
+  String sportLogo;
   factory Batch.fromJson(Map<String, dynamic> json) => _$BatchFromJson(json);
   Map<String, dynamic> toJson() => _$BatchToJson(this);
 }
 
 @JsonSerializable()
 class Category {
-  Category({required this.id, required this.category});
+  Category({
+    required this.id,
+    required this.category,
+    required this.sport,
+    required this.sportLogo
+    
+    });
 
   final int id;
 
   final String category;
+  String sport;
+  String sportLogo;
 
   factory Category.fromJson(Map<String, dynamic> json) =>
       _$CategoryFromJson(json);
