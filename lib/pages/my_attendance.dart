@@ -69,11 +69,11 @@ class _MyAttendanceState extends State<MyAttendance> {
 
   Widget _todays(StaffData data) {
     return Container(
-      color: Colors.white,
+      color: const Color.fromARGB(255, 235, 195, 195),
       // elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -6,7 +6,8 @@ enum EndPoints {
   setCustomerAttendanceIn,
   getStaffAttendanceList,
   setStaffAttendanceOut,
-  setStaffAttendanceIn
+  setStaffAttendanceIn,
+  customerListForOut
 }
 
 extension EndPointsConfig on EndPoints {
@@ -28,6 +29,8 @@ extension EndPointsConfig on EndPoints {
         return 'GuruOTPValidator';
       case EndPoints.setCustomerAttendanceIn:
         return 'SetCustomerAttendanceIn';
+      case EndPoints.customerListForOut:
+        return 'CustomerListForOut';
     }
   }
 }

@@ -96,7 +96,7 @@ class ServiceCall {
       'ContentType': 'application/json',
       'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6'
     };
-    final response = await http.post(Uri.parse('${base}OTPValidator'),
+    final response = await http.post(Uri.parse('${base}${EndPoints.guruOTPValidator.apiValue}'),
         headers: _header,
         body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
 
@@ -114,7 +114,7 @@ class ServiceCall {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!)
     };
-    final response = await http.post(Uri.parse('${base}CustomerListForOut'),
+    final response = await http.post(Uri.parse('${base}${EndPoints.customerListForOut.apiValue}'),
         headers: _header, body: {});
 
     if (response.statusCode == 200) {
