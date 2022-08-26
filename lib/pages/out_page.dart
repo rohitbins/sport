@@ -62,7 +62,7 @@ class _OutPageState extends State<OutPage> {
             }
             return const Center(child: CircularProgressIndicator());
           }),
-    );
+          );
   }
 
   outButton(CustomerOut data) {
@@ -165,10 +165,10 @@ class OutCard extends StatelessWidget {
                         ],
                       )
                     else
-                      Text(''),
+                      const Text(''),
                   ]),
-            ),
-          ),
+                  ),
+                 ),
           InkWell(
             onDoubleTap: () => callback(customerData.customerKey),
             onTap: () {},
@@ -182,13 +182,13 @@ class OutCard extends StatelessWidget {
                           color: Colors.white,
                           fontSize: 32,
                           fontWeight: FontWeight.bold))
-                  : const Center(
+                     : const Center(
                       child: CircularProgressIndicator(color: Colors.white),
                     ),
-            ),
-          )
-        ]),
-      ),
-    );
+                   ),
+                  ),
+                ]),
+                ),
+               );
   }
 }

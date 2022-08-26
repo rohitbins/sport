@@ -88,7 +88,7 @@ class InCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.2),
             width: 1,
           ),
-        ),
+         ),
         child: Row(children: [
           Expanded(
             child: Container(
@@ -98,7 +98,7 @@ class InCard extends StatelessWidget {
                   topLeft: Radius.circular(20),
                   bottomLeft: Radius.circular(20),
                 ),
-              ),
+               ),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -143,8 +143,8 @@ class InCard extends StatelessWidget {
                     else
                       const Text(''),
                   ]),
-            ),
-          ),
+                  ),
+                 ),
           InkWell(
             onDoubleTap: () => callback(customerData.customerKey),
             onTap: () {},
@@ -171,9 +171,9 @@ class InCard extends StatelessWidget {
                               fontSize: 32,
                               fontWeight: FontWeight.bold)),
             ),
-          )
-        ]),
-      ),
-    );
+            )
+         ]),
+         ),
+        );
   }
 }

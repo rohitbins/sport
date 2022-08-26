@@ -91,7 +91,7 @@ class _TabBarPageState extends State<TabBarPage>
                                             style: const TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold),
-                                          ),
+                                         ),
                                         ),
                                         if (selectedCat == index)
                                           Container(
@@ -103,13 +103,13 @@ class _TabBarPageState extends State<TabBarPage>
                                               border: Border.all(
                                                 width: 10,
                                                 color: Colors.greenAccent,
-                                              ),
+                                             ),
                                             ),
-                                          )
+                                            )
                                       ],
-                                    ),
-                                  ),
+                                 ),
                                 ),
+                               ),
                               );
                             }),
                         ListView.builder(
@@ -146,7 +146,7 @@ class _TabBarPageState extends State<TabBarPage>
                                                 fontSize: 16,
                                                 letterSpacing: .8,
                                                 fontWeight: FontWeight.bold),
-                                          ),
+                                         ),
                                         ),
                                         if (selectedbatch == index)
                                           Container(
@@ -159,24 +159,24 @@ class _TabBarPageState extends State<TabBarPage>
                                                 width: 10,
                                                 color: Colors.greenAccent,
                                               ),
-                                            ),
-                                          )
+                                             ),
+                                             )
                                       ],
-                                    ),
-                                  ),
                                 ),
-                              );
+                               ),
+                              ),
+                             );
                             })
-                      ]);
+                          ]);
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
                     return const Center(child: CircularProgressIndicator());
                   }),
-            ),
-          ]),
-        ),
-      ),
+                  ),
+                ]),
+                ),
+               ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           int category = _tabController.index == 0 ? selectedCat : 0;

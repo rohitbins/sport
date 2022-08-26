@@ -58,23 +58,23 @@ class Payments extends StatefulWidget {
                                         child: Column(children: [
                                           Text(
                                             formatter
-                                                .format(DateTime.parse(
+                                                   .format(DateTime.parse(
                                                     snapshot.data![index].date))
-                                                .toString(),
-                                            style: TextStyle(
+                                               .toString(),
+                                                style: TextStyle(
                                                 color: Color(int.parse(hexColor(
-                                                    snapshot.data![index]
+                                                         snapshot.data![index]
                                                         .dateBGColorHex
                                                         .toString()))),
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
+                                                textAlign: TextAlign.center,
                                           )
-                                        ]),
+                                       ]),
+                                       ),
                                       ),
+                                     ),
                                     ),
-                                  ),
-                                ),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -83,7 +83,7 @@ class Payments extends StatefulWidget {
                                       Text(
                                         snapshot.data![index].firstText,
                                         style: TextStyle(
-                                            color: Color(int.parse(hexColor(
+                                                color: Color(int.parse(hexColor(
                                                 snapshot.data![index]
                                                     .firstTextColorHex
                                                     .toString()))),
@@ -94,16 +94,16 @@ class Payments extends StatefulWidget {
                                       Text(
                                         snapshot.data![index].secondTextText,
                                         style: TextStyle(
-                                          color: Color(int.parse(hexColor(
-                                              snapshot.data![index]
+                                        color: Color(int.parse(hexColor(
+                                                   snapshot.data![index]
                                                   .secondTextColorHex
                                                   .toString()))),
                                           fontSize: 11,
                                         ),
-                                      ),
+                                       ),
                                     ],
-                                  ),
-                                ),
+                                     ),
+                                    ),
                                 Expanded(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -123,10 +123,10 @@ class Payments extends StatefulWidget {
                                       )
                                     ],
                                   ),
-                                ),
+                                 ),
                               ],
-                            ),
-                          ),
+                               ),
+                              ),
                           const SizedBox(
                             height: 5,
                           )
