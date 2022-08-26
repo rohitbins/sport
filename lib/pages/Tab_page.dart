@@ -23,8 +23,11 @@ class _TabBarPageState extends State<TabBarPage>
     SportType.Category.apiValue,
     SportType.Batch.apiValue,
   ];
-  int selectedCat = 0;
-  int selectedbatch = 0;
+  int selectedCatIndex = 0;
+  int selectedbatchIndex = 0;
+  int selectedCatId = 0;
+  int selectedbatchId = 0;
+
   int selectedId = 0;
   @override
   void initState() {
@@ -68,7 +71,8 @@ class _TabBarPageState extends State<TabBarPage>
                                 child: InkWell(
                                   onTap: () {
                                     setState(() {
-                                      selectedCat = index;
+                                      selectedCatIndex = index;
+                                      selectedCatId = data.id;
                                     });
                                   },
                                   child: Card(
@@ -87,13 +91,15 @@ class _TabBarPageState extends State<TabBarPage>
                                         ),
                                         Expanded(
                                           child: Text(
-                                            data.category,
+                                            data.category +
+                                                ' : ' +
+                                                data.id.toString(),
                                             style: const TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                        if (selectedCat == index)
+                                        if (selectedCatIndex == index)
                                           Container(
                                             alignment: Alignment.center,
                                             margin: const EdgeInsets.only(
@@ -123,7 +129,8 @@ class _TabBarPageState extends State<TabBarPage>
                                     left: 10, right: 10, top: 8),
                                 child: InkWell(
                                   onTap: () {
-                                    setState(() => selectedbatch = index);
+                                    setState(() => selectedbatchIndex = index);
+                                    selectedbatchId = selectedbatchId = data.id;
                                   },
                                   child: Card(
                                     elevation: 4,
@@ -141,14 +148,16 @@ class _TabBarPageState extends State<TabBarPage>
                                         ),
                                         Expanded(
                                           child: Text(
-                                            data.batch,
+                                            data.batch +
+                                                ' : ' +
+                                                data.id.toString(),
                                             style: const TextStyle(
                                                 fontSize: 16,
                                                 letterSpacing: .8,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                        if (selectedbatch == index)
+                                        if (selectedbatchIndex == index)
                                           Container(
                                             alignment: Alignment.center,
                                             margin: const EdgeInsets.only(
@@ -179,8 +188,8 @@ class _TabBarPageState extends State<TabBarPage>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          int category = _tabController.index == 0 ? selectedCat : 0;
-          int batch = _tabController.index == 1 ? selectedbatch : 0;
+          int category = _tabController.index == 0 ? selectedCatId : 0;
+          int batch = _tabController.index == 1 ? selectedbatchId : 0;
 
           widget.callBack(category, batch);
           Navigator.pop(context);

@@ -63,7 +63,7 @@ class _InPageState extends State<InPage> {
                       }),
                     ));
               },
-              icon: Icon(Icons.filter_alt)),
+              icon: const Icon(Icons.filter_alt)),
         ],
         title: const Text("In"),
         centerTitle: true,
@@ -75,7 +75,7 @@ class _InPageState extends State<InPage> {
                 height: MediaQuery.of(context).size.height * .9,
                 width: MediaQuery.of(context).size.width * .08,
                 child: CustomerPage(customerListData: futureCustomerData))
-            : Padding(
+            : const Padding(
                 padding: EdgeInsets.only(top: 200),
                 child: Center(child: CircularProgressIndicator())),
       ]),

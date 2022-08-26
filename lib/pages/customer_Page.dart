@@ -2,6 +2,7 @@ import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:sport/pages/profile/profile.dart';
+import 'package:sport/utils/constants.dart';
 
 import '../service.dart';
 
@@ -25,30 +26,33 @@ class _CustomerPageState extends State<CustomerPage>
     List<CustomerData>? dataList = widget.customerListData.data;
     return dataList == null
         ? const Center(child: CircularProgressIndicator())
-        : ListView.builder(
-            shrinkWrap: true,
-            itemCount: dataList.length,
-            itemBuilder: (BuildContext context, int index) {
-              CustomerData customerData = dataList[index];
+        : Padding(
+            padding: const EdgeInsets.only(bottom: 110),
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: dataList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  CustomerData customerData = dataList[index];
 
-              return InCard(
-                customerData: customerData,
-                selectedKey: clickedKey,
-                callback: (String _kay) {
-                  setState(() {
-                    lable = 'wait...';
-                    clickedKey = _kay;
-                  });
-                  ServiceCall()
-                      .attendanceIn(customerKey: customerData.customerKey!)
-                      .then((value) {
-                    customerData.isPlaying = 15;
-                    clickedKey = '';
-                    setState(() {});
-                  });
-                },
-              );
-            });
+                  return InCard(
+                    customerData: customerData,
+                    selectedKey: clickedKey,
+                    callback: (String _kay) {
+                      setState(() {
+                        lable = 'wait...';
+                        clickedKey = _kay;
+                      });
+                      ServiceCall()
+                          .attendanceIn(customerKey: customerData.customerKey!)
+                          .then((value) {
+                        customerData.isPlaying = 15;
+                        clickedKey = '';
+                        setState(() {});
+                      });
+                    },
+                  );
+                }),
+          );
   }
 }
 
@@ -79,9 +83,7 @@ class InCard extends StatelessWidget {
       },
       child: Card(
         elevation: 6,
-        color: customerData.isPlaying! > 0
-            ? Colors.white
-            : colors ?? Color.fromRGBO(6, 41, 74, 1),
+        color: customerData.isPlaying! > 0 ? Colors.white : colors ?? myBlue,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // if you need this
           side: BorderSide(
@@ -149,7 +151,7 @@ class InCard extends StatelessWidget {
             onDoubleTap: () => callback(customerData.customerKey),
             onTap: () {},
             child: Container(
-              width: 80,
+              width: customerData.isPlaying! > 0 ? 120 : 80,
               alignment: Alignment.center,
               constraints: const BoxConstraints(maxHeight: 4 * 15.0),
               child: (selectedKey == customerData.customerKey)
@@ -157,13 +159,16 @@ class InCard extends StatelessWidget {
                       child: CircularProgressIndicator(color: Colors.white),
                     )
                   : customerData.isPlaying! > 0
-                      ? const BlinkText(
-                          'playing..',
-                          duration: Duration(seconds: 1),
-                          beginColor: Colors.green,
-                          endColor: Color.fromRGBO(6, 41, 74, 1),
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                      ? const Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: BlinkText(
+                            'playing..',
+                            duration: Duration(seconds: 1),
+                            beginColor: Colors.green,
+                            endColor: Color.fromRGBO(6, 41, 74, 1),
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
                         )
                       : const Text('in',
                           style: TextStyle(
