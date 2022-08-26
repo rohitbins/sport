@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../service.dart';
 import '../router.dart';
 
+// ignore: must_be_immutable
 class OtpPage extends StatefulWidget {
   OtpPage({Key? key, required this.phoneNumber}) : super(key: key);
   String phoneNumber;

@@ -119,7 +119,7 @@ class _AttendenceState extends State<Attendence> {
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 14))
                                         ]),
-                                  ),
+                                        ),
                                   const SizedBox(height: 20),
                                   (fetchList![index].duration.contains('hr') ||
                                           fetchList![index]
@@ -145,11 +145,12 @@ class _AttendenceState extends State<Attendence> {
                                                                 .toString()))),
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 14))
+                                                        fontSize: 14),
+                                                 )
                                               ]),
-                                        )
+                                               )
                                       : const Text(''),
-                                ]),
+                                           ]),
                             Expanded(
                                 child:
                                    
@@ -201,13 +202,13 @@ class _AttendenceState extends State<Attendence> {
                                           color: Colors.grey,
                                           fontWeight: FontWeight.bold),
                                     )
-                                  ]),
-                                ])
+                                 ]),
+                                 ])
                                
                                 )
-                          ]),
-                        ),
-                      ]);
+                             ]),
+                             ),
+                           ]);
                     } else {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 25),
@@ -221,11 +222,12 @@ class _AttendenceState extends State<Attendence> {
                                       color: Colors.grey,
                                       fontSize: 15),
                                 ),
-                        ),
-                      );
+                               ),
+                              );
                     }
                   },
-                ),
-        ));
+                           ),
+                          ),
+                         );
   }
 }

@@ -167,7 +167,7 @@ class OutCard extends StatelessWidget {
                         ],
                       )
                     else
-                      Text(''),
+                      const Text(''),
                   ]),
             ),
           ),
@@ -188,7 +188,7 @@ class OutCard extends StatelessWidget {
                       child: CircularProgressIndicator(color: Colors.white),
                     ),
             ),
-          )
+          ),
         ]),
       ),
     );

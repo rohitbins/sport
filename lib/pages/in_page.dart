@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
 import 'package:sport/model/category_batch.dart';
@@ -33,6 +33,7 @@ class _InPageState extends State<InPage> {
   String? selectedPerson;
   List<Category> sports = [];
 
+  // ignore: unused_field
   String? _selectedTime;
   final List<Batch> batch = [];
   int selecteCat = 0;
@@ -76,7 +77,7 @@ class _InPageState extends State<InPage> {
                 width: MediaQuery.of(context).size.width * .08,
                 child: CustomerPage(customerListData: futureCustomerData))
             : const Padding(
-                padding: EdgeInsets.only(top: 200),
+                padding: EdgeInsets.only(top: 320),
                 child: Center(child: CircularProgressIndicator())),
       ]),
     );

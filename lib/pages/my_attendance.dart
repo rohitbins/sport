@@ -35,18 +35,12 @@ class _MyAttendanceState extends State<MyAttendance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {
-      //     // Add your onPressed code here!
-      //   },
-      //   label: Text(aaa),
-      // ),
-      appBar: AppBar(
+        appBar: AppBar(
         title: const Text(
           "My Attendance",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
-             centerTitle: true,
+          centerTitle: true,
       ),
       body: staffAttendanceModel.data != null
           ? ListView.builder(

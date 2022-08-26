@@ -57,7 +57,7 @@ class _CustomerPageState extends State<CustomerPage>
 }
 
 class InCard extends StatelessWidget {
-  InCard({
+  const InCard({
     Key? key,
     required this.customerData,
     required this.callback,

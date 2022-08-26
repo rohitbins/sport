@@ -33,7 +33,7 @@ class _HomePage1State extends State<HomePage1> {
         }
         break;
 
-      case 'Logout':
+        case 'Logout':
         {
           _prefs.then((value) {
             value.clear();
@@ -65,7 +65,7 @@ class _HomePage1State extends State<HomePage1> {
       appBar: AppBar(
         title: Text(
           userName,
-          style: TextStyle(fontSize: 12),
+          style: const TextStyle(fontSize: 12),
         ),
         actions: [
           PopupMenuButton<String>(
@@ -73,6 +73,7 @@ class _HomePage1State extends State<HomePage1> {
               itemBuilder: (BuildContext context) {
                 return MenuItem.map((String choice) {
                   return PopupMenuItem<String>(
+                      // ignore: sort_child_properties_last
                       child: Text(choice), value: choice);
                 }).toList();
               })
@@ -121,9 +122,9 @@ class _HomePage1State extends State<HomePage1> {
                   ),
                   SportPie(colorList: colorList, dataSet: attendanceList),
                 ]),
-          ]),
-        ),
-      ),
-    );
+               ]),
+               ),
+              ),
+             );
   }
 }

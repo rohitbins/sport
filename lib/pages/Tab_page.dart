@@ -4,8 +4,6 @@ import 'package:sport/model/customer_list.dart';
 import 'package:sport/service.dart';
 import 'package:sport/utils/enums.dart';
 
-import '../widget/slot_card.dart';
-
 class TabBarPage extends StatefulWidget {
   const TabBarPage({Key? key, required this.callBack}) : super(key: key);
   final Function callBack;
@@ -84,18 +82,24 @@ class _TabBarPageState extends State<TabBarPage>
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Image.network(
-                                          data.sportLogo,
-                                          height: 50,
-                                          width: 50,
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 20),
+                                          child: Image.network(
+                                            data.sportLogo,
+                                            height: 50,
+                                            width: 50,
+                                          ),
                                         ),
+                                        const SizedBox(width: 20),
                                         Expanded(
                                           child: Text(
                                             data.category +
                                                 ' : ' +
                                                 data.id.toString(),
                                             style: const TextStyle(
-                                                fontSize: 15,
+                                                letterSpacing: 0.6,
+                                                fontSize: 16,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -141,11 +145,16 @@ class _TabBarPageState extends State<TabBarPage>
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Image.network(
-                                          data.sportLogo,
-                                          height: 80,
-                                          width: 50,
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 20),
+                                          child: Image.network(
+                                            data.sportLogo,
+                                            height: 50,
+                                            width: 50,
+                                          ),
                                         ),
+                                        const SizedBox(width: 20),
                                         Expanded(
                                           child: Text(
                                             data.batch +
@@ -153,7 +162,7 @@ class _TabBarPageState extends State<TabBarPage>
                                                 data.id.toString(),
                                             style: const TextStyle(
                                                 fontSize: 16,
-                                                letterSpacing: .8,
+                                                letterSpacing: .6,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
