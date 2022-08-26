@@ -22,12 +22,10 @@ class _CustomerPageState extends State<CustomerPage>
   String clickedKey = '';
   @override
   Widget build(BuildContext context) {
-    List<CustomerData> dataList = widget.customerListData.data!;
-    return dataList.isEmpty
-        ? const Center(
-           child: CircularProgressIndicator()
-          )
-          : ListView.builder(
+    List<CustomerData>? dataList = widget.customerListData.data;
+    return dataList == null
+        ? const Center(child: CircularProgressIndicator())
+        : ListView.builder(
             shrinkWrap: true,
             itemCount: dataList.length,
             itemBuilder: (BuildContext context, int index) {
@@ -81,8 +79,9 @@ class InCard extends StatelessWidget {
       },
       child: Card(
         elevation: 6,
-        color:
-            customerData.isPlaying! > 0 ? Colors.white : colors ?? Colors.green,
+        color: customerData.isPlaying! > 0
+            ? Colors.white
+            : colors ?? Color.fromRGBO(6, 41, 74, 1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // if you need this
           side: BorderSide(
@@ -169,12 +168,12 @@ class InCard extends StatelessWidget {
                       : const Text('in',
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 32,
                               fontWeight: FontWeight.bold)),
-          ),
+            ),
           )
-       ]),
-       ),
-      );
+        ]),
+      ),
+    );
   }
 }

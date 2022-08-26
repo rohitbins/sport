@@ -17,6 +17,7 @@ class _HomePage1State extends State<HomePage1> {
   Map<String, double> fee = {"Paid": 75.8, "pending": 85};
   final String attendanceText = 'Attendance';
   final String feeText = 'Fee';
+  String userName = '';
   List<Color> colorList = [Colors.green, Colors.orange];
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var MenuItem = <String>['My Attendance', 'Logout'];
@@ -45,11 +46,27 @@ class _HomePage1State extends State<HomePage1> {
   }
 
   @override
+  void initState() {
+    getName();
+    super.initState();
+  }
+
+  getName() async {
+    await _prefs.then((value) {
+      setState(() {
+        userName = value.getString(('name'))!;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home Page"),
-        centerTitle: true,
+        title: Text(
+          userName,
+          style: TextStyle(fontSize: 12),
+        ),
         actions: [
           PopupMenuButton<String>(
               onSelected: onSelected,

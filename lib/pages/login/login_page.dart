@@ -51,8 +51,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    _phoneController.text = '9599541807';
-
     return Scaffold(
       body: InkWell(
         onTap: () {
@@ -60,8 +58,10 @@ class _LoginState extends State<Login> {
         },
         child: Scaffold(
           backgroundColor: const Color.fromRGBO(0, 22, 30, 1),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          body: ListView(
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * .18),
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 decoration: const BoxDecoration(
@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
                         scale: 1.65,
                       ),
                     ),
-                    const SizedBox(height: 130),
+                    const SizedBox(height: 40),
                     Padding(
                       padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                       child: Form(
@@ -102,7 +102,7 @@ class _LoginState extends State<Login> {
                           decoration: const InputDecoration(
                             counterText: '',
                             errorStyle: TextStyle(
-                              color: Colors.orange,
+                              color: Colors.red,
                               fontSize: 13,
                             ),
                             border: OutlineInputBorder(),
@@ -133,7 +133,6 @@ class _LoginState extends State<Login> {
                         if (_key.currentState!.validate()) {
                           serciceCAll();
                         }
-                        // api calling
                       },
                       child: const Text(
                         'Submit',

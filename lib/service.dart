@@ -11,7 +11,6 @@ import 'package:sport/model/personal_sport.dart';
 import 'package:sport/model/staff_attendance_model.dart';
 import 'package:sport/utils/enums.dart';
 import 'model/baseresponse.dart';
-import 'model/common_response.dart';
 import 'model/otp_validator.dart';
 import 'model/phone_validator.dart';
 import 'model/request/customer_data.dart';
@@ -19,25 +18,18 @@ import 'model/request/customer_data.dart';
 class ServiceCall {
   ServiceCall() {
     base = 'http://api.sportsb.co.in/api/';
-    headers = {
-      'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA=',
-      'ContentType': 'application/json'
-    };
-    // getDataFromPreference();
   }
-  // late String staffKey = '';
-  // getDataFromPreference() async {
-  //   _prefs.then((value) {
-  //     staffKey = value.getString('staffKey')!;
-  //   });
   // }
 
   late final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late String base;
-  late Map<String, String> headers;
 
 // Category and Batch
   Future<CategoryAndBatch> fetchBatchCatgories() async {
+    var headers = {
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
+      'ContentType': 'application/json'
+    };
     final response = await http.post(
         Uri.parse('$base${EndPoints.staffAcademyCategoryAndBatch.apiValue}'),
         headers: headers,
@@ -55,6 +47,10 @@ class ServiceCall {
 // Customer List Data////////
   Future<CustomerListData> fetchCustomerData(
       {required CustomerDataRequest customerDataRequest}) async {
+    var headers = {
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
+      'ContentType': 'application/json'
+    };
     final response = await http.post(
         Uri.parse('$base${EndPoints.customerListByBatchAndCategory.apiValue}'),
         body: customerDataRequest.toJson(),
@@ -100,7 +96,8 @@ class ServiceCall {
       'ContentType': 'application/json',
       'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6'
     };
-    final response = await http.post(Uri.parse('${base}${EndPoints.guruOTPValidator.apiValue}'),
+    final response = await http.post(
+        Uri.parse('${base}${EndPoints.guruOTPValidator.apiValue}'),
         headers: _header,
         body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
 
@@ -119,8 +116,10 @@ class ServiceCall {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!)
     };
-    final response = await http.post(Uri.parse('${base}${EndPoints.customerListForOut.apiValue}'),
-        headers: _header, body: {});
+    final response = await http.post(
+        Uri.parse('${base}${EndPoints.customerListForOut.apiValue}'),
+        headers: _header,
+        body: {});
 
     if (response.statusCode == 200) {
       print(response.body);
@@ -154,7 +153,6 @@ class ServiceCall {
       throw Exception('failed to load BatchCategories');
     }
   }
-
 
 // Customer Attendance In/////////
   Future<CustomerListOut> attendanceIn({required String customerKey}) async {
@@ -200,7 +198,8 @@ class ServiceCall {
   }
 
 // Customer Attendance /////////
-  Future<List<Attendance>?> fetchAttendance({required String customerkey}) async {
+  Future<List<Attendance>?> fetchAttendance(
+      {required String customerkey}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'customer-key': customerkey
@@ -236,7 +235,6 @@ class ServiceCall {
     }
   }
 
-
 // Profile Data ////////
   Future<PersonalSportModel?> fetchProfileData(String _key) async {
     Map<String, String> _header = {
@@ -264,7 +262,7 @@ class ServiceCall {
 
     final response = await http.post(
         Uri.parse('$base${EndPoints.getStaffAttendanceList.apiValue}'),
-        headers: headers,
+        headers: _header,
         body: {});
 
     if (response.statusCode == 200) {
@@ -286,7 +284,7 @@ class ServiceCall {
         isIn
             ? Uri.parse('$base${EndPoints.setStaffAttendanceOut.apiValue}')
             : Uri.parse('$base${EndPoints.setStaffAttendanceIn.apiValue}'),
-        headers: headers,
+        headers: _header,
         body: {});
 
     if (response.statusCode == 200) {

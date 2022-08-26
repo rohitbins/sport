@@ -91,6 +91,7 @@ class _OtpState extends State<OtpPage> {
                     _val.setString('staffKey', value.data!.staffKey!);
                     _val.setString(
                         'academyLogoURL', value.data!.academyLogoURL!);
+                    _val.setString('name', value.data!.name!);
                   });
                   Navigator.pushReplacement(
                     context,

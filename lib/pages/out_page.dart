@@ -103,9 +103,11 @@ class OutCard extends StatelessWidget {
       },
       child: Card(
         elevation: 6,
-        color: customerData.isPlaying > 0 ? Colors.white : Colors.yellow,
+        color: customerData.isPlaying > 0
+            ? Colors.white
+            : const Color.fromRGBO(6, 41, 74, 1),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20), // if you need this
+          borderRadius: BorderRadius.circular(20),
           side: BorderSide(
             color: Colors.grey.withOpacity(0.2),
             width: 1,
@@ -175,7 +177,11 @@ class OutCard extends StatelessWidget {
               alignment: Alignment.center,
               constraints: const BoxConstraints(maxHeight: 4 * 15.0),
               child: (selectedKey != customerData.customerKey)
-                  ? const Text('Out')
+                  ? const Text('Out',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold))
                   : const Center(
                       child: CircularProgressIndicator(color: Colors.white),
                     ),

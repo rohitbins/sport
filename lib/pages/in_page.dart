@@ -19,7 +19,7 @@ class InPage extends StatefulWidget {
 
 class _InPageState extends State<InPage> {
   late Future<CategoryAndBatch> futureBatchCategories;
-  late CustomerListData futureCustomerData;
+  CustomerListData futureCustomerData = CustomerListData();
 
   List<String> CatBatch = [
     SportType.Category.apiValue,
@@ -70,11 +70,14 @@ class _InPageState extends State<InPage> {
         leading: Container(),
       ),
       body: ListView(children: [
-        if (filtered)
-          SizedBox(
-              height: MediaQuery.of(context).size.height * .9,
-              width: MediaQuery.of(context).size.width * .08,
-              child: CustomerPage(customerListData: futureCustomerData)),
+        filtered
+            ? SizedBox(
+                height: MediaQuery.of(context).size.height * .9,
+                width: MediaQuery.of(context).size.width * .08,
+                child: CustomerPage(customerListData: futureCustomerData))
+            : Padding(
+                padding: EdgeInsets.only(top: 200),
+                child: Center(child: CircularProgressIndicator())),
       ]),
     );
   }
@@ -89,8 +92,8 @@ class _InPageState extends State<InPage> {
     });
   }
 
-  void getCustomerList(int _categoryId, int _batchId) {
-    ServiceCall()
+  void getCustomerList(int _categoryId, int _batchId) async {
+    await ServiceCall()
         .fetchCustomerData(
             customerDataRequest: CustomerDataRequest(
                 batchId: '$_batchId', categoryId: '$_categoryId'))
