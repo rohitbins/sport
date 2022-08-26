@@ -35,7 +35,7 @@ class _OutPageState extends State<OutPage> {
           builder: (context, AsyncSnapshot<CustomerListOut> snapshot) {
             if (snapshot.hasData) {
               return Padding(
-                padding: const EdgeInsets.only(bottom: 110),
+                padding: const EdgeInsets.only(bottom: 0),
                 child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: snapshot.data!.data!.length,

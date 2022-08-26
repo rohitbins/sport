@@ -27,7 +27,7 @@ class _CustomerPageState extends State<CustomerPage>
     return dataList == null
         ? const Center(child: CircularProgressIndicator())
         : Padding(
-            padding: const EdgeInsets.only(bottom: 110),
+            padding: const EdgeInsets.only(bottom: 63),
             child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: dataList.length,

@@ -65,7 +65,7 @@ class _TabBarPageState extends State<TabBarPage>
 
                               return Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 8),
+                                    left: 10, right: 10, top: 3),
                                 child: InkWell(
                                   onTap: () {
                                     setState(() {
@@ -130,7 +130,7 @@ class _TabBarPageState extends State<TabBarPage>
                                   snapshot.data!.data!.batchList![index];
                               return Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 8),
+                                    left: 10, right: 10, top: 3),
                                 child: InkWell(
                                   onTap: () {
                                     setState(() => selectedbatchIndex = index);
