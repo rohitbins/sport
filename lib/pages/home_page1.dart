@@ -79,48 +79,50 @@ class _HomePage1State extends State<HomePage1> {
               })
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
-              attendanceText,
-              style: const TextStyle(fontWeight: FontWeight.w600),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 2.0),
-              height: 90.0,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  AttendanceCard(ampm: 'pm', end: '9:00', start: '8:00'),
-                  AttendanceCard(ampm: 'pm', end: '8:00', start: '7:00'),
-                  AttendanceCard(ampm: 'pm', end: '10:00', start: '9:00'),
-                  AttendanceCard(ampm: 'pm', end: '11:00', start: '10:00'),
-                  AttendanceCard(ampm: 'pm', end: '12:00', start: '11:00'),
-                  AttendanceCard(ampm: 'am', end: '18:00', start: '17:00'),
-                  AttendanceCard(ampm: 'am', end: '19:00', start: '18:00'),
-                  AttendanceCard(ampm: 'am', end: '20:00', start: '19:00'),
-                ],
-              ),
-            ),
+        body: const Center(
+          child:  Text("Coming Soon",
+        style: TextStyle(
+        fontSize: 30,
+        color: Colors.white,
+        shadows: [
+          BoxShadow(
+            color:  Colors.black,
+            offset: Offset(0,0),
+            blurRadius: 50
+          )
+        ]
+         ),
+        ),
+        ),
+             );
+  }
+}
+
+
+
+
+ // Text(
+            //   attendanceText,
+            //   style: const TextStyle(fontWeight: FontWeight.w600),
+            // ),
+            // Container(
+            //   margin: const EdgeInsets.symmetric(vertical: 2.0),
+            //   height: 90.0,
+            //   child: ListView(
+            //     scrollDirection: Axis.horizontal,
+            //     children: <Widget>[
+            //       AttendanceCard(ampm: 'pm', end: '9:00', start: '8:00'),
+            //       AttendanceCard(ampm: 'pm', end: '8:00', start: '7:00'),
+            //       AttendanceCard(ampm: 'pm', end: '10:00', start: '9:00'),
+            //       AttendanceCard(ampm: 'pm', end: '11:00', start: '10:00'),
+            //       AttendanceCard(ampm: 'pm', end: '12:00', start: '11:00'),
+            //       AttendanceCard(ampm: 'am', end: '18:00', start: '17:00'),
+            //       AttendanceCard(ampm: 'am', end: '19:00', start: '18:00'),
+            //       AttendanceCard(ampm: 'am', end: '20:00', start: '19:00'),
+            //     ],
+            //   ),
+            // ),
             
-            const SizedBox(height:150),
-           const Center(
-              child: Text("Coming Soon",
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.white,
-                shadows: [
-                  BoxShadow(
-                    color:  Colors.black,
-                    offset: Offset(0,0),
-                    blurRadius: 50
-                  )
-                ]
-              ),),
-            )
             // Column(
             //     crossAxisAlignment: CrossAxisAlignment.start,
             //     mainAxisAlignment: MainAxisAlignment.center,
@@ -137,9 +139,3 @@ class _HomePage1State extends State<HomePage1> {
             //       ),
             //       SportPie(colorList: colorList, dataSet: attendanceList),
             //     ]),
-               ]),
-               ),
-              ),
-             );
-  }
-}
