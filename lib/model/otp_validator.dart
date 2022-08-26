@@ -30,10 +30,11 @@ class OtpValidator {
 
 @JsonSerializable(explicitToJson: true)
 class OtpData {
-  OtpData({this.academyLogoURL, this.staffKey, this.name});
+  OtpData({this.academyLogoURL, this.staffKey, this.name, this.showFee});
   String? name;
   String? staffKey;
   String? academyLogoURL;
+  bool? showFee;
 
   factory OtpData.fromJson(Map<String, dynamic> json) =>
       _$OtpDataFromJson(json);

@@ -72,46 +72,52 @@ class _MyAttendanceState extends State<MyAttendance> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             !clicked
-                ? ElevatedButton(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Text(staffInside ? 'Out' : 'In'),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        clicked = !clicked;
-                      });
-                      serviceCall
-                          .updateStaffAttendance(isIn: staffInside)
-                          .then((value) {
+                ? Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: ElevatedButton(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+                        child: Text(staffInside ? 'Out' : 'In',
+                        style: const TextStyle(
+                          fontSize: 24
+                        ),),
+                      ),
+                      onPressed: () {
                         setState(() {
-                          if (value!.message == "Done")
-                           staffInside = !staffInside;
                           clicked = !clicked;
                         });
-                        fetchData();
-                      });
-                    })
+                        serviceCall
+                            .updateStaffAttendance(isIn: staffInside)
+                            .then((value) {
+                          setState(() {
+                            if (value!.message == "Done")
+                             staffInside = !staffInside;
+                            clicked = !clicked;
+                          });
+                          fetchData();
+                        });
+                      }),
+                )
                 : const CircularProgressIndicator(),
-            Row(
-              children: [
+            Column(
+                children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 14),
+                  padding: const EdgeInsets.only(right: 20),
                   child: Text(
-                    "Last ${!staffInside ? 'Out' : 'In'} Time : ",
+                    "Last ${!staffInside ? 'Out' : 'In'} ",
                     style: const TextStyle(
-                        letterSpacing: 1.4, fontWeight: FontWeight.bold),
+                        letterSpacing: 1.4),
                   ),
                 ),
-                Column(
-                  children: [
-                    Text(
-                      data.inTime!,
-                    ),
-                    Text(
-                      data.inDate!,
-                      style: const TextStyle(fontSize: 10),
-                ), ],
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Text(
+                    data.inTime!,
+                  ),
+                ),
+                Text(
+                  data.inDate!,
+                  style: const TextStyle(fontSize: 10),
                 ),],
                ),],
                 ),

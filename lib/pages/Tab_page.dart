@@ -82,27 +82,27 @@ class _TabBarPageState extends State<TabBarPage>
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Padding(
+                                       data.sportLogo!=""? Padding(
                                           padding:
-                                              const EdgeInsets.only(left: 20),
+                                              const EdgeInsets.only(left: 20,top: 5,bottom: 5),
                                           child: Image.network(
                                             data.sportLogo,
-                                            height: 50,
-                                            width: 50,
+                                            height: 45,
+                                            width: 45,
                                           ),
+                                        ):const Padding(
+                                          padding: EdgeInsets.only(left: 25,top: 3,bottom: 3),
+                                          child:Icon(Icons.sports,
+                                          size: 40,),
                                         ),
                                         const SizedBox(width: 20),
                                         Expanded(
                                           child: Text(
-                                            data.category +
-                                                ' : ' +
-                                                data.id.toString(),
-                                            style: const TextStyle(
-                                                letterSpacing: 0.6,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                            data.category) 
                                           ),
-                                        ),
+                                        // Expanded(
+                                        //   child: Text(data.id.toString())
+                                        //   ),
                                         if (selectedCatIndex == index)
                                           Container(
                                             alignment: Alignment.center,
@@ -145,27 +145,28 @@ class _TabBarPageState extends State<TabBarPage>
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Padding(
+                                        data.sportLogo!=""?Padding(
                                           padding:
-                                              const EdgeInsets.only(left: 20),
+                                              const EdgeInsets.only(left: 20,top: 5,bottom: 5),
                                           child: Image.network(
                                             data.sportLogo,
-                                            height: 50,
-                                            width: 50,
+                                            height: 45,
+                                            width: 45,
                                           ),
+                                        ): const Padding(
+                                          padding: EdgeInsets.only(left: 23,top: 5,bottom: 5),
+                                          child: Icon(Icons.sports,
+                                          size: 40,),
                                         ),
                                         const SizedBox(width: 20),
                                         Expanded(
                                           child: Text(
-                                            data.batch +
-                                                ' : ' +
-                                                data.id.toString(),
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                letterSpacing: .6,
-                                                fontWeight: FontWeight.bold),
+                                            data.batch )
                                           ),
-                                        ),
+                                          // Expanded(
+                                          //   child: Text(data.id.toString()), 
+                                          // ),
+                                        
                                         if (selectedbatchIndex == index)
                                           Container(
                                             alignment: Alignment.center,
