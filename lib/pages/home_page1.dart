@@ -105,23 +105,38 @@ class _HomePage1State extends State<HomePage1> {
                 ],
               ),
             ),
-            const SizedBox(height: 8),
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    feeText,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  SportPie(colorList: colorList, dataSet: fee),
-                  const SizedBox(height: 10),
-                  Text(
-                    attendanceText,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  SportPie(colorList: colorList, dataSet: attendanceList),
-                ]),
+            
+            const SizedBox(height:150),
+           const Center(
+              child: Text("Coming Soon",
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.white,
+                shadows: [
+                  BoxShadow(
+                    color:  Colors.black,
+                    offset: Offset(0,0),
+                    blurRadius: 50
+                  )
+                ]
+              ),),
+            )
+            // Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         feeText,
+            //         style: const TextStyle(fontWeight: FontWeight.w600),
+            //       ),
+            //       SportPie(colorList: colorList, dataSet: fee),
+            //       const SizedBox(height: 10),
+            //       Text(
+            //         attendanceText,
+            //         style: const TextStyle(fontWeight: FontWeight.w600),
+            //       ),
+            //       SportPie(colorList: colorList, dataSet: attendanceList),
+            //     ]),
                ]),
                ),
               ),
