@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/service.dart';
+import 'package:sport/utils/constants.dart';
 import 'profile/profile.dart';
 
 class OutPage extends StatefulWidget {
@@ -33,36 +34,39 @@ class _OutPageState extends State<OutPage> {
           future: ServiceCall().fetchCustomerOut(),
           builder: (context, AsyncSnapshot<CustomerListOut> snapshot) {
             if (snapshot.hasData) {
-              return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.data!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    CustomerOut data = snapshot.data!.data![index];
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 110),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      CustomerOut data = snapshot.data!.data![index];
 
-                    return OutCard(
-                        callback: (_val) {
-                          setState(() {
-                            clickedKey = _val;
-                          });
-                          Future.delayed(const Duration(seconds: 2))
-                              .then((value) {});
+                      return OutCard(
+                          callback: (_val) {
+                            setState(() {
+                              clickedKey = _val;
+                            });
+                            Future.delayed(const Duration(seconds: 2))
+                                .then((value) {});
 
-                          ServiceCall()
-                              .attendanceOut(key: data.customerKey)
-                              .then((value) {
-                            setState(() {});
-                          });
-                        },
-                        customerData: data,
-                        selectedKey: clickedKey);
-                  });
+                            ServiceCall()
+                                .attendanceOut(key: data.customerKey)
+                                .then((value) {
+                              setState(() {});
+                            });
+                          },
+                          customerData: data,
+                          selectedKey: clickedKey);
+                    }),
+              );
             }
             if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
             return const Center(child: CircularProgressIndicator());
           }),
-          );
+    );
   }
 
   outButton(CustomerOut data) {
@@ -103,9 +107,7 @@ class OutCard extends StatelessWidget {
       },
       child: Card(
         elevation: 6,
-        color: customerData.isPlaying > 0
-            ? Colors.white
-            : Colors.amber.shade700,
+        color: customerData.isPlaying > 0 ? Colors.white : myYellow,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
           side: BorderSide(
@@ -167,8 +169,8 @@ class OutCard extends StatelessWidget {
                     else
                       const Text(''),
                   ]),
-                  ),
-                 ),
+            ),
+          ),
           InkWell(
             onDoubleTap: () => callback(customerData.customerKey),
             onTap: () {},
@@ -179,16 +181,16 @@ class OutCard extends StatelessWidget {
               child: (selectedKey != customerData.customerKey)
                   ? const Text('Out',
                       style: TextStyle(
-                          color: Colors.white,
+                          color: Color.fromRGBO(6, 41, 74, 1),
                           fontSize: 32,
                           fontWeight: FontWeight.bold))
-                     : const Center(
+                  : const Center(
                       child: CircularProgressIndicator(color: Colors.white),
                     ),
-                   ),
-                  ),
-                ]),
-                ),
-               );
+            ),
+          ),
+        ]),
+      ),
+    );
   }
 }

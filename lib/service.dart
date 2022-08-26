@@ -51,6 +51,7 @@ class ServiceCall {
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
       'ContentType': 'application/json'
     };
+    print('headers:${headers.toString()}');
     final response = await http.post(
         Uri.parse('$base${EndPoints.customerListByBatchAndCategory.apiValue}'),
         body: customerDataRequest.toJson(),
@@ -67,7 +68,6 @@ class ServiceCall {
     }
   }
 
-// Phone Validator///////
   Future<PhoneValidator> PhoneValidatorApi(
       {required String phoneNumber}) async {
     Map<String, String> _header = {

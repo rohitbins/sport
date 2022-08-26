@@ -4,8 +4,6 @@ import 'package:sport/model/customer_list.dart';
 import 'package:sport/service.dart';
 import 'package:sport/utils/enums.dart';
 
-
-
 class TabBarPage extends StatefulWidget {
   const TabBarPage({Key? key, required this.callBack}) : super(key: key);
   final Function callBack;
@@ -23,8 +21,11 @@ class _TabBarPageState extends State<TabBarPage>
     SportType.Category.apiValue,
     SportType.Batch.apiValue,
   ];
-  int? selectedCat ;
-  int? selectedbatch;
+  int selectedCatIndex = 0;
+  int selectedbatchIndex = 0;
+  int selectedCatId = 0;
+  int selectedbatchId = 0;
+
   int selectedId = 0;
   @override
   void initState() {
@@ -68,7 +69,8 @@ class _TabBarPageState extends State<TabBarPage>
                                 child: InkWell(
                                   onTap: () {
                                     setState(() {
-                                      selectedCat = index;
+                                      selectedCatIndex = index;
+                                      selectedCatId = data.id;
                                     });
                                   },
                                   child: Card(
@@ -81,7 +83,8 @@ class _TabBarPageState extends State<TabBarPage>
                                           MainAxisAlignment.start,
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(left: 20),
+                                          padding:
+                                              const EdgeInsets.only(left: 20),
                                           child: Image.network(
                                             data.sportLogo,
                                             height: 50,
@@ -91,14 +94,16 @@ class _TabBarPageState extends State<TabBarPage>
                                         const SizedBox(width: 20),
                                         Expanded(
                                           child: Text(
-                                            data.category,
+                                            data.category +
+                                                ' : ' +
+                                                data.id.toString(),
                                             style: const TextStyle(
                                                 letterSpacing: 0.6,
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold),
-                                         ),
+                                          ),
                                         ),
-                                        if (selectedCat == index)
+                                        if (selectedCatIndex == index)
                                           Container(
                                             alignment: Alignment.center,
                                             margin: const EdgeInsets.only(
@@ -108,13 +113,13 @@ class _TabBarPageState extends State<TabBarPage>
                                               border: Border.all(
                                                 width: 10,
                                                 color: Colors.greenAccent,
-                                             ),
+                                              ),
                                             ),
-                                            )
+                                          )
                                       ],
-                                 ),
+                                    ),
+                                  ),
                                 ),
-                               ),
                               );
                             }),
                         ListView.builder(
@@ -128,7 +133,8 @@ class _TabBarPageState extends State<TabBarPage>
                                     left: 10, right: 10, top: 8),
                                 child: InkWell(
                                   onTap: () {
-                                    setState(() => selectedbatch = index);
+                                    setState(() => selectedbatchIndex = index);
+                                    selectedbatchId = selectedbatchId = data.id;
                                   },
                                   child: Card(
                                     elevation: 4,
@@ -140,7 +146,8 @@ class _TabBarPageState extends State<TabBarPage>
                                           MainAxisAlignment.start,
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(left: 20),
+                                          padding:
+                                              const EdgeInsets.only(left: 20),
                                           child: Image.network(
                                             data.sportLogo,
                                             height: 50,
@@ -150,14 +157,16 @@ class _TabBarPageState extends State<TabBarPage>
                                         const SizedBox(width: 20),
                                         Expanded(
                                           child: Text(
-                                            data.batch,
+                                            data.batch +
+                                                ' : ' +
+                                                data.id.toString(),
                                             style: const TextStyle(
                                                 fontSize: 16,
                                                 letterSpacing: .6,
                                                 fontWeight: FontWeight.bold),
-                                         ),
+                                          ),
                                         ),
-                                        if (selectedbatch == index)
+                                        if (selectedbatchIndex == index)
                                           Container(
                                             alignment: Alignment.center,
                                             margin: const EdgeInsets.only(
@@ -168,34 +177,31 @@ class _TabBarPageState extends State<TabBarPage>
                                                 width: 10,
                                                 color: Colors.greenAccent,
                                               ),
-                                             ),
-                                             )
+                                            ),
+                                          )
                                       ],
+                                    ),
+                                  ),
                                 ),
-                               ),
-                              ),
-                             );
+                              );
                             })
-                          ]);
+                      ]);
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
                     return const Center(child: CircularProgressIndicator());
                   }),
-                  ),
-                ]),
-                ),
-               ),
+            ),
+          ]),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          int? category;
-          int? batch;
-           if(selectedCat != null ){ category = _tabController.index == 0 ? selectedCat : 0;}
-           if(selectedbatch != null) { batch = _tabController.index == 1 ? selectedbatch! : 0;}
-           if(batch != null&& category != null) {widget.callBack(category, batch);}
-            Navigator.pop(context);
-          
-          
+          int category = _tabController.index == 0 ? selectedCatId : 0;
+          int batch = _tabController.index == 1 ? selectedbatchId : 0;
+
+          widget.callBack(category, batch);
+          Navigator.pop(context);
         },
         child: const Icon(Icons.search),
       ),

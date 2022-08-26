@@ -80,28 +80,28 @@ class _InPageState extends State<InPage> {
                 padding: EdgeInsets.only(top: 320),
                 child: Center(child: CircularProgressIndicator())),
       ]),
-      );
+    );
   }
 
   void getData() async {
-        ServiceCall().fetchBatchCatgories().then((value) {
-        sports.addAll(value.data!.categoryList!);
-        selectedPerson = sports.first.category;
-        batch.addAll(value.data!.batchList!);
-       _selectedTime = batch.first.batch;
-        setState(() {});
+    ServiceCall().fetchBatchCatgories().then((value) {
+      sports.addAll(value.data!.categoryList!);
+      selectedPerson = sports.first.category;
+      batch.addAll(value.data!.batchList!);
+      _selectedTime = batch.first.batch;
+      setState(() {});
     });
   }
 
   void getCustomerList(int _categoryId, int _batchId) async {
-         await ServiceCall()
+    await ServiceCall()
         .fetchCustomerData(
-         customerDataRequest: CustomerDataRequest(
-         batchId: '$_batchId', categoryId: '$_categoryId'))
+            customerDataRequest: CustomerDataRequest(
+                batchId: '$_batchId', categoryId: '$_categoryId'))
         .then((value) {
-         setState(() {
-         futureCustomerData = value;
-         filtered = true;
+      setState(() {
+        futureCustomerData = value;
+        filtered = true;
       });
     });
   }
