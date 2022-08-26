@@ -4,7 +4,7 @@ import 'package:sport/model/customer_list.dart';
 import 'package:sport/service.dart';
 import 'package:sport/utils/enums.dart';
 
-import '../widget/slot_card.dart';
+
 
 class TabBarPage extends StatefulWidget {
   const TabBarPage({Key? key, required this.callBack}) : super(key: key);
@@ -23,8 +23,8 @@ class _TabBarPageState extends State<TabBarPage>
     SportType.Category.apiValue,
     SportType.Batch.apiValue,
   ];
-  int selectedCat = 0;
-  int selectedbatch = 0;
+  int? selectedCat ;
+  int? selectedbatch;
   int selectedId = 0;
   @override
   void initState() {
@@ -80,16 +80,21 @@ class _TabBarPageState extends State<TabBarPage>
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Image.network(
-                                          data.sportLogo,
-                                          height: 50,
-                                          width: 50,
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 20),
+                                          child: Image.network(
+                                            data.sportLogo,
+                                            height: 50,
+                                            width: 50,
+                                          ),
                                         ),
+                                        const SizedBox(width: 20),
                                         Expanded(
                                           child: Text(
                                             data.category,
                                             style: const TextStyle(
-                                                fontSize: 15,
+                                                letterSpacing: 0.6,
+                                                fontSize: 16,
                                                 fontWeight: FontWeight.bold),
                                          ),
                                         ),
@@ -134,17 +139,21 @@ class _TabBarPageState extends State<TabBarPage>
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Image.network(
-                                          data.sportLogo,
-                                          height: 80,
-                                          width: 50,
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 20),
+                                          child: Image.network(
+                                            data.sportLogo,
+                                            height: 50,
+                                            width: 50,
+                                          ),
                                         ),
+                                        const SizedBox(width: 20),
                                         Expanded(
                                           child: Text(
                                             data.batch,
                                             style: const TextStyle(
                                                 fontSize: 16,
-                                                letterSpacing: .8,
+                                                letterSpacing: .6,
                                                 fontWeight: FontWeight.bold),
                                          ),
                                         ),
@@ -179,11 +188,14 @@ class _TabBarPageState extends State<TabBarPage>
                ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          int category = _tabController.index == 0 ? selectedCat : 0;
-          int batch = _tabController.index == 1 ? selectedbatch : 0;
-
-          widget.callBack(category, batch);
-          Navigator.pop(context);
+          int? category;
+          int? batch;
+           if(selectedCat != null ){ category = _tabController.index == 0 ? selectedCat : 0;}
+           if(selectedbatch != null) { batch = _tabController.index == 1 ? selectedbatch! : 0;}
+           if(batch != null&& category != null) {widget.callBack(category, batch);}
+            Navigator.pop(context);
+          
+          
         },
         child: const Icon(Icons.search),
       ),

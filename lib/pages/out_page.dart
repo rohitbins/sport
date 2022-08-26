@@ -105,7 +105,7 @@ class OutCard extends StatelessWidget {
         elevation: 6,
         color: customerData.isPlaying > 0
             ? Colors.white
-            : const Color.fromRGBO(6, 41, 74, 1),
+            : Colors.amber.shade700,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
           side: BorderSide(

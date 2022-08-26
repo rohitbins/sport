@@ -53,7 +53,7 @@ class _CustomerPageState extends State<CustomerPage>
 }
 
 class InCard extends StatelessWidget {
-  InCard({
+  const InCard({
     Key? key,
     required this.customerData,
     required this.callback,
@@ -81,7 +81,7 @@ class InCard extends StatelessWidget {
         elevation: 6,
         color: customerData.isPlaying! > 0
             ? Colors.white
-            : colors ?? Color.fromRGBO(6, 41, 74, 1),
+            : colors ?? Colors.green,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // if you need this
           side: BorderSide(
