@@ -135,13 +135,21 @@ class OutCard extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w600),
                     ),
-                    Text(
+                    Row(children:[
+                      Text(
                       customerData.categoryType,
                       style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey.shade600,
                           fontWeight: FontWeight.w400),
                     ),
+                    const SizedBox(width: 2),
+                    const Text("|",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16
+                    ),),
+                    const SizedBox(width: 2),
                     Text(
                       customerData.batch.toString(),
                       style: TextStyle(
@@ -149,6 +157,7 @@ class OutCard extends StatelessWidget {
                           color: Colors.grey.shade600,
                           fontWeight: FontWeight.w400),
                     ),
+                    ],),
                     const SizedBox(width: 4),
                     if (customerData.feePending != 0)
                       Row(

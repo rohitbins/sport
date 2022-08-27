@@ -163,9 +163,7 @@ class _TabBarPageState extends State<TabBarPage>
                                           child: Text(
                                             data.batch )
                                           ),
-                                          // Expanded(
-                                          //   child: Text(data.id.toString()), 
-                                          // ),
+                                         
                                         
                                         if (selectedbatchIndex == index)
                                           Container(
@@ -173,10 +171,10 @@ class _TabBarPageState extends State<TabBarPage>
                                             margin: const EdgeInsets.only(
                                                 right: 30),
                                             decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                width: 10,
-                                                color: Colors.greenAccent,
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                            width: 10,
+                                            color: Colors.greenAccent,
                                               ),
                                             ),
                                           )
