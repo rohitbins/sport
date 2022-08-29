@@ -21,8 +21,8 @@ class _TabBarPageState extends State<TabBarPage>
     SportType.Category.apiValue,
     SportType.Batch.apiValue,
   ];
-  int selectedCatIndex = 0;
-  int selectedbatchIndex = 0;
+  int? selectedCatIndex;
+  int? selectedbatchIndex;
   int selectedCatId = 0;
   int selectedbatchId = 0;
 
@@ -74,6 +74,7 @@ class _TabBarPageState extends State<TabBarPage>
                                     });
                                   },
                                   child: Card(
+                                    shadowColor: Colors.red.shade800,
                                     elevation: 5,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
@@ -100,9 +101,7 @@ class _TabBarPageState extends State<TabBarPage>
                                           child: Text(
                                             data.category) 
                                           ),
-                                        // Expanded(
-                                        //   child: Text(data.id.toString())
-                                        //   ),
+                                        
                                         if (selectedCatIndex == index)
                                           Container(
                                             alignment: Alignment.center,
@@ -137,6 +136,7 @@ class _TabBarPageState extends State<TabBarPage>
                                     selectedbatchId = selectedbatchId = data.id;
                                   },
                                   child: Card(
+                                  shadowColor: Colors.red.shade800,
                                     elevation: 4,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
@@ -196,11 +196,12 @@ class _TabBarPageState extends State<TabBarPage>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          int category = _tabController.index == 0 ? selectedCatId : 0;
-          int batch = _tabController.index == 1 ? selectedbatchId : 0;
-
-          widget.callBack(category, batch);
-          Navigator.pop(context);
+          int? category;
+          int? batch;
+           if(selectedCatIndex != null ){ category = _tabController.index == 0 ? selectedCatIndex : 0;}
+           if(selectedbatchIndex != null) { batch = _tabController.index == 1 ? selectedbatchIndex! : 0;}
+           if(batch != null&& category != null) {widget.callBack(category, batch);}
+           Navigator.pop(context);
         },
         child: const Icon(Icons.search),
       ),

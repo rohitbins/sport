@@ -87,15 +87,15 @@ class _OtpState extends State<OtpPage> {
               service.OtpValidatorApi(
                       otp: pin.toString(), phoneNumber: widget.phoneNumber)
                   .then((value) {
-                if (!value.isError) {
-                  _prefs.then((_val) {
+                     if (!value.isError) {
+                    _prefs.then((_val) {
                     _val.setString('staffKey', value.data!.staffKey!);
-                    _val.setString(
-                        'academyLogoURL', value.data!.academyLogoURL!);
+                    _val.setString( 'academyLogoURL', value.data!.academyLogoURL!);
                     _val.setString('name', value.data!.name!);
                     _val.setBool("fees", value.data!.showFee!);
-                  });
-                  Navigator.pushReplacement(
+                  }); 
+                   
+                    Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const MyRoute()),
                   );

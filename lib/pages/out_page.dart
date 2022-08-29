@@ -1,6 +1,7 @@
 // ignore_for_file: dead_code
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/service.dart';
 import 'package:sport/utils/constants.dart';
@@ -15,11 +16,17 @@ class OutPage extends StatefulWidget {
 
 class _OutPageState extends State<OutPage> {
   late CustomerListOut futureCustomerOut;
-
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  bool showFees = false;
   String clickedKey = '';
   @override
   void initState() {
     super.initState();
+     _prefs.then((value) {
+      showFees = 
+      value.getBool(('fees'))!;
+      });
+
   }
 
   @override
@@ -57,7 +64,8 @@ class _OutPageState extends State<OutPage> {
                             });
                           },
                           customerData: data,
-                          selectedKey: clickedKey);
+                          selectedKey: clickedKey,
+                          showFees: showFees,);
                     }),
               );
             }
@@ -88,10 +96,12 @@ class OutCard extends StatelessWidget {
     required this.customerData,
     required this.callback,
     required this.selectedKey,
+    required this.showFees
   }) : super(key: key);
   final CustomerOut customerData;
   final Function callback;
   final String selectedKey;
+  final bool showFees;
 
   @override
   Widget build(BuildContext context) {
@@ -158,8 +168,23 @@ class OutCard extends StatelessWidget {
                           fontWeight: FontWeight.w400),
                     ),
                     ],),
-                    const SizedBox(width: 4),
-                    if (customerData.feePending != 0)
+                    const SizedBox(height: 2),
+                    Row(children: [
+                      const Text("In :",
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.blue
+                      ),),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 3),
+                        child: Text(customerData.inTime,
+                    style: const TextStyle(
+                        fontSize: 12
+                    ),),
+                      ),
+                    ],),
+                    const SizedBox(height: 3),
+                    if (customerData.feePending != 0 && showFees) 
                       Row(
                         children: [
                           const Text(
@@ -202,4 +227,6 @@ class OutCard extends StatelessWidget {
       ),
     );
   }
+  
 }
+
