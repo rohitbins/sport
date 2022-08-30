@@ -1,9 +1,9 @@
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:sport/pages/profile/profile.dart';
 import 'package:sport/utils/constants.dart';
-
 import '../service.dart';
 
 class CustomerPage extends StatefulWidget {
@@ -19,8 +19,17 @@ bool loginin = false;
 
 class _CustomerPageState extends State<CustomerPage>
     with SingleTickerProviderStateMixin {
+       final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+       bool showFees = false;
   String lable = '';
   String clickedKey = '';
+
+  void initState(){
+    super.initState();
+    _prefs.then((value) {
+      showFees = value.getBool(("fees"))!;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     List<CustomerData>? dataList = widget.customerListData.data;
@@ -37,6 +46,7 @@ class _CustomerPageState extends State<CustomerPage>
                   return InCard(
                     customerData: customerData,
                     selectedKey: clickedKey,
+                    showFees : showFees,
                     callback: (String _kay) {
                       setState(() {
                         lable = 'wait...';
@@ -59,6 +69,7 @@ class _CustomerPageState extends State<CustomerPage>
 class InCard extends StatelessWidget {
   const InCard({
     Key? key,
+    required this.showFees,
     required this.customerData,
     required this.callback,
     required this.selectedKey,
@@ -67,6 +78,7 @@ class InCard extends StatelessWidget {
   final CustomerData customerData;
   final Function callback;
   final String selectedKey;
+  final bool showFees;
 
   final Color? colors;
   @override
@@ -135,7 +147,7 @@ class InCard extends StatelessWidget {
                     ),
                     ],),
                     const SizedBox(width: 4),
-                    if (customerData.feePending != 0)
+                    if (customerData.feePending != 0  && showFees)
                       Row(
                         children: [
                           const Text(

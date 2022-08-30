@@ -25,6 +25,7 @@ class _InPageState extends State<InPage> {
     SportType.Category.apiValue,
     SportType.Batch.apiValue,
   ];
+  
   bool filtered = false;
   int selectedCat = 0;
   int selectedbatch = 0;
@@ -94,14 +95,14 @@ class _InPageState extends State<InPage> {
   }
 
   void getCustomerList(int _categoryId, int _batchId) async {
-    await ServiceCall()
-        .fetchCustomerData(
+    await ServiceCall().fetchCustomerData(
             customerDataRequest: CustomerDataRequest(
-                batchId: '$_batchId', categoryId: '$_categoryId'))
-        .then((value) {
-      setState(() {
-        futureCustomerData = value;
-        filtered = true;
+            batchId: '$_batchId', categoryId: '$_categoryId'))
+             .then((value) {
+              setState(() {
+              futureCustomerData = value;
+              filtered = true;       
+             
       });
     });
   }
