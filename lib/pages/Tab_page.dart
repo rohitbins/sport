@@ -101,6 +101,8 @@ class _TabBarPageState extends State<TabBarPage>
                                           child: Text(
                                             data.category) 
                                           ),
+                                          
+                                          // Text(data.id.toString()),
                                         
                                         if (selectedCatIndex == index)
                                           Container(
@@ -163,6 +165,7 @@ class _TabBarPageState extends State<TabBarPage>
                                           child: Text(
                                             data.batch )
                                           ),
+                                          // Text(data.id.toString()),
                                          
                                         
                                         if (selectedbatchIndex == index)

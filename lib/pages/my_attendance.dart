@@ -242,6 +242,7 @@ class _MyAttendanceState extends State<MyAttendance> {
            ),
          ]),
          );
+         
   }
 
   String getHours(String duration) {
