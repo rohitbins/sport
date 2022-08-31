@@ -148,7 +148,7 @@ class InCard extends StatelessWidget {
                     ],),
                     //&& showFees
                     const SizedBox(width: 4),
-                    if (customerData.feePending != 0 ) 
+                    if (customerData.feePending != 0  ) 
                       Row(
                         children:const [
                           Text("Fee Pending",

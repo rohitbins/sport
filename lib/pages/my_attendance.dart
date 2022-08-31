@@ -14,6 +14,7 @@ class MyAttendance extends StatefulWidget {
 class _MyAttendanceState extends State<MyAttendance> {
   StaffAttendanceModel staffAttendanceModel = StaffAttendanceModel();
   ServiceCall serviceCall = ServiceCall();
+  
 
   @override
   void initState() {
@@ -47,8 +48,10 @@ class _MyAttendanceState extends State<MyAttendance> {
               itemCount: staffAttendanceModel.data!.length,
               itemBuilder: (BuildContext context, int index) {
                 if (index == 0) {
+
                   staffInside =
-                      (staffAttendanceModel.data![index].inTime != '' &&
+                      (
+                        // staffAttendanceModel.data![index].inTime != '' &&
                           staffAttendanceModel.data![index].outTime == '');
                   return _todays(staffAttendanceModel.data![index]);
                 }
@@ -112,9 +115,11 @@ class _MyAttendanceState extends State<MyAttendance> {
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Text(
-                    data.inTime!,
+                    (staffInside)? "${data.inTime}" : "${data.outTime}",
+                    // data.outTime!,
                   ),
                 ),
+
                 Text(
                   data.inDate!,
                   style: const TextStyle(fontSize: 10),
@@ -179,7 +184,7 @@ class _MyAttendanceState extends State<MyAttendance> {
                   )
                 ]),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 7),
           RichText(
             text: TextSpan(
                 text: 'OUT : ',
@@ -196,6 +201,16 @@ class _MyAttendanceState extends State<MyAttendance> {
                           fontSize: 14))
                 ]),
           ),
+          const SizedBox(height: 7),
+          Row(
+            children: [
+              
+              Text(data.outDate.toString(),
+              style: const TextStyle(
+              fontWeight: FontWeight.bold
+              ),),
+            ],
+          )
         ]),
         if (data.totalInTime != '')
           Expanded(

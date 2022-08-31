@@ -15,7 +15,7 @@ class Payments extends StatefulWidget {
   class _PaymentsState extends State<Payments> {
   @override
   Widget build(BuildContext context) {
-    print('jjjjj:${widget.customerkey}');
+    
     return Scaffold(
         body: FutureBuilder<List<Payment>?>(
             future: ServiceCall().fetchPayment( customerkey: widget.customerkey),

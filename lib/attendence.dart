@@ -17,6 +17,7 @@ class Attendence extends StatefulWidget {
 class _AttendenceState extends State<Attendence> {
   String rowIndex = '0';
   bool hasMore = true, isLoading = false;
+  bool duration = false;
   List<Attendance>? fetchList = [];
   final controller = ScrollController();
 
@@ -76,6 +77,8 @@ class _AttendenceState extends State<Attendence> {
                         ),
                       );
                     } else if (index < fetchList!.length) {
+                      
+                      duration = fetchList![index].duration == "Playing Now";
                       return Column(children: [
                         const SizedBox(height: 20),
                         Container(
@@ -151,82 +154,78 @@ class _AttendenceState extends State<Attendence> {
                                                )
                                       : const Text(''),
                                            ]),
-
-                                           (fetchList![index].duration.toUpperCase == "PLAYINGNOW" 
-                                           ||fetchList![index].duration.toUpperCase == "PLAYING NOW")? Text("Playing Now") :
-
-                                          Expanded(
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.only(left: 50),
-                                                  child: Text(fetchList![index].duration,
-                                                  style: const TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold
-                                                  ),),
-                                                )
-                                              ],
-                                            )
-                                            )
-                            // Expanded(
-                            //     child:
+                                            (!duration) ?  
+                                                                  Expanded(
+                                child:
                                    
-                            //         Row(
-                            //             mainAxisAlignment:
-                            //             MainAxisAlignment.center,
-                            //             children: [
-                            //       const SizedBox(width: 30),
-                            //       Column(children: [
-                            //         Text(
-                            //           playDuration(fetchList![index].duration)
-                            //               .first,
-                            //             style: const TextStyle(
-                            //             fontSize: 20,
-                            //             fontWeight: FontWeight.bold,
-                            //             color: Color.fromRGBO(41, 128, 185, 1),
-                            //           ),
-                            //         ),
-                            //         const Text(
-                            //           'Hr',
-                            //               style: TextStyle(
-                            //               color: Colors.grey,
-                            //               fontWeight: FontWeight.bold),
-                            //         )
-                            //       ]),
-                            //       const SizedBox(width: 7),
-                            //       Column(children: const [
-                            //         Text(
-                            //           ':',
-                            //           style: TextStyle(
-                            //               fontSize: 25,
-                            //               fontWeight: FontWeight.bold),
-                            //         ),
-                            //         SizedBox(height: 20)
-                            //       ]),
-                            //       const SizedBox(width: 7),
-                            //       Column(children: [
-                            //         Text(
-                            //           playDuration(fetchList![index].duration)
-                            //               .last,
-                            //           style: const TextStyle(
-                            //               fontSize: 20,
-                            //               fontWeight: FontWeight.bold,
-                            //               color: Colors.black54),
-                            //         ),
-                            //         const Text(
-                            //           'Min',
-                            //           style: TextStyle(
-                            //               color: Colors.grey,
-                            //               fontWeight: FontWeight.bold),
-                            //         )
-                            //      ]),
-                            //      ])
+                                    Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: [
+                                  const SizedBox(width: 30),
+                                  Column(children: [
+                                    Text(
+                                      playDuration(fetchList![index].duration)
+                                          .first,
+                                        style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromRGBO(41, 128, 185, 1),
+                                      ),
+                                    ),
+                                    const Text(
+                                      'Hr',
+                                          style: TextStyle(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ]),
+                                  const SizedBox(width: 7),
+                                  Column(children: const [
+                                    Text(
+                                      ':',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(height: 20)
+                                  ]),
+                                  const SizedBox(width: 7),
+                                  Column(children: [
+                                    Text(
+                                      playDuration(fetchList![index].duration)
+                                          .last,
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black54),
+                                    ),
+                                    const Text(
+                                      'Min',
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                 ]),
+                                 ])
                                
-                            //     )
+                                ): const Padding(
+                                  padding: EdgeInsets.only(left: 60),
+                                  child: Text("Playing Now",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold
+
+                                  ),
+                                  ),
+                                )
                              ]),
                              ),
                            ]);
+
+
+                                         
+    
                     } else {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 25),
