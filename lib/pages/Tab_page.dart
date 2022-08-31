@@ -71,11 +71,11 @@ class _TabBarPageState extends State<TabBarPage> //state class
                           shadowColor: Colors.grey,
                           elevation: 2,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(12)),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              data.sportLogo != ""
+                          data.sportLogo != ""
                                   ? Padding(
                                       padding: const EdgeInsets.only(
                                           left: 20, top: 5, bottom: 5),
@@ -95,7 +95,7 @@ class _TabBarPageState extends State<TabBarPage> //state class
                                     ),
                               const SizedBox(width: 20),
                               Expanded(child: Text(data.batch)),
-                              Text(data.id.toString()),
+                              // Text(data.id.toString()),
                               if (selectedbatchIndex == index)
                                 Container(
                                   alignment: Alignment.center,
@@ -158,7 +158,7 @@ class _TabBarPageState extends State<TabBarPage> //state class
                                       ),
                                 const SizedBox(width: 20),
                                 Expanded(child: Text(data.category)),
-                                Text(data.id.toString()),
+                                // Text(data.id.toString()),
                                 if (selectedCatIndex == index)
                                   Container(
                                     alignment: Alignment.center,

@@ -79,8 +79,8 @@ class InCard extends StatelessWidget {
   final Function callback;
   final String selectedKey;
   final bool showFees;
-
   final Color? colors;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
