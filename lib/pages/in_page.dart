@@ -25,26 +25,29 @@ class _InPageState extends State<InPage> {
     SportType.Category.apiValue,
     SportType.Batch.apiValue,
   ];
-  
-  bool filtered = false;
-  int selectedCat = 0;
-  int selectedbatch = 0;
+
   int SelectedId = 0;
 
   String? selectedPerson;
   List<Category> sports = [];
 
-  // ignore: unused_field
-  String? _selectedTime;
   final List<Batch> batch = [];
-  int selecteCat = 0;
-  int selectedBatch = 0;
+  int selecteCatId = 0;
+  int selectedBatchId = 0;
+  CategoryAndBatch categoryAndBatch = CategoryAndBatch();
 
   @override
   void initState() {
     super.initState();
+    getBatchCatgories();
     getCustomerList(0, 0);
     getData();
+  }
+
+  void getBatchCatgories() async {
+    categoryAndBatch = await ServiceCall().fetchBatchCatgories();
+
+    setState(() {});
   }
 
   @override
@@ -57,12 +60,15 @@ class _InPageState extends State<InPage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          TabBarPage(callBack: (category, batc) {
-                        futureCustomerData.data!.clear();
-                        setState(() {});
-                        getCustomerList(category, batc);
-                      }),
+                      builder: (context) => TabBarPage(
+                          data: categoryAndBatch,
+                          callBack: (category, batc) {
+                            futureCustomerData.data!.clear();
+                            selecteCatId = category;
+                            selectedBatchId = batc;
+                            setState(() {});
+                            getCustomerList(category, batc);
+                          }),
                     ));
               },
               icon: const Icon(Icons.filter_alt)),
@@ -71,15 +77,39 @@ class _InPageState extends State<InPage> {
         centerTitle: true,
         leading: Container(),
       ),
-      body: ListView(children: [
-        filtered
-            ? SizedBox(
-                height: MediaQuery.of(context).size.height * .9,
-                width: MediaQuery.of(context).size.width * .08,
-                child: CustomerPage(customerListData: futureCustomerData))
-            : const Padding(
-                padding: EdgeInsets.only(top: 320),
-                child: Center(child: CircularProgressIndicator())),
+      body: ListView(physics: const NeverScrollableScrollPhysics(), children: [
+        if (categoryAndBatch.data != null)
+          SizedBox(
+            height: MediaQuery.of(context).size.height * .06,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                Chip(
+                  backgroundColor: Colors.white,
+                  avatar: const CircleAvatar(
+                    backgroundColor: Colors.green,
+                    child: Icon(Icons.check_circle, color: Colors.white),
+                  ),
+                  label: Text((categoryAndBatch.data!.batchList!.firstWhere(
+                      (element) => element.id == selectedBatchId)).batch),
+                ),
+                Chip(
+                  backgroundColor: Colors.white,
+                  avatar: const CircleAvatar(
+                    backgroundColor: Colors.green,
+                    child: Icon(Icons.check_circle, color: Colors.white),
+                  ),
+                  label: Text((categoryAndBatch.data!.categoryList!
+                          .firstWhere((element) => element.id == selecteCatId))
+                      .category),
+                ),
+              ],
+            ),
+          ),
+        const Divider(),
+        SizedBox(
+            height: MediaQuery.of(context).size.height * .8,
+            child: CustomerPage(customerListData: futureCustomerData)),
       ]),
     );
   }
@@ -89,20 +119,18 @@ class _InPageState extends State<InPage> {
       sports.addAll(value.data!.categoryList!);
       selectedPerson = sports.first.category;
       batch.addAll(value.data!.batchList!);
-      _selectedTime = batch.first.batch;
       setState(() {});
     });
   }
 
   void getCustomerList(int _categoryId, int _batchId) async {
-    await ServiceCall().fetchCustomerData(
+    await ServiceCall()
+        .fetchCustomerData(
             customerDataRequest: CustomerDataRequest(
-            batchId: '$_batchId', categoryId: '$_categoryId'))
-             .then((value) {
-              setState(() {
-              futureCustomerData = value;
-              filtered = true;       
-             
+                batchId: '$_batchId', categoryId: '$_categoryId'))
+        .then((value) {
+      setState(() {
+        futureCustomerData = value;
       });
     });
   }

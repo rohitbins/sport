@@ -35,12 +35,12 @@ class _MyAttendanceState extends State<MyAttendance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         title: const Text(
           "My Attendance",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
-          centerTitle: true,
+        centerTitle: true,
       ),
       body: staffAttendanceModel.data != null
           ? ListView.builder(
@@ -57,7 +57,7 @@ class _MyAttendanceState extends State<MyAttendance> {
             )
           : const Center(
               child: CircularProgressIndicator(),
-     ),
+            ),
     );
   }
 
@@ -73,40 +73,40 @@ class _MyAttendanceState extends State<MyAttendance> {
           children: [
             !clicked
                 ? Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: ElevatedButton(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 12),
-                        child: Text(staffInside ? 'Out' : 'In',
-                        style: const TextStyle(
-                          fontSize: 24
-                        ),),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          clicked = !clicked;
-                        });
-                        serviceCall
-                            .updateStaffAttendance(isIn: staffInside)
-                            .then((value) {
+                    padding: const EdgeInsets.only(left: 15),
+                    child: ElevatedButton(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 12),
+                          child: Text(
+                            staffInside ? 'In' : 'Out',
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                        ),
+                        onPressed: () {
                           setState(() {
-                            if (value!.message == "Done")
-                             staffInside = !staffInside;
                             clicked = !clicked;
                           });
-                          fetchData();
-                        });
-                      }),
-                )
+                          serviceCall
+                              .updateStaffAttendance(isIn: staffInside)
+                              .then((value) {
+                            setState(() {
+                              if (value!.message == "Done")
+                                staffInside = !staffInside;
+                              clicked = !clicked;
+                            });
+                            fetchData();
+                          });
+                        }),
+                  )
                 : const CircularProgressIndicator(),
             Column(
-                children: [
+              children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Text(
-                    "Last ${!staffInside ? 'Out' : 'In'} ",
-                    style: const TextStyle(
-                        letterSpacing: 1.4),
+                    "Last ${staffInside ? 'Out' : 'In'}",
+                    style: const TextStyle(letterSpacing: 1.4),
                   ),
                 ),
                 Padding(
@@ -118,11 +118,13 @@ class _MyAttendanceState extends State<MyAttendance> {
                 Text(
                   data.inDate!,
                   style: const TextStyle(fontSize: 10),
-                ),],
-               ),],
                 ),
-               ),
-              );
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget myCard(StaffData data) {
@@ -156,7 +158,7 @@ class _MyAttendanceState extends State<MyAttendance> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
-           ),
+            ),
           ),
         Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
           RichText(
@@ -168,15 +170,15 @@ class _MyAttendanceState extends State<MyAttendance> {
                     fontSize: 14),
                 children: [
                   TextSpan(
-                      text: data.inTime,
-                      style: const TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                   ),
-                   )
+                    text: data.inTime,
+                    style: const TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  )
                 ]),
-                ),
+          ),
           const SizedBox(height: 20),
           RichText(
             text: TextSpan(
@@ -192,57 +194,55 @@ class _MyAttendanceState extends State<MyAttendance> {
                           color: Colors.amber,
                           fontWeight: FontWeight.bold,
                           fontSize: 14))
-         ]),
-         ),
-       ]),
+                ]),
+          ),
+        ]),
         if (data.totalInTime != '')
           Expanded(
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const SizedBox(width: 30),
-            Column(children: [
-              Text(
-                getHours(data.totalInTime!),
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(41, 128, 185, 1),
-               ),
-              ),
-              const Text(
-                'Hr',
-                style:
-                    TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
-               )
-            ]),
-            const SizedBox(width: 7),
-            Column(children: const [
-              Text(
-                ':',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 20)
-            ]),
-            const SizedBox(width: 7),
-            Column(children: [
-              Text(
-                getMinuts(data.totalInTime!),
-                style: const TextStyle(
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              const SizedBox(width: 30),
+              Column(children: [
+                Text(
+                  getHours(data.totalInTime!),
+                  style: const TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black54),
-              ),
-              const Text(
-                'Min',
-                style:
-                    TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
-              ),
+                    color: Color.fromRGBO(41, 128, 185, 1),
+                  ),
+                ),
+                const Text(
+                  'Hr',
+                  style: TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.bold),
+                )
+              ]),
+              const SizedBox(width: 7),
+              Column(children: const [
+                Text(
+                  ':',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 20)
+              ]),
+              const SizedBox(width: 7),
+              Column(children: [
+                Text(
+                  getMinuts(data.totalInTime!),
+                  style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black54),
+                ),
+                const Text(
+                  'Min',
+                  style: TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.bold),
+                ),
+              ]),
             ]),
-           ]),
-           ),
-         ]),
-         );
-         
+          ),
+      ]),
+    );
   }
 
   String getHours(String duration) {

@@ -59,94 +59,91 @@ class _LoginState extends State<Login> {
         child: Scaffold(
           backgroundColor: const Color.fromRGBO(0, 22, 30, 1),
           body: ListView(
-            padding:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height * .18),
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-                child: Form(
-                  key: _key,
-                  child: Column(children: [
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 50),
-                      child: Image.asset(
-                        'assets/images/ffSportsLogoGuru.png',
-                        scale: 1.65,
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * .18),
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  child: Form(
+                    key: _key,
+                    child: Column(children: [
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50),
+                        child: Image.asset(
+                          'assets/images/ffSportsLogoGuru.png',
+                          scale: 1.65,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 40),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-                      child: Form(
-                        autovalidateMode: AutovalidateMode.always,
-                        child: TextFormField(
-                          smartDashesType: SmartDashesType.enabled,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 18),
-                          controller: _phoneController,
-                          keyboardType: TextInputType.phone,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (value) {
-                            return value!.length != 10
-                                ? 'Please enter Phone Number'
-                                : null;
-                          },
-                          maxLength: 10,
-                          decoration: const InputDecoration(
-                            counterText: '',
-                            errorStyle: TextStyle(
-                              color: Colors.red,
-                              fontSize: 13,
+                      const SizedBox(height: 40),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                        child: Form(
+                          autovalidateMode: AutovalidateMode.always,
+                          child: TextFormField(
+                            smartDashesType: SmartDashesType.enabled,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 18),
+                            controller: _phoneController,
+                            keyboardType: TextInputType.phone,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              return value!.length != 10
+                                  ? 'Please enter Phone Number'
+                                  : null;
+                            },
+                            maxLength: 10,
+                            decoration: const InputDecoration(
+                              counterText: '',
+                              errorStyle: TextStyle(
+                                color: Colors.red,
+                                fontSize: 13,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelStyle: TextStyle(
+                                color: Colors.white38,
+                                fontSize: 16,
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                color: Colors.white,
+                              )),
+                              hintText: 'Enter number here',
+                              hintStyle: TextStyle(color: Colors.white),
+                              labelText: 'Phone Number',
                             ),
-                            border: OutlineInputBorder(),
-                            labelStyle: TextStyle(
-                              color: Colors.white38,
-                              fontSize: 16,
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Colors.white,
-                            )),
-                            hintText: 'Enter number here',
-                            hintStyle: TextStyle(color: Colors.white),
-                            labelText: 'Phone Number',
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 50),
-                    TextButton(
-                      style: ButtonStyle(
-                          backgroundColor: pressed
-                              ? MaterialStateProperty.all<Color>(Colors.black)
-                              : MaterialStateProperty.all<Color>(
-                                  Colors.white24)),
-                      onPressed: () async {
-                        pressed = true;
-                        if (_key.currentState!.validate()) {
-                          serciceCAll();
-                        }
-                      },
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
+                      const SizedBox(height: 50),
+                      TextButton(
+                        style: ButtonStyle(
+                            backgroundColor: pressed
+                                ? MaterialStateProperty.all<Color>(Colors.black)
+                                : MaterialStateProperty.all<Color>(
+                                    Colors.white24)),
+                        onPressed: () async {
+                          pressed = true;
+                          if (_key.currentState!.validate()) {
+                            serciceCAll();
+                          }
+                        },
+                        child: const Text(
+                          'Submit',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ),
-                    ),
-                  ]),
+                    ]),
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ]),
         ),
       ),
     );
