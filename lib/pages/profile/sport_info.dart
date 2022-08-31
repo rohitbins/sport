@@ -253,93 +253,93 @@ class _SportInfoState extends State<SportInfo> {
                         ],
                       ),
                     ),
-                    const Divider(thickness: 2),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.currency_rupee),
-                          const SizedBox(width: 30),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'TotalFee:',
-                                style: TextStyle(fontSize: 14),
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              Text(
-                                info.totalFee!.toString(),
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    const Divider(thickness: 2),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.discount_outlined),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Discount:',
-                                style: TextStyle(fontSize: 14),
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              Text(
-                                info.discount!.toString().isEmpty
-                                    ? "N/A"
-                                    : info.discount!.toString(),
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    const Divider(thickness: 2),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.currency_rupee),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'FinalFee:',
-                                style: TextStyle(fontSize: 14),
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              Text(
-                                info.finalFee!.toString(),
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                    // const Divider(thickness: 2),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
+                    //   child: Row(
+                    //     children: [
+                    //       const Icon(Icons.currency_rupee),
+                    //       const SizedBox(width: 30),
+                    //       Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           const Text(
+                    //             'TotalFee:',
+                    //             style: TextStyle(fontSize: 14),
+                    //           ),
+                    //           const SizedBox(
+                    //             height: 2,
+                    //           ),
+                    //           Text(
+                    //             info.totalFee!.toString(),
+                    //             style: const TextStyle(
+                    //                 fontSize: 18, fontWeight: FontWeight.bold),
+                    //           )
+                    //         ],
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
+                    // const Divider(thickness: 2),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
+                    //   child: Row(
+                    //     children: [
+                    //       const Icon(Icons.discount_outlined),
+                    //       const SizedBox(
+                    //         width: 30,
+                    //       ),
+                    //       Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           const Text(
+                    //             'Discount:',
+                    //             style: TextStyle(fontSize: 14),
+                    //           ),
+                    //           const SizedBox(
+                    //             height: 2,
+                    //           ),
+                    //           Text(
+                    //             info.discount!.toString().isEmpty
+                    //                 ? "N/A"
+                    //                 : info.discount!.toString(),
+                    //             style: const TextStyle(
+                    //                 fontSize: 18, fontWeight: FontWeight.bold),
+                    //           )
+                    //         ],
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
+                    // const Divider(thickness: 2),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
+                    //   child: Row(
+                    //     children: [
+                    //       const Icon(Icons.currency_rupee),
+                    //       const SizedBox(
+                    //         width: 30,
+                    //       ),
+                    //       Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           const Text(
+                    //             'FinalFee:',
+                    //             style: TextStyle(fontSize: 14),
+                    //           ),
+                    //           const SizedBox(
+                    //             height: 2,
+                    //           ),
+                    //           Text(
+                    //             info.finalFee!.toString(),
+                    //             style: const TextStyle(
+                    //                 fontSize: 18, fontWeight: FontWeight.bold),
+                    //           )
+                    //         ],
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
                     const Divider(thickness: 2),
                   ],
                 ),

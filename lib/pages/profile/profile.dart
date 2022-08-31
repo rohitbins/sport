@@ -64,10 +64,10 @@ class _ProfileState extends State<Profile> {
                   icon: Icon(Icons.access_time),
                   label: 'Attendence',
                   backgroundColor: Colors.blueGrey),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.payment),
-                  label: 'Fees',
-                  backgroundColor: Colors.blueGrey),
+              // BottomNavigationBarItem(
+              //     icon: Icon(Icons.payment),
+              //     label: 'Fees',
+              //     backgroundColor: Colors.blueGrey),
             ],
             onTap: (index) {
               setState(() {

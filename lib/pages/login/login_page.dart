@@ -21,6 +21,7 @@ class _LoginState extends State<Login> {
   bool _invalid = false;
   bool ready = false;
   bool pressed = false;
+  bool isLoading = false;
 
   Future<bool?> showWarning(BuildContext context) async => showDialog<bool>(
       context: context,
@@ -134,8 +135,11 @@ class _LoginState extends State<Login> {
                           if (_key.currentState!.validate()) {
                             serciceCAll();
                           }
+                          setState(() {
+                            isLoading = true;
+                          });
                         },
-                        child: const Text(
+                        child: (isLoading)? const CircularProgressIndicator():const Text(
                           'Submit',
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),

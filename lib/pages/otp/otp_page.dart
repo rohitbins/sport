@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../service.dart';
 import '../router.dart';
 
@@ -16,6 +15,7 @@ class OtpPage extends StatefulWidget {
 }
 
 class _OtpState extends State<OtpPage> {
+  bool isLoading = false;
   bool error = false;
   ServiceCall service = ServiceCall();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -45,6 +45,7 @@ class _OtpState extends State<OtpPage> {
             ),
           ),
           const SizedBox(height: 20),
+          isLoading? const CircularProgressIndicator():
           Text(
             'Enter OTP code sent to your number',
             style:

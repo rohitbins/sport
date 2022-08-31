@@ -146,28 +146,30 @@ class InCard extends StatelessWidget {
                           fontWeight: FontWeight.w400),
                     ),
                     ],),
+                    //&& showFees
                     const SizedBox(width: 4),
-                    if (customerData.feePending != 0  && showFees)
+                    if (customerData.feePending != 0 ) 
                       Row(
-                        children: [
-                          const Text(
-                            "Fee Pending",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                          Text(
-                            '(*${customerData.feePending})',
-                            style: const TextStyle(
-                                color: Colors.red,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ],
+                        children:const [
+                          Text("Fee Pending",
+                          style: TextStyle(
+                            color: Colors.red
+                          ), ),
+                          //   Text(
+                          //   '(*${customerData.feePending})',
+                          //       style: const TextStyle(
+                          //       color: Colors.red,
+                          //       fontSize: 10,
+                          //       fontWeight: FontWeight.w600),
+                          // ),  
+                           
+                         ],
                       )
-                    else
+                    else 
                       const Text(''),
-                  ]),
+            ]),
             ),
-          ),
+           ),
           InkWell(
             onDoubleTap: () => callback(customerData.customerKey),
             onTap: () {},

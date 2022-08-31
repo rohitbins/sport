@@ -183,44 +183,64 @@ class OutCard extends StatelessWidget {
                     ),),
                       ),
                     ],),
+                    //&& showFees
                     const SizedBox(height: 3),
-                    if (customerData.feePending != 0 && showFees) 
+                    if (customerData.feePending != 0 ) 
                       Row(
-                        children: [
-                          const Text(
-                            "Fee Pending",
-                            style: TextStyle(fontSize: 12),
-                          ),
+                        children: const[
                           Text(
-                            '(*${customerData.feePending})',
-                            style: const TextStyle(
-                                color: Colors.red,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600),
+                            "Fee Pending",
+                            style: TextStyle(fontSize: 12,color: Colors.red),
                           ),
+                          // Text(
+                          //   '(*${customerData.feePending})',
+                          //   style: const TextStyle(
+                          //       color: Colors.red,
+                          //       fontSize: 10,
+                          //       fontWeight: FontWeight.w600),
+                          // ),
                         ],
                       )
                     else
                       const Text(''),
                   ]),
-            ),
-          ),
+                  ),
+                 ),
           InkWell(
             onDoubleTap: () => callback(customerData.customerKey),
             onTap: () {},
             child: Container(
               width: 80,
               alignment: Alignment.center,
-              constraints: const BoxConstraints(maxHeight: 4 * 15.0),
-              child: (selectedKey != customerData.customerKey)
+              constraints: const BoxConstraints(maxHeight: 5.5 * 15.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  (selectedKey != customerData.customerKey)
                   ? const Text('Out',
-                      style: TextStyle(
-                          color: Color.fromRGBO(6, 41, 74, 1),
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold))
+                    style: TextStyle(
+                    color: Color.fromRGBO(6, 41, 74, 1),
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold))
                   : const Center(
-                      child: CircularProgressIndicator(color: Colors.white),
-                    ),
+                child: CircularProgressIndicator(color: Colors.white),
+               ),
+                
+                (customerData.totalPlay.toString() == '')? const SizedBox():
+               Column(
+                 children: [
+                   Text(customerData.totalPlay.toString()),
+                   const Text("Hr : Min",
+                style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold
+               ),)
+                 ],
+              ),
+
+               
+                ],
+              )
             ),
           ),
         ]),
