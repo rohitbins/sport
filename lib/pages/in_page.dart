@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/category_batch.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:sport/pages/Tab_page.dart';
@@ -20,6 +21,8 @@ class InPage extends StatefulWidget {
 class _InPageState extends State<InPage> {
   late Future<CategoryAndBatch> futureBatchCategories;
   CustomerListData futureCustomerData = CustomerListData();
+   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+       bool showFees = false;
 
   List<String> CatBatch = [
     SportType.Category.apiValue,
@@ -39,6 +42,7 @@ class _InPageState extends State<InPage> {
   @override
   void initState() {
     super.initState();
+  
     getBatchCatgories();
     getCustomerList(0, 0);
     getData();
@@ -108,7 +112,7 @@ class _InPageState extends State<InPage> {
           ),
         const Divider(),
         SizedBox(
-            height: MediaQuery.of(context).size.height * .8,
+            height: MediaQuery.of(context).size.height * .9,
             child: CustomerPage(customerListData: futureCustomerData)),
       ]),
     );
@@ -127,7 +131,7 @@ class _InPageState extends State<InPage> {
     await ServiceCall()
         .fetchCustomerData(
             customerDataRequest: CustomerDataRequest(
-                batchId: '$_batchId', categoryId: '$_categoryId'))
+             batchId: '$_batchId', categoryId: '$_categoryId'))
         .then((value) {
       setState(() {
         futureCustomerData = value;

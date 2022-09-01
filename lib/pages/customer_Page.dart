@@ -28,6 +28,9 @@ class _CustomerPageState extends State<CustomerPage>
     super.initState();
     _prefs.then((value) {
       showFees = value.getBool(("fees"))!;
+      setState(() {
+        
+      });
     });
   }
   @override
@@ -89,6 +92,7 @@ class InCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => Profile(
+                      showFees: showFees,
                       name: customerData.name!,
                       customerKey: customerData.customerKey!,
                     )));

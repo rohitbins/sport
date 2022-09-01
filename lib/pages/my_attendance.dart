@@ -44,20 +44,30 @@ class _MyAttendanceState extends State<MyAttendance> {
         centerTitle: true,
       ),
       body: staffAttendanceModel.data != null
-          ? ListView.builder(
-              itemCount: staffAttendanceModel.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 0) {
+          ? ListView(
+           physics: const NeverScrollableScrollPhysics(),
+            children: [
+                 _todays(staffAttendanceModel.data![0]),
+                   ListView.builder(
+                shrinkWrap: true,
+                  itemCount: staffAttendanceModel.data!.length,
+                  itemBuilder: (BuildContext context, int index) {         
+                     
 
-                  staffInside =
-                      (
-                        // staffAttendanceModel.data![index].inTime != '' &&
-                          staffAttendanceModel.data![index].outTime == '');
-                  return _todays(staffAttendanceModel.data![index]);
-                }
-                return myCard(staffAttendanceModel.data![index]);
-              },
-            )
+             
+                    // if (index == 0) {
+
+                    //   staffInside =
+                    //       (
+                    //         // staffAttendanceModel.data![index].inTime != '' &&
+                    //           staffAttendanceModel.data![0].outTime == '');
+                    //   return _todays(staffAttendanceModel.data![0]);
+                    // }
+                    return myCard(staffAttendanceModel.data![index]);
+                  },
+                ),
+            ],
+          )
           : const Center(
               child: CircularProgressIndicator(),
             ),
@@ -82,7 +92,7 @@ class _MyAttendanceState extends State<MyAttendance> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 12),
                           child: Text(
-                            staffInside ? 'In' : 'Out',
+                            ! staffInside ? 'In' : 'Out',
                             style: const TextStyle(fontSize: 24),
                           ),
                         ),
@@ -108,7 +118,7 @@ class _MyAttendanceState extends State<MyAttendance> {
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Text(
-                    "Last ${staffInside ? 'Out' : 'In'}",
+                    "Last ${!staffInside ? 'Out' : 'In'}",
                     style: const TextStyle(letterSpacing: 1.4),
                   ),
                 ),

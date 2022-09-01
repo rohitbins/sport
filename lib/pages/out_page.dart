@@ -111,6 +111,7 @@ class OutCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => Profile(
+                      showFees: showFees,
                       name: customerData.name,
                       customerKey: customerData.customerKey,
                     )));
@@ -185,23 +186,23 @@ class OutCard extends StatelessWidget {
                     ],),
                     //&& showFees
                     const SizedBox(height: 3),
-                    if (customerData.feePending != 0 ) 
+                     (customerData.feePending != 0 ) ?
                       Row(
-                        children: const[
-                          Text(
+                        children:[
+                          const Text(
                             "Fee Pending",
                             style: TextStyle(fontSize: 12,color: Colors.red),
                           ),
-                          // Text(
-                          //   '(*${customerData.feePending})',
-                          //   style: const TextStyle(
-                          //       color: Colors.red,
-                          //       fontSize: 10,
-                          //       fontWeight: FontWeight.w600),
-                          // ),
+                          Text(
+                            '(*${customerData.feePending})',
+                            style: const TextStyle(
+                                color: Colors.red,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ],
-                      )
-                    else
+                      ): 
+                    
                       const Text(''),
                   ]),
                   ),

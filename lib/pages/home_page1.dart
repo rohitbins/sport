@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/pages/my_attendance.dart';
-import '../widget/attendance_card.dart';
-import '../widget/sportPie.dart';
 import 'login/login_page.dart';
 
 class HomePage1 extends StatefulWidget {
@@ -91,9 +89,9 @@ class _HomePage1State extends State<HomePage1> {
             blurRadius: 50
           )
         ]
-         ),
-        ),
-        ),
+       ),
+      ),
+     ),
              );
   }
 }
