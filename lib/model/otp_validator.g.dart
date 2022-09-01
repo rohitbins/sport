@@ -28,6 +28,8 @@ OtpData _$OtpDataFromJson(Map<String, dynamic> json) => OtpData(
       staffKey: json['staffKey'] as String?,
       name: json['name'] as String?,
       showFee: json['showFee'] as bool?,
+      takeMemberAttendance: json['takeMemberAttendance'] as bool?,
+      takePNPAttendance: json['takePNPAttendance'] as bool?,
     );
 
 Map<String, dynamic> _$OtpDataToJson(OtpData instance) => <String, dynamic>{
@@ -35,4 +37,6 @@ Map<String, dynamic> _$OtpDataToJson(OtpData instance) => <String, dynamic>{
       'staffKey': instance.staffKey,
       'academyLogoURL': instance.academyLogoURL,
       'showFee': instance.showFee,
+      'takePNPAttendance': instance.takePNPAttendance,
+      'takeMemberAttendance': instance.takeMemberAttendance,
     };

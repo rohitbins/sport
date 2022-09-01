@@ -9,6 +9,7 @@ import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/model/payment.dart';
 import 'package:sport/model/personal_sport.dart';
 import 'package:sport/model/staff_attendance_model.dart';
+import 'package:sport/utils/constants.dart';
 import 'package:sport/utils/enums.dart';
 import 'model/baseresponse.dart';
 import 'model/otp_validator.dart';
@@ -104,7 +105,12 @@ class ServiceCall {
     if (response.statusCode == 200) {
       OtpValidator otpValidator =
           OtpValidator.fromJson(jsonDecode(response.body));
+         
+          if(otpValidator.data!.showFee !=null)
+          {ShowFee = otpValidator.data!.showFee as bool;}
+           print(ShowFee.toString());
       return otpValidator;
+
     } else {
       throw Exception('failed to load BatchCategories');
     }

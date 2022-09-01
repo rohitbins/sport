@@ -13,6 +13,7 @@ String? Year;
 String? Messg;
 String? LOGO;
 String? NAME;
+bool ShowFee=false;
 const String noRecordAvailable = 'No Record Available';
 
 final DateFormat formatter = DateFormat('d\nMMM');
