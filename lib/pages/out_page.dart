@@ -55,13 +55,18 @@ class _OutPageState extends State<OutPage> {
                               clickedKey = _val;
                             });
                             Future.delayed(const Duration(seconds: 2))
-                                .then((value) {});
-
-                            ServiceCall()
-                                .attendanceOut(key: data.customerKey)
                                 .then((value) {
+
+                                  
+                            ServiceCall()
+                                .attendanceOut(data: data)
+                                .then((value) {
+
                               setState(() {});
                             });
+
+                                });
+
                           },
                           customerData: data,
                           selectedKey: clickedKey,
@@ -193,13 +198,14 @@ class OutCard extends StatelessWidget {
                             "Fee Pending",
                             style: TextStyle(fontSize: 12,color: Colors.red),
                           ),
+                          (customerData.feePending != 0 && showFees)?
                           Text(
                             '(*${customerData.feePending})',
                             style: const TextStyle(
                                 color: Colors.red,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600),
-                          ),
+                          ): Text("")
                         ],
                       ): 
                     

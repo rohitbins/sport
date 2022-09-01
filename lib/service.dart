@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/model/payment.dart';
 import 'package:sport/model/personal_sport.dart';
+import 'package:sport/model/pnp_customer_model.dart';
 import 'package:sport/model/staff_attendance_model.dart';
 import 'package:sport/utils/constants.dart';
 import 'package:sport/utils/enums.dart';
@@ -183,21 +184,21 @@ class ServiceCall {
   }
 
 // Customer Attendance Out //////
-  Future<CustomerListOut> attendanceOut({required String key}) async {
+  Future<bool?> attendanceOut({required CustomerOut data}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
-      'customer-key': key
+      'customer-key': data.customerKey
     };
     final response = await http.post(
         Uri.parse('${base}SetCustomerAttendanceOut'),
         headers: _header,
-        body: {});
+        body: {"customerId": data.id.toString(),
+"slotId": data.slotId.toString(),
+"isPNP":data.isPNP.toString()});
 
     if (response.statusCode == 200) {
-      CustomerListOut customerOut =
-          CustomerListOut.fromJson(jsonDecode(response.body));
-      return customerOut;
+      return true;
     } else {
       throw Exception('failed to load BatchCategories');
     }
@@ -299,5 +300,28 @@ class ServiceCall {
 
       return baseresponse;
     }
+  }
+
+  // Pnp customer List for IN....
+  Future<PnpCustomerModel> getPnpCustomerForIn() async{
+    print('getPnpCustomerForIn=');
+    Map<String, String> _header = {
+      'ContentType' : 'application/json',
+      // 'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
+       'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA='
+    };
+
+    final response = await http.post(Uri.parse('${base}PNPCustomerListForIn'),
+    body: {}, headers: _header);
+     print(response.body);
+        if (response.statusCode == 200){
+        
+          PnpCustomerModel pnpCustomerModel = 
+          PnpCustomerModel.fromJson(jsonDecode(response.body));
+
+          return pnpCustomerModel;
+        }
+        else{return PnpCustomerModel();}
+
   }
 }

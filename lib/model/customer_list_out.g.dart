@@ -34,6 +34,8 @@ CustomerOut _$CustomerOutFromJson(Map<String, dynamic> json) => CustomerOut(
       inTime: json['inTime'] as String,
       totalPlay: json['totalPlay'] as String?,
       isPlaying: json['isPlaying'] as int,
+      isPNP: json['isPNP'] as bool,
+      slotId: json['slotId'] as int,
     );
 
 Map<String, dynamic> _$CustomerOutToJson(CustomerOut instance) =>
@@ -47,4 +49,6 @@ Map<String, dynamic> _$CustomerOutToJson(CustomerOut instance) =>
       'inTime': instance.inTime,
       'totalPlay': instance.totalPlay,
       'customerKey': instance.customerKey,
+      'slotId': instance.slotId,
+      'isPNP': instance.isPNP,
     };

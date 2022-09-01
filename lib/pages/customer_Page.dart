@@ -191,7 +191,7 @@ class InCard extends StatelessWidget {
                           child: BlinkText(
                             'playing..',
                             duration: Duration(seconds: 1),
-                            beginColor: Colors.green,
+                            beginColor: Colors.blue,
                             endColor: Color.fromRGBO(6, 41, 74, 1),
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),

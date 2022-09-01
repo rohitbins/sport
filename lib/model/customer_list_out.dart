@@ -28,6 +28,8 @@ class CustomerOut {
    required this.inTime,
     this.totalPlay,
    required this.isPlaying,
+   required this.isPNP,
+   required this.slotId
   
 
   });
@@ -41,6 +43,8 @@ class CustomerOut {
   String inTime;
   String? totalPlay;
   String customerKey;
+  int slotId;
+  bool isPNP;
 
 factory CustomerOut.fromJson(Map<String, dynamic> json) =>
       _$CustomerOutFromJson(json);
