@@ -140,6 +140,7 @@ class OutCard extends StatelessWidget {
                   topLeft: Radius.circular(20),
                   bottomLeft: Radius.circular(20),
                 ),
+               
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Column(
@@ -147,10 +148,16 @@ class OutCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      customerData.name.trim(),
+                      customerData.name.trim() ,
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w600),
                     ),
+                     customerData.isPNP ?
+                    const Text(
+                           " Pnp" ,
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w600),
+                    ): const SizedBox(),
                     Row(children:[
                       Text(
                       customerData.categoryType,

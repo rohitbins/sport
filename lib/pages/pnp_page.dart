@@ -1,15 +1,19 @@
+import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
+import 'package:sport/model/pnp_Attendance_in.dart';
 import 'package:sport/model/pnp_customer_model.dart';
 import 'package:sport/service.dart';
 
 class PnpPage extends StatefulWidget {
   const PnpPage({Key? key}) : super(key: key);
-
+  
   @override
   State<PnpPage> createState() => _PnpPageState();
 }
 
 class _PnpPageState extends State<PnpPage> {
+  bool isLoading = false;
+  final String selectedKey = '';
   // late PnpCustomerModel getPnpCustomerForIn;
   
   @override
@@ -31,7 +35,8 @@ class _PnpPageState extends State<PnpPage> {
                   padding: const EdgeInsets.only(left: 6,right: 6),
                   child: Card(
         elevation: 6,
-        color: Colors.grey,
+        color:   snapshot.data!.data![index].status.toString().toUpperCase() == "PLAYING" ? Colors.white:           
+        Colors.green,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // if you need this
           side: BorderSide(
@@ -72,35 +77,54 @@ class _PnpPageState extends State<PnpPage> {
                       fontWeight: FontWeight.bold,
                       color: Colors.red
                      ),)
-                     
-                       
-                     
-                      
-                     
-            ]),
-            ),
-           ),
-          Container(
-            width: 80,
-            constraints: const BoxConstraints(maxHeight: 4 * 15.0),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(18),
-                  bottomRight: Radius.circular(18),
-              ),
+                    ]),
+                    ),
+                   ),
+
+                     (selectedKey == snapshot.data!.data![index].pnpCustomerId)?const CircularProgressIndicator():  
+            snapshot.data!.data![index].status.toString().toUpperCase() == "PLAYING" ? const Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: BlinkText(
+                            'playing..',
+                            duration: Duration(seconds: 1),
+                            beginColor: Colors.white,
+                            endColor: Colors.green,
+                            style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ):           
+        InkWell(
+            onDoubleTap: () {
+              ServiceCall().fetchPnpAttendaneIN(
+              pnpCustomerId: snapshot.data!.data![index].pnpCustomerId.toString(), 
+              slotId: snapshot.data!.data![index].slotId.toString());
+              setState(() {
+              });
+            },
+            onTap: () {}, 
+             child: Container(
+              width: 80,
+              constraints: const BoxConstraints(maxHeight: 4 * 15.0),
               color: Colors.green,
+             
+              child: const Text("In",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 32,
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+              ),),
+              
             ),
-            child: const Text("In",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 32,
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-            ),),
+            )
+         ]),
+  ),        
+          
+              
             
-          )
-        ]),
-      ),
+           
+          
+       
                 );
               });
          }else if(snapshot.hasError){

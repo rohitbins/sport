@@ -21,8 +21,8 @@ class _CustomerPageState extends State<CustomerPage>
     with SingleTickerProviderStateMixin {
        final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
        bool showFees = false;
-  String lable = '';
-  String clickedKey = '';
+       String lable = '';
+       String clickedKey = '';
 
   void initState(){
     super.initState();
@@ -65,7 +65,7 @@ class _CustomerPageState extends State<CustomerPage>
                     },
                   );
                 }),
-          );
+                );
   }
 }
 
@@ -176,7 +176,9 @@ class InCard extends StatelessWidget {
            ),
           InkWell(
             onDoubleTap: () => callback(customerData.customerKey),
-            onTap: () {},
+            onTap: () {
+              
+            },
             child: Container(
               width: customerData.isPlaying! > 0 ? 120 : 80,
               alignment: Alignment.center,

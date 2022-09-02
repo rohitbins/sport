@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/model/payment.dart';
 import 'package:sport/model/personal_sport.dart';
+import 'package:sport/model/pnp_Attendance_in.dart';
 import 'package:sport/model/pnp_customer_model.dart';
 import 'package:sport/model/staff_attendance_model.dart';
 import 'package:sport/utils/constants.dart';
@@ -70,6 +71,7 @@ class ServiceCall {
     }
   }
 
+// Phone validator
   Future<PhoneValidator> PhoneValidatorApi(
       {required String phoneNumber}) async {
     Map<String, String> _header = {
@@ -307,21 +309,37 @@ class ServiceCall {
     print('getPnpCustomerForIn=');
     Map<String, String> _header = {
       'ContentType' : 'application/json',
-      // 'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
-       'staff-key': 'iIbakR80ZzmJo8mnRsd8vNN3LOjt1C/FQ7A2kbD1flA='
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
+      
     };
-
-    final response = await http.post(Uri.parse('${base}PNPCustomerListForIn'),
+     final response = await http.post(Uri.parse('${base}PNPCustomerListForIn'),
     body: {}, headers: _header);
-     print(response.body);
         if (response.statusCode == 200){
-        
+          print(response.body.toString());
           PnpCustomerModel pnpCustomerModel = 
           PnpCustomerModel.fromJson(jsonDecode(response.body));
-
           return pnpCustomerModel;
         }
+        
         else{return PnpCustomerModel();}
+ }
 
-  }
+ // Pnp Customer Attendance in.....
+ Future<PnpAttendanceIn?> fetchPnpAttendaneIN({required pnpCustomerId, required slotId}) async{
+  Map<String, String> _header = {
+    "ContentType" : "application/json",
+     'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
+  };
+  final response = await http.post(Uri.parse('${base}SetPNPCustomerAttendanceIn'),
+  body: {"pnpCustomerId": pnpCustomerId,
+         "slotId":  slotId},
+         headers: _header);
+         if (response.statusCode == 200){
+          print(response.body.toString());
+          PnpAttendanceIn pnpAttendanceIn = 
+          PnpAttendanceIn.fromJson(jsonDecode(response.body));
+          return pnpAttendanceIn;
+         }
+ }
+ 
 }
