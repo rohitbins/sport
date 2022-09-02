@@ -142,7 +142,7 @@ class OutCard extends StatelessWidget {
                 ),
                
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
               child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,12 +152,7 @@ class OutCard extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w600),
                     ),
-                     customerData.isPNP ?
-                    const Text(
-                           " Pnp" ,
-                      style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.w600),
-                    ): const SizedBox(),
+                   !customerData.isPNP?
                     Row(children:[
                       Text(
                       customerData.categoryType,
@@ -167,12 +162,13 @@ class OutCard extends StatelessWidget {
                           fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(width: 2),
+                    !customerData.isPNP ?
                     const Text("|",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16
-                    ),),
-                    const SizedBox(width: 2),
+                    ),):
+                    const SizedBox(),
                     Text(
                       customerData.batch.toString(),
                       style: TextStyle(
@@ -180,8 +176,9 @@ class OutCard extends StatelessWidget {
                           color: Colors.grey.shade600,
                           fontWeight: FontWeight.w400),
                     ),
-                    ],),
-                    const SizedBox(height: 2),
+                    ],): const SizedBox(),
+                    
+                    const SizedBox(height: 5),
                     Row(children: [
                       const Text("In :",
                       style: TextStyle(
@@ -197,7 +194,8 @@ class OutCard extends StatelessWidget {
                       ),
                     ],),
                     //&& showFees
-                    const SizedBox(height: 3),
+                    const SizedBox(height: 5),
+                    !customerData.isPNP?
                      (customerData.feePending != 0 ) ?
                       Row(
                         children:[
@@ -216,7 +214,11 @@ class OutCard extends StatelessWidget {
                         ],
                       ): 
                     
-                      const Text(''),
+                      const Text(''): const SizedBox(),
+                      const SizedBox(height: 5),
+                        customerData.isPNP ?
+                       Image.asset('assets/images/pnp.jpeg',
+                       scale: 2.5,): const SizedBox(),
                   ]),
                   ),
                  ),

@@ -8,20 +8,17 @@ import '../service.dart';
 
 class CustomerPage extends StatefulWidget {
   const CustomerPage({Key? key, required this.customerListData})
-      : super(key: key);
+  : super(key: key);
   final CustomerListData customerListData;
 
   @override
   State<CustomerPage> createState() => _CustomerPageState();
 }
-
-bool loginin = false;
-
 class _CustomerPageState extends State<CustomerPage>
     with SingleTickerProviderStateMixin {
        final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
        bool showFees = false;
-       String lable = '';
+      //  String lable = '';
        String clickedKey = '';
 
   void initState(){
@@ -33,6 +30,9 @@ class _CustomerPageState extends State<CustomerPage>
       });
     });
   }
+
+
+
   @override
   Widget build(BuildContext context) {
     List<CustomerData>? dataList = widget.customerListData.data;
@@ -51,8 +51,8 @@ class _CustomerPageState extends State<CustomerPage>
                     selectedKey: clickedKey,
                     showFees : showFees,
                     callback: (String _kay) {
-                      setState(() {
-                        lable = 'wait...';
+                        setState(() {
+                        // lable = 'wait...';
                         clickedKey = _kay;
                       });
                       ServiceCall()

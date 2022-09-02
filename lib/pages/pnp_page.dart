@@ -1,23 +1,37 @@
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
-import 'package:sport/model/pnp_Attendance_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/pnp_customer_model.dart';
 import 'package:sport/service.dart';
 
+
+
 class PnpPage extends StatefulWidget {
-  const PnpPage({Key? key}) : super(key: key);
+  const PnpPage({Key? key,}) : super(key: key);
+  // final PnpCustomerModel pnpCustomerModel;
   
   @override
   State<PnpPage> createState() => _PnpPageState();
 }
 
-class _PnpPageState extends State<PnpPage> {
+class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   bool isLoading = false;
   final String selectedKey = '';
   // late PnpCustomerModel getPnpCustomerForIn;
   
   @override
   Widget build(BuildContext context) {
+    //  List<Data>? dataList = widget.pnpCustomerModel.data;
+    //  return dataList == null?
+    //  const Center(
+    //   child: CircularProgressIndicator(color: Colors.white),
+    //  ): ListView.builder(
+    //   itemCount: dataList.length,
+    //   itemBuilder: (BuildContext context, int index){
+    //     Data data = dataList[index];
+    //     return Card();
+    //   });
     return Scaffold(
       appBar: AppBar(
         title: const Text("Pnp"),
@@ -119,12 +133,6 @@ class _PnpPageState extends State<PnpPage> {
             )
          ]),
   ),        
-          
-              
-            
-           
-          
-       
                 );
               });
          }else if(snapshot.hasError){
@@ -135,5 +143,27 @@ class _PnpPageState extends State<PnpPage> {
          } })),
       ),
     );
+       
   }
-}
+}        
+            
+//       class PnpCard extends StatelessWidget {
+//   const PnpCard({
+//     Key? key,
+//     required this.data}) : super(key: key);
+//   final Data data;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       child: Column(
+//         children: [
+//           data.
+//         ],
+//       ),
+//     );
+//   }
+// }     
+          
+       
+ 

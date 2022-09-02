@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sport/model/pnp_customer_model.dart';
 import 'package:sport/pages/home_page1.dart';
 import 'package:sport/pages/in_page.dart';
 import 'package:sport/pages/out_page.dart';
@@ -17,6 +18,8 @@ class MyRoute extends StatefulWidget {
 class _MyRouteState extends State<MyRoute> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   bool showFees = false;
+  
+  
   void initState(){
     super.initState();
     _prefs.then((value){
@@ -24,7 +27,7 @@ class _MyRouteState extends State<MyRoute> {
     });
   }
   int pagesIndex = 0;
-  final pages = [const HomePage1(), const InPage(), const OutPage(),const PnpPage()];
+  final pages = [const HomePage1(), const InPage(), const OutPage(), const PnpPage()];
 
   final String _home = 'Home';
   final String _in = 'In';
