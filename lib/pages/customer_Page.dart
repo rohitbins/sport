@@ -6,7 +6,7 @@ import 'package:sport/pages/profile/profile.dart';
 import 'package:sport/utils/constants.dart';
 import '../service.dart';
 
-class CustomerPage extends StatefulWidget {
+  class CustomerPage extends StatefulWidget {
   const CustomerPage({Key? key, required this.customerListData})
   : super(key: key);
   final CustomerListData customerListData;
@@ -14,7 +14,7 @@ class CustomerPage extends StatefulWidget {
   @override
   State<CustomerPage> createState() => _CustomerPageState();
 }
-class _CustomerPageState extends State<CustomerPage>
+    class _CustomerPageState extends State<CustomerPage>
     with SingleTickerProviderStateMixin {
        final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
        bool showFees = false;
@@ -30,10 +30,7 @@ class _CustomerPageState extends State<CustomerPage>
       });
     });
   }
-
-
-
-  @override
+   @override
   Widget build(BuildContext context) {
     List<CustomerData>? dataList = widget.customerListData.data;
     return dataList == null
@@ -68,6 +65,9 @@ class _CustomerPageState extends State<CustomerPage>
                 );
   }
 }
+
+
+ 
 
 class InCard extends StatelessWidget {
   const InCard({
@@ -154,18 +154,19 @@ class InCard extends StatelessWidget {
                     const SizedBox(width: 4),
                     if (customerData.feePending != 0  ) 
                       Row(
-                        children:const [
-                          Text("Fee Pending",
+                        children: [
+                          const Text("Fee Pending",
                           style: TextStyle(
                             color: Colors.red
                           ), ),
-                          //   Text(
-                          //   '(*${customerData.feePending})',
-                          //       style: const TextStyle(
-                          //       color: Colors.red,
-                          //       fontSize: 10,
-                          //       fontWeight: FontWeight.w600),
-                          // ),  
+                          (customerData.feePending != 0 && showFees)?
+                            Text(
+                            '(*${customerData.feePending})',
+                                style: const TextStyle(
+                                color: Colors.red,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600),
+                          ):const SizedBox(),  
                            
                          ],
                       )
@@ -175,8 +176,9 @@ class InCard extends StatelessWidget {
             ),
            ),
           InkWell(
-            onDoubleTap: () => callback(customerData.customerKey),
-            onTap: () {
+            onDoubleTap: () { 
+             if(customerData.isPlaying! ==0) callback(customerData.customerKey);
+            },onTap: () {
               
             },
             child: Container(

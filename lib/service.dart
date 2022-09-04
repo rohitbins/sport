@@ -315,7 +315,7 @@ class ServiceCall {
      final response = await http.post(Uri.parse('${base}PNPCustomerListForIn'),
     body: {}, headers: _header);
         if (response.statusCode == 200){
-          print(response.body.toString());
+          // print(response.body.toString());
           PnpCustomerModel pnpCustomerModel = 
           PnpCustomerModel.fromJson(jsonDecode(response.body));
           return pnpCustomerModel;
@@ -335,7 +335,7 @@ class ServiceCall {
          "slotId":  slotId},
          headers: _header);
          if (response.statusCode == 200){
-          print(response.body.toString());
+          // print(response.body.toString());
           PnpAttendanceIn pnpAttendanceIn = 
           PnpAttendanceIn.fromJson(jsonDecode(response.body));
           return pnpAttendanceIn;

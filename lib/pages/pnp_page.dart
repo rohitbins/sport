@@ -18,21 +18,11 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   bool isLoading = false;
   final String selectedKey = '';
-  // late PnpCustomerModel getPnpCustomerForIn;
+  
   
   @override
   Widget build(BuildContext context) {
-    //  List<Data>? dataList = widget.pnpCustomerModel.data;
-    //  return dataList == null?
-    //  const Center(
-    //   child: CircularProgressIndicator(color: Colors.white),
-    //  ): ListView.builder(
-    //   itemCount: dataList.length,
-    //   itemBuilder: (BuildContext context, int index){
-    //     Data data = dataList[index];
-    //     return Card();
-    //   });
-    return Scaffold(
+     return Scaffold(
       appBar: AppBar(
         title: const Text("Pnp"),
         centerTitle: true,
@@ -49,8 +39,9 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                   padding: const EdgeInsets.only(left: 6,right: 6),
                   child: Card(
         elevation: 6,
-        color:   snapshot.data!.data![index].status.toString().toUpperCase() == "PLAYING" ? Colors.white:           
-        Colors.green,
+        color: snapshot.data!.data![index].status == 'Playing'? Colors.white: Colors.green,
+        // color:   snapshot.data!.data![index].status.toString().toUpperCase() == "PLAYING" ? Colors.white:           
+        // Colors.green,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // if you need this
           side: BorderSide(
@@ -95,75 +86,70 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                     ),
                    ),
 
-                     (selectedKey == snapshot.data!.data![index].pnpCustomerId)?const CircularProgressIndicator():  
-            snapshot.data!.data![index].status.toString().toUpperCase() == "PLAYING" ? const Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: BlinkText(
-                            'playing..',
-                            duration: Duration(seconds: 1),
-                            beginColor: Colors.white,
-                            endColor: Colors.green,
-                            style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ):           
+                            
         InkWell(
             onDoubleTap: () {
+              
               ServiceCall().fetchPnpAttendaneIN(
               pnpCustomerId: snapshot.data!.data![index].pnpCustomerId.toString(), 
               slotId: snapshot.data!.data![index].slotId.toString());
               setState(() {
               });
             },
-            onTap: () {}, 
-             child: Container(
-              width: 80,
-              constraints: const BoxConstraints(maxHeight: 4 * 15.0),
-              color: Colors.green,
-             
-              child: const Text("In",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white,
-                fontWeight: FontWeight.bold
-              ),),
+            onTap: () {
               
-            ),
+            },
+            
+             child: Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(15),
+                  bottomRight: Radius.circular(15)
+                )
+              ),
+              width: snapshot.data!.data![index].status == ('Playing' 'Cancelled') ? 120 :90,
+              alignment: Alignment.center,
+              constraints: const BoxConstraints(maxHeight: 5 * 15.0),
+              child: (selectedKey == snapshot.data!.data![index].pnpCustomerId) ? const Center(
+              child: CircularProgressIndicator(color: Colors.white),
+             ): snapshot.data!.data![index].status == 'Playing' ?
+             const BlinkText(
+              "Playing...",
+              duration: Duration(seconds: 1),
+              beginColor: Colors.white,
+              endColor: Colors.green,
+              style: TextStyle(
+                fontSize: 18
+              ),
+             ) :  Text(snapshot.data!.data![index].status.toString(),
+             style: const TextStyle(
+              fontSize: 14,
+              letterSpacing: 1,
+              color: Colors.white,
+              fontWeight: FontWeight.bold
+             ),)
+             
+              
+           
             )
-         ]),
+         )]
+         ),
   ),        
-                );
-              });
+         );
+       });
          }else if(snapshot.hasError){
           return Text(snapshot.error.toString());
          }
          else{
           return const Center(child: CircularProgressIndicator());
-         } })),
+   } })),
       ),
-    );
+     );
        
   }
 }        
             
-//       class PnpCard extends StatelessWidget {
-//   const PnpCard({
-//     Key? key,
-//     required this.data}) : super(key: key);
-//   final Data data;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       child: Column(
-//         children: [
-//           data.
-//         ],
-//       ),
-//     );
-//   }
-// }     
+    
           
        
  
