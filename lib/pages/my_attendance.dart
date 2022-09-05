@@ -48,24 +48,28 @@ class _MyAttendanceState extends State<MyAttendance> {
            physics: const NeverScrollableScrollPhysics(),
             children: [
                  _todays(staffAttendanceModel.data![0]),
-                   ListView.builder(
-                shrinkWrap: true,
-                  itemCount: staffAttendanceModel.data!.length,
-                  itemBuilder: (BuildContext context, int index) {         
+                   Container(
+                    height: MediaQuery.of(context).size.height*.788,
+                     child: ListView.builder(
+                      primary: true,
+                                   shrinkWrap: true,
+                                     itemCount: staffAttendanceModel.data!.length,
+                                     itemBuilder: (BuildContext context, int index) {         
+                       
                      
-
-             
-                    // if (index == 0) {
-
-                    //   staffInside =
-                    //       (
-                    //         // staffAttendanceModel.data![index].inTime != '' &&
-                    //           staffAttendanceModel.data![0].outTime == '');
-                    //   return _todays(staffAttendanceModel.data![0]);
-                    // }
-                    return myCard(staffAttendanceModel.data![index]);
-                  },
-                ),
+                                
+                      // if (index == 0) {
+                     
+                      //   staffInside =
+                      //       (
+                      //         // staffAttendanceModel.data![index].inTime != '' &&
+                      //           staffAttendanceModel.data![0].outTime == '');
+                      //   return _todays(staffAttendanceModel.data![0]);
+                      // }
+                      return myCard(staffAttendanceModel.data![index]);
+                                     },
+                                   ),
+                   ),
             ],
           )
           : const Center(

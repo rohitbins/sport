@@ -45,7 +45,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
         color: snapshot.data!.data![index].status.toString().toUpperCase() == 'PLAYING' ? Colors.white: 
         snapshot.data!.data![index].status.toString().toUpperCase() == 'CANCELLED' ? Colors.white: 
         snapshot.data!.data![index].status.toString().toUpperCase() == 'PLAYED' ? Colors.white : Colors.green,
-         shape: RoundedRectangleBorder(
+          shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // if you need this
           side: BorderSide(
             color: Colors.grey.withOpacity(0.2),
