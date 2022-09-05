@@ -54,7 +54,7 @@ class ServiceCall {
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
       'ContentType': 'application/json'
     };
-    print('headers:${headers.toString()}');
+    // print('headers:${headers.toString()}');
     final response = await http.post(
         Uri.parse('$base${EndPoints.customerListByBatchAndCategory.apiValue}'),
         body: customerDataRequest.toJson(),
@@ -305,7 +305,7 @@ class ServiceCall {
   }
 
   // Pnp customer List for IN....
-  Future<PnpCustomerModel> getPnpCustomerForIn() async{
+  Future<PnpCustomerModel> fetchPnpCustomerModel() async{
     print('getPnpCustomerForIn=');
     Map<String, String> _header = {
       'ContentType' : 'application/json',

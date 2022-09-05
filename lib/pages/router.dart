@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sport/model/pnp_customer_model.dart';
 import 'package:sport/pages/home_page1.dart';
 import 'package:sport/pages/in_page.dart';
 import 'package:sport/pages/out_page.dart';
@@ -32,10 +31,10 @@ class _MyRouteState extends State<MyRoute> {
   final String _home = 'Home';
   final String _in = 'In';
   final String _out = 'Out';
-  final String _pnp = 'Pnp';
+  final String _PNP = 'PNP';
   @override
   Widget build(BuildContext context) {
-    return ShowFee?HomePage1():DefaultTabController(
+    return ShowFee?const HomePage1():DefaultTabController(
       
       length: 4,
       child: Scaffold(
@@ -53,7 +52,7 @@ class _MyRouteState extends State<MyRoute> {
                 icon: const Icon(Icons.arrow_upward, color: Colors.grey,), label: _out),
                 // if(ShowFee)
             BottomNavigationBarItem(
-                icon: const Icon(Icons.spatial_audio_off,color: Colors.grey,),label: _pnp)    
+                icon: const Icon(Icons.spatial_audio_off,color: Colors.grey,),label: _PNP)    
           ],
           onTap: (index) {
             setState(() {

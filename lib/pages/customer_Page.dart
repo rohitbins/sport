@@ -36,7 +36,7 @@ import '../service.dart';
     return dataList == null
         ? const Center(child: CircularProgressIndicator())
         : Padding(
-            padding: const EdgeInsets.only(bottom: 63),
+            padding: const EdgeInsets.only(bottom: 130),
             child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: dataList.length,
@@ -117,42 +117,42 @@ class InCard extends StatelessWidget {
                   bottomLeft: Radius.circular(20),
                 ),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                   child: Column(
+                   mainAxisSize: MainAxisSize.max,
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
                     Text(
                       customerData.name!.trim(),
                       style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w600),
-                    ),
-                    Row(children: [
+                     ),
+                     Row(children: [
                       Text(
                       customerData.categoryType!,
                       style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey.shade600,
                           fontWeight: FontWeight.w400),
-                    ),
-                    const SizedBox(width: 2),
-                    const Text("|",
-                    style: TextStyle(
+                     ),
+                     const SizedBox(width: 2),
+                     const Text("|",
+                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16
-                    ),),
-                    const SizedBox(width: 2),
-                    Text(
+                     ),),
+                     const SizedBox(width: 2),
+                     Text(
                       customerData.batch.toString(),
                       style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey.shade600,
                           fontWeight: FontWeight.w400),
-                    ),
-                    ],),
-                    //&& showFees
-                    const SizedBox(width: 4),
-                    if (customerData.feePending != 0  ) 
+                     ),
+                     ],),
+                     //&& showFees
+                     const SizedBox(width: 4),
+                     if (customerData.feePending != 0  ) 
                       Row(
                         children: [
                           const Text("Fee Pending",

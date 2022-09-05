@@ -1,5 +1,6 @@
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/pnp_customer_model.dart';
 import 'package:sport/service.dart';
@@ -15,21 +16,22 @@ class PnpPage extends StatefulWidget {
 }
 
 class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
+
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  bool isLoading = false;
   final String selectedKey = '';
-  
+  String clickedKey = '';
   
   @override
   Widget build(BuildContext context) {
      return Scaffold(
       appBar: AppBar(
-        title: const Text("Pnp"),
+        
+        title: const Text("PNP"),
         centerTitle: true,
       ),
       body: Center(
         child: FutureBuilder<PnpCustomerModel>(
-          future: ServiceCall().getPnpCustomerForIn(),
+          future: ServiceCall().fetchPnpCustomerModel(),
           builder: ((context, snapshot) {
             if(snapshot.hasData){
             return ListView.builder(
@@ -38,17 +40,19 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                 return Padding(
                   padding: const EdgeInsets.only(left: 6,right: 6),
                   child: Card(
+                    
         elevation: 6,
-        color: snapshot.data!.data![index].status == 'Playing'? Colors.white: Colors.green,
-        // color:   snapshot.data!.data![index].status.toString().toUpperCase() == "PLAYING" ? Colors.white:           
-        // Colors.green,
-        shape: RoundedRectangleBorder(
+        color: snapshot.data!.data![index].status.toString().toUpperCase() == 'PLAYING' ? Colors.white: 
+        snapshot.data!.data![index].status.toString().toUpperCase() == 'CANCELLED' ? Colors.white: 
+        snapshot.data!.data![index].status.toString().toUpperCase() == 'PLAYED' ? Colors.white : Colors.green,
+         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // if you need this
           side: BorderSide(
             color: Colors.grey.withOpacity(0.2),
             width: 1,
           ),
         ),
+       
         child: Row(children: [
           Expanded(
             child: Container(
@@ -64,27 +68,41 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                     Text(snapshot.data!.data![index].pnpCustomer.toString(),
+                     Padding(
+                       padding: const EdgeInsets.only(top: 3),
+                       child: Text(snapshot.data!.data![index].pnpCustomer.toString(),
+                       style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1
+                       ),),
+                     ),
+                     const SizedBox(height: 2),
+                     Text(snapshot.data!.data![index].phone.toString(),
                      style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1
+                      color: Colors.grey
                      ),),
-                     const SizedBox(height: 5),
-                     Text(snapshot.data!.data![index].bookingDate.toString(),
-                     style: const TextStyle(
-                      color: Colors.blue,
-                      fontSize: 12
-                     ),),
-                     const SizedBox(height: 5),
-                     const Text("PNP",
-                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red
-                     ),)
-                    ]),
+                     const SizedBox(height: 2),
+                     Row(
+                       children: [
+                        Text(DateFormat("MMM d, h:mm a")
+                        .format(DateTime.parse(snapshot.data!.data![index].bookingDate.toString())),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w500
+                        ),),
+                         const SizedBox(width: 20),
+                         Padding(
+                           padding: const EdgeInsets.only(bottom: 3),
+                           child: Image.asset("assets/images/pnp.jpeg",
+                     scale: 3,
+                       ),
+                         )],
+                       ),
+                     ]),
+                     ),
                     ),
-                   ),
 
                             
         InkWell(
@@ -92,7 +110,11 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
               
               ServiceCall().fetchPnpAttendaneIN(
               pnpCustomerId: snapshot.data!.data![index].pnpCustomerId.toString(), 
-              slotId: snapshot.data!.data![index].slotId.toString());
+              slotId: snapshot.data!.data![index].slotId.toString()).then((value) {
+                snapshot.data!.data![index].status = 'Playing';
+                clickedKey = '';
+              });
+              print(snapshot.data!.data![index].phone);
               setState(() {
               });
             },
@@ -107,36 +129,63 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                   bottomRight: Radius.circular(15)
                 )
               ),
-              width: snapshot.data!.data![index].status == ('Playing' 'Cancelled') ? 120 :90,
+              width: snapshot.data!.data![index].status == 'Playing' 'Cancelled' 'Played' ? 120 :100,
               alignment: Alignment.center,
-              constraints: const BoxConstraints(maxHeight: 5 * 15.0),
-              child: (selectedKey == snapshot.data!.data![index].pnpCustomerId) ? const Center(
+              constraints: const BoxConstraints(maxHeight: 4.5 * 15.0),
+              child: (selectedKey == snapshot.data!.data![index].status) ? const Center(
               child: CircularProgressIndicator(color: Colors.white),
-             ): snapshot.data!.data![index].status == 'Playing' ?
-             const BlinkText(
-              "Playing...",
-              duration: Duration(seconds: 1),
-              beginColor: Colors.white,
-              endColor: Colors.green,
+             ): snapshot.data!.data![index].status.toString().toUpperCase() == 'PLAYING'  ?
+             const Padding(
+               padding: EdgeInsets.only(right: 10),
+               child: BlinkText(
+                "Playing...",
+                duration: Duration(seconds: 1),
+                beginColor: Colors.white,
+                endColor: Colors.green,
+                style: TextStyle(
+                  fontSize: 18
+                ),
+               ),
+             ) : snapshot.data!.data![index].status.toString().toUpperCase() == 'CANCELLED' ? 
+              const Padding(
+                padding: EdgeInsets.only(right: 5),
+                child: Text("Cancelled",
+                style: TextStyle(
+                fontSize: 16,
+                letterSpacing: 1,
+                color: Colors.red,
+                fontWeight: FontWeight.bold
+             ),
+             ),
+              ) : snapshot.data!.data![index].status.toString().toUpperCase() == 'PLAYED' ? 
+              const Padding(
+                padding: EdgeInsets.only(right: 25),
+                child: Text("Played",
+                style: TextStyle(
+                fontSize: 16,
+                letterSpacing: 1,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold
+             ),
+             ),
+              ) : 
+              const Text("In",
               style: TextStyle(
-                fontSize: 18
-              ),
-             ) :  Text(snapshot.data!.data![index].status.toString(),
-             style: const TextStyle(
-              fontSize: 14,
+              fontSize: 32,
               letterSpacing: 1,
               color: Colors.white,
               fontWeight: FontWeight.bold
-             ),)
-             
+             ),
+             )
+
+            )
+          )]
+         ),
+ ),        
+        );
+      });
               
            
-            )
-         )]
-         ),
-  ),        
-         );
-       });
          }else if(snapshot.hasError){
           return Text(snapshot.error.toString());
          }

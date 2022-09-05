@@ -53,6 +53,7 @@ class _OutPageState extends State<OutPage> {
                           callback: (_val) {
                             setState(() {
                               clickedKey = _val;
+
                             });
                             Future.delayed(const Duration(seconds: 2))
                                 .then((value) {
@@ -112,6 +113,7 @@ class OutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        !customerData.isPNP?
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -119,7 +121,7 @@ class OutCard extends StatelessWidget {
                       showFees: showFees,
                       name: customerData.name,
                       customerKey: customerData.customerKey,
-                    )));
+                    ))) : const SizedBox();
       },
       child: Card(
         elevation: 6,
@@ -178,7 +180,7 @@ class OutCard extends StatelessWidget {
                     ),
                     ],): const SizedBox(),
                     
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 3),
                     Row(children: [
                       const Text("In :",
                       style: TextStyle(
@@ -210,39 +212,50 @@ class OutCard extends StatelessWidget {
                                 color: Colors.red,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600),
-                          ): Text("")
+                          ): const SizedBox()
                         ],
                       ): 
                     
-                      const Text(''): const SizedBox(),
+                       const SizedBox(): const SizedBox(),
                       const SizedBox(height: 5),
                         customerData.isPNP ?
                        Image.asset('assets/images/pnp.jpeg',
-                       scale: 2.5,): const SizedBox(),
+                       scale: 3,): const SizedBox(),
                   ]),
                   ),
                  ),
           InkWell(
-            onDoubleTap: () => callback(customerData.customerKey),
+            
+            onDoubleTap: () => callback(customerData.isPNP==true? customerData.slotId.toString():customerData.customerKey), 
             onTap: () {},
             child: Container(
               width: 80,
               alignment: Alignment.center,
-              constraints: const BoxConstraints(maxHeight: 5.5 * 15.0),
+              constraints: const BoxConstraints(maxHeight: 5 * 15.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  (selectedKey != customerData.customerKey)
+                 
+                customerData.isPNP==true?
+                ((selectedKey != customerData.slotId.toString())
                   ? const Text('Out',
                     style: TextStyle(
                     color: Color.fromRGBO(6, 41, 74, 1),
                     fontSize: 32,
                     fontWeight: FontWeight.bold))
                   : const Center(
-                child: CircularProgressIndicator(color: Colors.white),
-               ),
-                
-                (customerData.totalPlay.toString() == '')? const SizedBox():
+                child: CircularProgressIndicator(color: Colors.white),))
+                :
+                  ((selectedKey != customerData.customerKey)
+                  ? const Text('Out',
+                    style: TextStyle(
+                    color: Color.fromRGBO(6, 41, 74, 1),
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold))
+                  : const Center(
+                child: CircularProgressIndicator(color: Colors.white),)),
+               
+               (customerData.totalPlay.toString() == '')? const SizedBox():
                Column(
                  children: [
                    Text(customerData.totalPlay.toString()),
@@ -250,16 +263,13 @@ class OutCard extends StatelessWidget {
                 style: TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.bold
-               ),)
-                 ],
-              ),
-
-               
-                ],
-              )
-            ),
+               ),
+             )],
+         ), ],
+            )
           ),
-        ]),
+         ),
+       ]),
       ),
     );
   }
