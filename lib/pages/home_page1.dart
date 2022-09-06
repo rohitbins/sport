@@ -57,13 +57,13 @@ class _HomePage1State extends State<HomePage1> {
        
     //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute<void>(
     //     builder: (BuildContext context) => const Login()), (route) => false);}
-    ServiceCall().fetchPermissonData().then((value) {
-       if (!CanLogin! ) {
-        print("kjdshkljhdfjgfh");
+    // ServiceCall().fetchPermissonData().then((value) {
+    //    if (!CanLogin! ) {
+    //     print("kjdshkljhdfjgfh");
        
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute<void>(
-        builder: (BuildContext context) => const Login()), (route) => false);}
-    });
+    //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute<void>(
+    //     builder: (BuildContext context) => const Login()), (route) => false);}
+    // });
     
     super.initState();
     
