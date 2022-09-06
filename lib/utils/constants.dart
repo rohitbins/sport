@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 class Const {
   String player = 'Player\'s In';
 }
-
+ int IsChangedCount = 0;
 int? SelectedIndex;
 String? PhoneNumber;
 String? KEY;
@@ -13,7 +13,11 @@ String? Year;
 String? Messg;
 String? LOGO;
 String? NAME;
-bool ShowFee=false;
+bool? TakePNPAttendance;
+bool? TakeMemberAttendance;
+bool? IsChanged;
+bool? CanLogin = false;
+bool ShowFee = false;
 const String noRecordAvailable = 'No Record Available';
 
 final DateFormat formatter = DateFormat('d\nMMM');

@@ -1,21 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'otp_validator.dart';
+part of 'check_permisson.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-OtpValidator _$OtpValidatorFromJson(Map<String, dynamic> json) => OtpValidator(
-      statusCode: json['statusCode'] as int,
-      isError: json['isError'] as bool,
+CheckPermisson _$CheckPermissonFromJson(Map<String, dynamic> json) =>
+    CheckPermisson(
+      statusCode: json['statusCode'] as int?,
+      isError: json['isError'] as bool?,
       message: json['message'] as String?,
       data: json['data'] == null
           ? null
-          : OtpData.fromJson(json['data'] as Map<String, dynamic>),
+          : PermissonData.fromJson(json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$OtpValidatorToJson(OtpValidator instance) =>
+Map<String, dynamic> _$CheckPermissonToJson(CheckPermisson instance) =>
     <String, dynamic>{
       'statusCode': instance.statusCode,
       'isError': instance.isError,
@@ -23,18 +24,20 @@ Map<String, dynamic> _$OtpValidatorToJson(OtpValidator instance) =>
       'data': instance.data,
     };
 
-OtpData _$OtpDataFromJson(Map<String, dynamic> json) => OtpData(
-      academyLogoURL: json['academyLogoURL'] as String?,
-      staffKey: json['staffKey'] as String?,
+PermissonData _$PermissonDataFromJson(Map<String, dynamic> json) =>
+    PermissonData(
       name: json['name'] as String?,
+      staffKey: json['staffKey'] as String?,
+      academyLogoURL: json['academyLogoURL'] as String?,
       showFee: json['showFee'] as bool?,
-      takeMemberAttendance: json['takeMemberAttendance'] as bool?,
       takePNPAttendance: json['takePNPAttendance'] as bool?,
-      canLogin: json['canLogin'] as bool?,
+      takeMemberAttendance: json['takeMemberAttendance'] as bool?,
       isChanged: json['isChanged'] as bool?,
+      canLogin: json['canLogin'] as bool?,
     );
 
-Map<String, dynamic> _$OtpDataToJson(OtpData instance) => <String, dynamic>{
+Map<String, dynamic> _$PermissonDataToJson(PermissonData instance) =>
+    <String, dynamic>{
       'name': instance.name,
       'staffKey': instance.staffKey,
       'academyLogoURL': instance.academyLogoURL,

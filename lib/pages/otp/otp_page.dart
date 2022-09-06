@@ -94,6 +94,10 @@ class _OtpState extends State<OtpPage> {
                     _val.setString( 'academyLogoURL', value.data!.academyLogoURL!);
                     _val.setString('name', value.data!.name!);
                     _val.setBool("fees", value.data!.showFee!);
+                    _val.setBool("isChanged", value.data!.isChanged!);
+                    _val.setBool("canLogin", value.data!.canLogin!);
+                    _val.setBool("takePNPAttendance", value.data!.takePNPAttendance!);
+                    _val.setBool('tekeMemberAttendance', value.data!.takeMemberAttendance!);
                   }); 
                    
                     Navigator.pushReplacement(

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sport/model/check_permisson.dart';
+
 import 'package:sport/pages/my_attendance.dart';
+import 'package:sport/service.dart';
+import 'package:sport/utils/constants.dart';
 import 'login/login_page.dart';
 
 class HomePage1 extends StatefulWidget {
@@ -9,8 +13,10 @@ class HomePage1 extends StatefulWidget {
   @override
   State<HomePage1> createState() => _HomePage1State();
 }
-
 class _HomePage1State extends State<HomePage1> {
+
+
+
   Map<String, double> attendanceList = {"In": 15, "Out": 85};
   Map<String, double> fee = {"Paid": 75.8, "pending": 85};
   final String attendanceText = 'Attendance';
@@ -46,7 +52,21 @@ class _HomePage1State extends State<HomePage1> {
   @override
   void initState() {
     getName();
+    print("hello");
+    // if (!CanLogin! ) {
+       
+    //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute<void>(
+    //     builder: (BuildContext context) => const Login()), (route) => false);}
+    ServiceCall().fetchPermissonData().then((value) {
+       if (!CanLogin! ) {
+        print("kjdshkljhdfjgfh");
+       
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute<void>(
+        builder: (BuildContext context) => const Login()), (route) => false);}
+    });
+    
     super.initState();
+    
   }
 
   getName() async {
@@ -56,7 +76,7 @@ class _HomePage1State extends State<HomePage1> {
       });
     });
   }
-
+late PermissonData Permission ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

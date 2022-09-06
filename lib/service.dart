@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/attendance.dart';
 import 'package:sport/model/category_batch.dart';
+import 'package:sport/model/check_permisson.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:sport/model/customer_list_out.dart';
@@ -341,5 +342,37 @@ class ServiceCall {
           return pnpAttendanceIn;
          }
  }
+
+ /// Check Permisson
  
+
+ Future<CheckPermisson> fetchPermissonData() async{
+  print("kjdkjdffsjldflj");
+  Map<String, String> _header = {
+    'ContentType' : 'application/json',
+    'staff-Key' : await _prefs.then((value) => value.getString(('staffKey'))!),
+  };
+  final response = await http.post(Uri.parse('${base}GuruCheckPermission'),
+  body: {
+  "showFee": true,
+	"takePNPAttendance": true,
+	"takeMemberAttendance": true,
+	"canLogin": true},
+  headers: _header);
+  print("dddddddddddd");
+  print(response.body.toString());
+
+  if (response.statusCode == 200){
+    
+    CheckPermisson checkPermisson = 
+    CheckPermisson.fromJson(jsonDecode(response.body));
+    CanLogin = checkPermisson.data!.canLogin;
+    IsChanged = checkPermisson.data!.isChanged;
+    TakeMemberAttendance = checkPermisson.data!.takeMemberAttendance;
+    TakePNPAttendance = checkPermisson.data!.takePNPAttendance;
+    ShowFee = checkPermisson.data!.showFee!;
+    return checkPermisson;
+  } else {return CheckPermisson();}
+  
+ }
 }

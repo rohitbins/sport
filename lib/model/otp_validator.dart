@@ -36,13 +36,17 @@ class OtpData {
     this.name, 
     this.showFee,
     this.takeMemberAttendance,
-    this.takePNPAttendance});
+    this.takePNPAttendance,
+    this.canLogin,
+    this.isChanged});
   String? name;
   String? staffKey;
   String? academyLogoURL;
   bool? showFee;
   bool? takePNPAttendance;
   bool? takeMemberAttendance;
+  bool? isChanged;
+  bool? canLogin;
   factory OtpData.fromJson(Map<String, dynamic> json) =>
       _$OtpDataFromJson(json);
 
