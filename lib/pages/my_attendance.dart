@@ -96,7 +96,7 @@ class _MyAttendanceState extends State<MyAttendance> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 12),
                           child: Text(
-                            ! staffInside ? 'In' : 'Out',
+                            data.outTime!.length>0 ? 'In' : 'Out',
                             style: const TextStyle(fontSize: 24),
                           ),
                         ),
@@ -105,7 +105,7 @@ class _MyAttendanceState extends State<MyAttendance> {
                             clicked = !clicked;
                           });
                           serviceCall
-                              .updateStaffAttendance(isIn: staffInside)
+                              .updateStaffAttendance(isIn: data.outTime!.length>0?true:false)
                               .then((value) {
                             setState(() {
                               if (value!.message == "Done")
@@ -122,14 +122,14 @@ class _MyAttendanceState extends State<MyAttendance> {
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Text(
-                    "Last ${!staffInside ? 'Out' : 'In'}",
+                    "Last ${data.outTime!.length>0 ? 'Out' : 'In'}",
                     style: const TextStyle(letterSpacing: 1.4),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Text(
-                    (staffInside)? "${data.inTime}" : "${data.outTime}",
+                    (data.outTime!.length>0)? "${data.outTime}" : "${data.inTime}",
                     // data.outTime!,
                   ),
                 ),

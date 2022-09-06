@@ -291,7 +291,7 @@ class ServiceCall {
     };
 
     final response = await http.post(
-        isIn
+        !isIn
             ? Uri.parse('$base${EndPoints.setStaffAttendanceOut.apiValue}')
             : Uri.parse('$base${EndPoints.setStaffAttendanceIn.apiValue}'),
         headers: _header,
