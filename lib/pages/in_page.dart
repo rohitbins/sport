@@ -39,10 +39,10 @@ class _InPageState extends State<InPage> {
   int selectedBatchId = 0;
   CategoryAndBatch categoryAndBatch = CategoryAndBatch();
 
+
   @override
   void initState() {
     super.initState();
-  
     getBatchCatgories();
     getCustomerList(0, 0);
     getData();
@@ -50,7 +50,6 @@ class _InPageState extends State<InPage> {
 
   void getBatchCatgories() async {
     categoryAndBatch = await ServiceCall().fetchBatchCatgories();
-
     setState(() {});
   }
 

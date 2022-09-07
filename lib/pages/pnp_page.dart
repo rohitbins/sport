@@ -45,7 +45,6 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                 return Padding(
                   padding: const EdgeInsets.only(left: 6,right: 6),
                   child: Card(
-                    
         elevation: 6,
         color: snapshot.data!.data![index].status.toString().toUpperCase() == 'PLAYING' ? Colors.white: 
         snapshot.data!.data![index].status.toString().toUpperCase() == 'CANCELLED' ? Colors.white: 

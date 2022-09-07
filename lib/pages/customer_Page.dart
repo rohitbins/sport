@@ -23,6 +23,7 @@ import '../service.dart';
 
   void initState(){
     super.initState();
+
     _prefs.then((value) {
       showFees = value.getBool(("fees"))!;
       setState(() {
@@ -48,12 +49,13 @@ import '../service.dart';
                     selectedKey: clickedKey,
                     showFees : showFees,
                     callback: (String _kay) {
+                      print('asgdkasgkdas = '+customerData.customerKey.toString());
                         setState(() {
                         // lable = 'wait...';
                         clickedKey = _kay;
                       });
                       ServiceCall()
-                          .attendanceIn(customerKey: customerData.customerKey!)
+                          .attendanceIn(customerKey: customerData.customerKey.toString())
                           .then((value) {
                         customerData.isPlaying = 15;
                         clickedKey = '';

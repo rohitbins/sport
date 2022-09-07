@@ -186,6 +186,7 @@ class ServiceCall {
 
 // Customer Attendance In/////////
   Future<CustomerListOut> attendanceIn({required String customerKey}) async {
+    print('CUSTOMERIN');
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
@@ -196,7 +197,7 @@ class ServiceCall {
         Uri.parse('$base${EndPoints.setCustomerAttendanceIn.apiValue}'),
         headers: _header,
         body: {});
-
+print('customerkey'+customerKey.toString());
     if (response.statusCode == 200) {
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));

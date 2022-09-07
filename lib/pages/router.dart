@@ -31,17 +31,20 @@ class _MyRouteState extends State<MyRoute> {
   }
   int pagesIndex = 0;
   final pages = [const HomePage1(), const InPage(), const OutPage(), const PnpPage()];
-
+final pagesForPnpFalse = [const HomePage1(), const InPage(), const OutPage()];
+final pagesForAttendenceFalse = [const HomePage1(),  const OutPage(), const PnpPage()];
   final String _home = 'Home';
   final String _in = 'In';
   final String _out = 'Out';
   final String _PNP = 'PNP';
+
   @override
   Widget build(BuildContext context) {
+    print('TakeMemberAttendance = '+TakeMemberAttendance.toString());
+    print('TakePNPAttendance = '+TakePNPAttendance.toString());
     ServiceCall().fetchPermissonData();
     return (TakePNPAttendance == false && TakeMemberAttendance == false)?const HomePage1():
     DefaultTabController(
-
       length: TakePNPAttendance!?TakeMemberAttendance!?4:3:3,
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
@@ -50,12 +53,14 @@ class _MyRouteState extends State<MyRoute> {
           items: [
             BottomNavigationBarItem(
                 icon: const Icon(Icons.home_filled,color: Colors.grey,), label: _home),
+
             if(TakeMemberAttendance!)
             BottomNavigationBarItem(
                 icon: const Icon(Icons.arrow_downward, color: Colors.grey,), label: _in),
 
             BottomNavigationBarItem(
                 icon: const Icon(Icons.arrow_upward, color: Colors.grey,), label: _out),
+
             if(TakePNPAttendance!)
              BottomNavigationBarItem(
                 icon: const Icon(Icons.spatial_audio_off,color: Colors.grey,),label: _PNP)
@@ -66,7 +71,7 @@ class _MyRouteState extends State<MyRoute> {
             });
           },
         ),
-        body: pages[pagesIndex],
+        body: (!TakeMemberAttendance!)?pagesForAttendenceFalse[pagesIndex]:(!TakePNPAttendance!)?pagesForPnpFalse[pagesIndex]:pages[pagesIndex],
       ),
     );
   }
