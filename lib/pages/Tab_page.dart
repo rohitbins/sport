@@ -39,6 +39,7 @@ class _TabBarPageState extends State<TabBarPage> //state class
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: DefaultTabController(
           length: tabs.length,
@@ -183,6 +184,7 @@ class _TabBarPageState extends State<TabBarPage> //state class
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           widget.callBack(selectedCatId, selectedbatchId);
+          print('navi');
           Navigator.pop(context);
         },
         child: const Icon(Icons.search),

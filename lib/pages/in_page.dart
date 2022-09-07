@@ -110,7 +110,9 @@ class _InPageState extends State<InPage> {
               ],
             ),
           ),
+
         const Divider(),
+
         SizedBox(
             height: MediaQuery.of(context).size.height * .9,
             child: CustomerPage(customerListData: futureCustomerData)),

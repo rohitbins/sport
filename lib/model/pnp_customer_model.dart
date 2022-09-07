@@ -43,6 +43,7 @@ class Data {
   String? facilityName;
   String? inTime;
   String? outTime;
+  int? pnpFee;
 
   Data(
       {this.bookingId,
@@ -56,7 +57,8 @@ class Data {
       this.sportLogo,
       this.facilityName,
       this.inTime,
-      this.outTime});
+      this.outTime,
+      this.pnpFee});
 
   Data.fromJson(Map<String, dynamic> json) {
     bookingId = json['bookingId'];
@@ -71,6 +73,7 @@ class Data {
     facilityName = json['facilityName'];
     inTime = json['inTime'];
     outTime = json['outTime'];
+    pnpFee = json['pnpFee'];
   }
 
   Map<String, dynamic> toJson() {
@@ -87,6 +90,7 @@ class Data {
     data['facilityName'] = this.facilityName;
     data['inTime'] = this.inTime;
     data['outTime'] = this.outTime;
+    data['pnpFee'] = this.pnpFee;
     return data;
   }
 }

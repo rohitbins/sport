@@ -20,6 +20,9 @@ import 'model/phone_validator.dart';
 import 'model/request/customer_data.dart';
 
 class ServiceCall {
+
+  String _mode = "LIVE"; //to connect to live db use "LIVE" and for test db use "TEST"
+
   ServiceCall() {
     base = 'http://api.sportsb.co.in/api/';
   }
@@ -32,7 +35,8 @@ class ServiceCall {
   Future<CategoryAndBatch> fetchBatchCatgories() async {
     var headers = {
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
-      'ContentType': 'application/json'
+      'ContentType': 'application/json',
+      'mode': _mode
     };
     final response = await http.post(
         Uri.parse('$base${EndPoints.staffAcademyCategoryAndBatch.apiValue}'),
@@ -53,7 +57,8 @@ class ServiceCall {
       {required CustomerDataRequest customerDataRequest}) async {
     var headers = {
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
-      'ContentType': 'application/json'
+      'ContentType': 'application/json',
+      'mode': _mode
     };
     // print('headers:${headers.toString()}');
     final response = await http.post(
@@ -62,7 +67,7 @@ class ServiceCall {
         headers: headers);
 
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
       CustomerListData customerListData =
           CustomerListData.fromJson(jsonDecode(response.body));
 
@@ -77,7 +82,8 @@ class ServiceCall {
       {required String phoneNumber}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6'
+      'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6',
+      'mode': _mode
     };
     final response = await http.post(
         Uri.parse('$base${EndPoints.guruPhoneValidator.apiValue}'),
@@ -85,11 +91,12 @@ class ServiceCall {
         body: {"phone": phoneNumber, "source": "Android"});
 
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
       PhoneValidator phoneValidator =
           PhoneValidator.fromJson(jsonDecode(response.body));
       return phoneValidator;
-    } else {
+    }
+    else {
       throw Exception('failed to load BatchCategories');
     }
   }
@@ -97,22 +104,32 @@ class ServiceCall {
 // Otp Validator//////
   Future<OtpValidator> OtpValidatorApi(
       {required String phoneNumber, required String otp}) async {
+    // print('OtpValidatorApi');
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6'
+      'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6',
+      'mode': _mode
     };
     final response = await http.post(
         Uri.parse('${base}${EndPoints.guruOTPValidator.apiValue}'),
         headers: _header,
         body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
-
+// print('res'+response.body.toString());
     if (response.statusCode == 200) {
       OtpValidator otpValidator =
           OtpValidator.fromJson(jsonDecode(response.body));
-         
+      // print('akey = '+otpValidator.data!.staffKey.toString());
           if(otpValidator.data!.showFee !=null)
-          {ShowFee = otpValidator.data!.showFee as bool;}
-           print(ShowFee.toString());
+          {
+            // print("stakePNPAttendance="+otpValidator.data!.takePNPAttendance.toString());
+            // print("stakeMemberAttendance="+otpValidator.data!.takeMemberAttendance.toString());
+            ShowFee = otpValidator.data!.showFee as bool;
+            TakeMemberAttendance = otpValidator.data!.takeMemberAttendance;
+            TakePNPAttendance = otpValidator.data!.takePNPAttendance;
+          }
+          ShowFee = false;
+           // print("shown fee="+ShowFee.toString());
+
       return otpValidator;
 
     } else {
@@ -124,15 +141,16 @@ class ServiceCall {
   Future<CustomerListOut> fetchCustomerOut() async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!)
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
+      'mode': _mode
     };
     final response = await http.post(
         Uri.parse('${base}${EndPoints.customerListForOut.apiValue}'),
         headers: _header,
-        body: {});
+        body: {  });
 
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
@@ -147,7 +165,9 @@ class ServiceCall {
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
-      'customer-key': customerKey
+      'customer-key': customerKey,
+      'mode': _mode
+
     };
     final response = await http.post(
         Uri.parse('${base}SetCustomerAttendanceIn'),
@@ -155,7 +175,7 @@ class ServiceCall {
         body: {});
 
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
@@ -169,7 +189,8 @@ class ServiceCall {
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
-      'customer-key': customerKey
+      'customer-key': customerKey,
+      'mode': _mode
     };
     final response = await http.post(
         Uri.parse('$base${EndPoints.setCustomerAttendanceIn.apiValue}'),
@@ -177,7 +198,6 @@ class ServiceCall {
         body: {});
 
     if (response.statusCode == 200) {
-      print(response.body);
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
@@ -191,7 +211,8 @@ class ServiceCall {
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
-      'customer-key': data.customerKey
+      'customer-key': data.customerKey,
+      'mode': _mode
     };
     final response = await http.post(
         Uri.parse('${base}SetCustomerAttendanceOut'),
@@ -212,7 +233,8 @@ class ServiceCall {
       {required String customerkey}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'customer-key': customerkey
+      'customer-key': customerkey,
+      'mode': _mode
     };
     final response = await http.post(Uri.parse('${base}CustomerAttendance'),
         body: {"Indx": "0", "IdForNew": "0"}, headers: _header);
@@ -231,7 +253,8 @@ class ServiceCall {
   Future<List<Payment>?> fetchPayment({required String customerkey}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      "customer-key": customerkey
+      "customer-key": customerkey,
+      'mode': _mode
     };
     final response = await http.post(Uri.parse('${base}CustomerPayment'),
         body: {}, headers: _header);
@@ -250,7 +273,8 @@ class ServiceCall {
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
-      'customer-key': _key
+      'customer-key': _key,
+      'mode': _mode
     };
     final response = await http.post(Uri.parse('${base}CustomerProfile'),
         body: {}, headers: _header);
@@ -264,10 +288,11 @@ class ServiceCall {
   }
 
 // Staff Attendance List ///////
-  Future<StaffAttendanceModel?> GetStaffAttendanceList() async {
+  Future<StaffAttendanceModel?> GetStaffAttendanceList() async {  //working
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!)
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
+      'mode': _mode
     };
 
     final response = await http.post(
@@ -278,7 +303,7 @@ class ServiceCall {
     if (response.statusCode == 200) {
       StaffAttendanceModel staffAttendanceModel =
           StaffAttendanceModel.fromJson(jsonDecode(response.body));
-
+print('GetStaffAttendanceList = '+response.body.toString());
       return staffAttendanceModel;
     }
   }
@@ -287,7 +312,8 @@ class ServiceCall {
   Future<BaseResponseModel?> updateStaffAttendance({required bool isIn}) async {
     Map<String, String> _header = {
       'ContentType': 'application/json',
-      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!)
+      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
+      'mode': _mode
     };
 
     final response = await http.post(
@@ -307,10 +333,10 @@ class ServiceCall {
 
   // Pnp customer List for IN....
   Future<PnpCustomerModel> fetchPnpCustomerModel() async{
-    print('getPnpCustomerForIn=');
     Map<String, String> _header = {
       'ContentType' : 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
+      'mode': _mode
       
     };
      final response = await http.post(Uri.parse('${base}PNPCustomerListForIn'),
@@ -321,6 +347,7 @@ class ServiceCall {
           PnpCustomerModel.fromJson(jsonDecode(response.body));
           return pnpCustomerModel;
         }
+
         else{return PnpCustomerModel();}
         
  }
@@ -330,13 +357,13 @@ class ServiceCall {
   Map<String, String> _header = {
     "ContentType" : "application/json",
      'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
+    'mode': _mode
   };
   final response = await http.post(Uri.parse('${base}SetPNPCustomerAttendanceIn'),
   body: {"pnpCustomerId": pnpCustomerId,
          "slotId":  slotId},
          headers: _header);
          if (response.statusCode == 200){
-          // print(response.body.toString());
           PnpAttendanceIn pnpAttendanceIn = 
           PnpAttendanceIn.fromJson(jsonDecode(response.body));
           return pnpAttendanceIn;
@@ -347,23 +374,23 @@ class ServiceCall {
  
 
  Future<CheckPermisson> fetchPermissonData() async{
-  print("kjdkjdffsjldflj");
+    print('function called');
   Map<String, String> _header = {
     'ContentType' : 'application/json',
+    'token' : 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6',
     'staff-Key' : await _prefs.then((value) => value.getString(('staffKey'))!),
+    'mode': _mode
   };
   final response = await http.post(Uri.parse('${base}GuruCheckPermission'),
   body: {
-  "showFee": true,
-	"takePNPAttendance": true,
-	"takeMemberAttendance": true,
-	"canLogin": true},
+  "showFee": ShowFee.toString(),
+	"takePNPAttendance": TakePNPAttendance.toString(),
+	"takeMemberAttendance": TakeMemberAttendance.toString(),
+	"canLogin": CanLogin.toString()},
   headers: _header);
-  print("dddddddddddd");
-  print(response.body.toString());
+  print('GuruCheckPermission = '+response.body.toString());
 
   if (response.statusCode == 200){
-    
     CheckPermisson checkPermisson = 
     CheckPermisson.fromJson(jsonDecode(response.body));
     CanLogin = checkPermisson.data!.canLogin;
@@ -373,6 +400,6 @@ class ServiceCall {
     ShowFee = checkPermisson.data!.showFee!;
     return checkPermisson;
   } else {return CheckPermisson();}
-  
+
  }
 }

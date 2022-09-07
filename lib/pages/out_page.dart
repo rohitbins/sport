@@ -41,7 +41,11 @@ class _OutPageState extends State<OutPage> {
           future: ServiceCall().fetchCustomerOut(),
           builder: (context, AsyncSnapshot<CustomerListOut> snapshot) {
             if (snapshot.hasData) {
-              return Padding(
+              if(snapshot.data!.data!.isEmpty){
+                return
+                  Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
+              }
+             return Padding(
                 padding: const EdgeInsets.only(bottom: 0),
                 child: ListView.builder(
                     shrinkWrap: true,
@@ -75,10 +79,11 @@ class _OutPageState extends State<OutPage> {
                     }),
               );
             }
-            if (snapshot.hasError) {
+            else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
-            return const Center(child: CircularProgressIndicator());
+            else{
+            return const Center(child: CircularProgressIndicator());}
           }),
     );
   }

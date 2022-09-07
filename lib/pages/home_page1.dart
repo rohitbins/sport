@@ -52,21 +52,7 @@ class _HomePage1State extends State<HomePage1> {
   @override
   void initState() {
     getName();
-    print("hello");
-    // if (!CanLogin! ) {
-       
-    //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute<void>(
-    //     builder: (BuildContext context) => const Login()), (route) => false);}
-    // ServiceCall().fetchPermissonData().then((value) {
-    //    if (!CanLogin! ) {
-    //     print("kjdshkljhdfjgfh");
-       
-    //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute<void>(
-    //     builder: (BuildContext context) => const Login()), (route) => false);}
-    // });
-    
     super.initState();
-    
   }
 
   getName() async {
@@ -76,7 +62,7 @@ class _HomePage1State extends State<HomePage1> {
       });
     });
   }
-late PermissonData Permission ;
+late PermissonData Permission;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

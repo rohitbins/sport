@@ -98,8 +98,7 @@ class _OtpState extends State<OtpPage> {
                     _val.setBool("canLogin", value.data!.canLogin!);
                     _val.setBool("takePNPAttendance", value.data!.takePNPAttendance!);
                     _val.setBool('tekeMemberAttendance', value.data!.takeMemberAttendance!);
-                  }); 
-                   
+                  });
                     Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const MyRoute()),

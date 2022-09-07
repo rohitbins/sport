@@ -22,16 +22,18 @@ class _MyAttendanceState extends State<MyAttendance> {
     super.initState();
   }
 
-  fetchData() async {
+  fetchData() async {    //working
     serviceCall.GetStaffAttendanceList().then((value) {
       setState(() {
-        staffAttendanceModel = value!;
+staffAttendanceModel = value!;
+        print('staffAttendanceModel = '+staffAttendanceModel.toString());
       });
     });
   }
 
   bool clicked = false;
   bool staffInside = false;
+  bool _noAttendence = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,28 +46,19 @@ class _MyAttendanceState extends State<MyAttendance> {
         centerTitle: true,
       ),
       body: staffAttendanceModel.data != null
-          ? ListView(
+             ? ListView(
            physics: const NeverScrollableScrollPhysics(),
             children: [
-                 _todays(staffAttendanceModel.data![0]),
+              staffAttendanceModel.data!.length>0?
+                 _todays(staffAttendanceModel.data![0]):_onlyFirstIn(),
                    Container(
                     height: MediaQuery.of(context).size.height*.788,
                      child: ListView.builder(
                       primary: true,
                                    shrinkWrap: true,
                                      itemCount: staffAttendanceModel.data!.length,
-                                     itemBuilder: (BuildContext context, int index) {         
-                       
-                     
-                                
-                      // if (index == 0) {
-                     
-                      //   staffInside =
-                      //       (
-                      //         // staffAttendanceModel.data![index].inTime != '' &&
-                      //           staffAttendanceModel.data![0].outTime == '');
-                      //   return _todays(staffAttendanceModel.data![0]);
-                      // }
+                                     itemBuilder: (BuildContext context, int index) {
+
                       return myCard(staffAttendanceModel.data![index]);
                                      },
                                    ),
@@ -73,7 +66,7 @@ class _MyAttendanceState extends State<MyAttendance> {
             ],
           )
           : const Center(
-              child: CircularProgressIndicator(),
+              child: Text('No Attendence',style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.bold),),
             ),
     );
   }
@@ -140,6 +133,51 @@ class _MyAttendanceState extends State<MyAttendance> {
                 ),
               ],
             ),
+          ],
+        ),
+      ),
+    );
+  }
+  Widget _onlyFirstIn() {
+    return Container(
+      color: const Color.fromARGB(255, 235, 195, 195),
+      // elevation: 4,
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            !clicked
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: ElevatedButton(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 12),
+                          child: Text(
+                            'In',
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            clicked = !clicked;
+                          });
+                          serviceCall
+                              .updateStaffAttendance(isIn: true/**/)
+                              .then((value) {
+                            setState(() {
+                              if (value!.message == "Done")
+                                staffInside = !staffInside;
+                              clicked = !clicked;
+                            });
+                            fetchData();
+                          });
+                        }),
+                  )
+                : const CircularProgressIndicator(),
+
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/pages/profile/payments.dart';
 import 'package:sport/pages/profile/personal_info.dart';
 import 'package:sport/pages/profile/sport_info.dart';
+import 'package:sport/utils/constants.dart';
 
 import '../../attendence.dart';
 
@@ -39,7 +40,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: ShowFee?4:3,
       child: Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
@@ -69,7 +70,7 @@ class _ProfileState extends State<Profile> {
                   icon: Icon(Icons.access_time),
                   label: 'Attendence',
                   backgroundColor: Colors.blueGrey),
-                  if(widget.showFees)
+                  if(ShowFee)
              const BottomNavigationBarItem(
                   icon: Icon(Icons.payment),
                   label: 'Fees',

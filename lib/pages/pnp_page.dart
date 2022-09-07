@@ -33,7 +33,12 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
         child: FutureBuilder<PnpCustomerModel>(
           future: ServiceCall().fetchPnpCustomerModel(),
           builder: ((context, snapshot) {
-            if(snapshot.hasData){
+
+             if(snapshot.hasData){
+               if(snapshot.data!.data!.isEmpty){
+                 return
+                   Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
+               }
             return ListView.builder(
               itemCount: snapshot.data!.data!.length,
               itemBuilder: (BuildContext context, int index){
@@ -68,20 +73,52 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                     Padding(
-                       padding: const EdgeInsets.only(top: 3),
-                       child: Text(snapshot.data!.data![index].pnpCustomer.toString(),
-                       style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1
-                       ),),
+                     Row(
+                       children: [
+                         Flexible(
+                           child: Padding(
+                             padding:  EdgeInsets.only(top: 3),
+                             child: FittedBox(
+
+                               child: Text(snapshot.data!.data![index].pnpCustomer.toString(),softWrap: true,
+                               style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1
+                               ),),
+                             ),
+                           ),
+                         ),
+                         SizedBox(width: 5),
+                         Image.network(snapshot.data!.data![index].sportLogo.toString(),scale: 3.5,),
+                       ],
                      ),
                      const SizedBox(height: 2),
-                     Text(snapshot.data!.data![index].phone.toString(),
-                     style: const TextStyle(
-                      color: Colors.grey
-                     ),),
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       children: [
+                         Text(snapshot.data!.data![index].phone.toString(),
+                         style: const TextStyle(
+                          color: Colors.grey
+                         ),),
+                         Text(' | '),
+                         Flexible(
+                           child: Text(snapshot.data!.data![index].facilityName.toString(),
+                           style:  TextStyle(
+                             fontWeight: FontWeight.w600,
+                            color: Colors.yellow[900]
+                           ),),
+                         ),
+                         Text(' | '),
+                         Flexible(
+                           child: Text(snapshot.data!.data![index].pnpFee.toString(),
+                           style:  TextStyle(
+                             fontWeight: FontWeight.w600,
+                            color: Colors.yellow[800]
+                           ),),
+                         ),
+                       ],
+                     ),
                      const SizedBox(height: 2),
                      Row(
                        children: [
@@ -186,8 +223,6 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
       });
               
            
-         }else if(snapshot.hasError){
-          return Text(snapshot.error.toString());
          }
          else{
           return const Center(child: CircularProgressIndicator());
