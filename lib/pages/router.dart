@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/pages/home_page1.dart';
 import 'package:sport/pages/in_page.dart';
+import 'package:sport/pages/login/login_page.dart';
 import 'package:sport/pages/out_page.dart';
 import 'package:sport/pages/pnp_page.dart';
 import 'package:sport/service.dart';
@@ -22,12 +23,15 @@ class _MyRouteState extends State<MyRoute> {
   void initState() {
 
     super.initState();
+    // if(CanLogin == false){
+    //   Navigator.pushReplacement(context, MaterialPageRoute (builder: (BuildContext context) => const Login()));
+    // }
     _prefs.then((value){
       TakePNPAttendance = value.getBool('takePNPAttendance');
       TakeMemberAttendance= value.getBool('tekeMemberAttendance');
+      // CanLogin = value.getBool('canLogin');
       ShowFee = value.getBool(("fees"))!;
     });
-
   }
   int pagesIndex = 0;
   final pages = [const HomePage1(), const InPage(), const OutPage(), const PnpPage()];
@@ -40,8 +44,6 @@ final pagesForAttendenceFalse = [const HomePage1(),  const OutPage(), const PnpP
 
   @override
   Widget build(BuildContext context) {
-    print('TakeMemberAttendance = '+TakeMemberAttendance.toString());
-    print('TakePNPAttendance = '+TakePNPAttendance.toString());
     ServiceCall().fetchPermissonData();
     return (TakePNPAttendance == false && TakeMemberAttendance == false)?const HomePage1():
     DefaultTabController(

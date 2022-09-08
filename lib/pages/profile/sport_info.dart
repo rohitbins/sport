@@ -255,7 +255,7 @@ class _SportInfoState extends State<SportInfo> {
                       ),
                     ),
                     const Divider(thickness: 2),
-                    Padding(
+                    ShowFee?Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
                       child: Row(
                         children: [
@@ -280,9 +280,9 @@ class _SportInfoState extends State<SportInfo> {
                           )
                         ],
                       ),
-                    ),
-                    const Divider(thickness: 2),
-                    Padding(
+                    ):SizedBox(),
+                    ShowFee?Divider(thickness: 2):SizedBox(),
+                    ShowFee?Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
                       child: Row(
                         children: [
@@ -311,8 +311,8 @@ class _SportInfoState extends State<SportInfo> {
                           )
                         ],
                       ),
-                    ),
-                    const Divider(thickness: 2),
+                    ):SizedBox(),
+                    ShowFee?Divider(thickness: 2):SizedBox(),
                     ShowFee?Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
                       child: Row(

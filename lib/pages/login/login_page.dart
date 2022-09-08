@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sport/utils/constants1.dart';
 // import 'package:sportsb/View/otp.dart';
 
 import '../../model/phone_validator.dart';
@@ -16,6 +17,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController numberController = TextEditingController();
+  void dispose() {
+    numberController.clear();
+  }
   final _key = GlobalKey<FormState>();
   bool _empty = false;
   bool _invalid = false;
@@ -44,11 +49,11 @@ class _LoginState extends State<Login> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _phoneController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _phoneController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +101,21 @@ class _LoginState extends State<Login> {
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
-                              return value!.length != 10
-                                  ? 'Please enter Phone Number'
-                                  : null;
+                              if (_empty) {
+                            return 'Please enter Phone Number';
+                          }
+                          if (_invalid) {
+                            return Messg != null
+                                ? Messg!.length > 55
+                                    ? Messg!.substring(0, 53) +
+                                        '\n' +
+                                        Messg!.substring(
+                                          53,
+                                        )
+                                    : Messg
+                                : "Invalid Number";
+                          }
+                          return null;
                             },
                             maxLength: 10,
                             decoration: const InputDecoration(
@@ -124,6 +141,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       const SizedBox(height: 50),
+                      isLoading?const CircularProgressIndicator(color: Colors.blue):
                       TextButton(
                         style: ButtonStyle(
                             backgroundColor: pressed
@@ -136,7 +154,7 @@ class _LoginState extends State<Login> {
                             serciceCAll();
                           }
                           setState(() {
-                            isLoading = true;
+                            isLoading = false;
                           });
                         },
                         child: (isLoading)? const CircularProgressIndicator():const Text(

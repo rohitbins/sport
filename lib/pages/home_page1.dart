@@ -15,8 +15,6 @@ class HomePage1 extends StatefulWidget {
 }
 class _HomePage1State extends State<HomePage1> {
 
-
-
   Map<String, double> attendanceList = {"In": 15, "Out": 85};
   Map<String, double> fee = {"Paid": 75.8, "pending": 85};
   final String attendanceText = 'Attendance';
@@ -104,42 +102,3 @@ late PermissonData Permission;
 
 
 
-
- // Text(
-            //   attendanceText,
-            //   style: const TextStyle(fontWeight: FontWeight.w600),
-            // ),
-            // Container(
-            //   margin: const EdgeInsets.symmetric(vertical: 2.0),
-            //   height: 90.0,
-            //   child: ListView(
-            //     scrollDirection: Axis.horizontal,
-            //     children: <Widget>[
-            //       AttendanceCard(ampm: 'pm', end: '9:00', start: '8:00'),
-            //       AttendanceCard(ampm: 'pm', end: '8:00', start: '7:00'),
-            //       AttendanceCard(ampm: 'pm', end: '10:00', start: '9:00'),
-            //       AttendanceCard(ampm: 'pm', end: '11:00', start: '10:00'),
-            //       AttendanceCard(ampm: 'pm', end: '12:00', start: '11:00'),
-            //       AttendanceCard(ampm: 'am', end: '18:00', start: '17:00'),
-            //       AttendanceCard(ampm: 'am', end: '19:00', start: '18:00'),
-            //       AttendanceCard(ampm: 'am', end: '20:00', start: '19:00'),
-            //     ],
-            //   ),
-            // ),
-            
-            // Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Text(
-            //         feeText,
-            //         style: const TextStyle(fontWeight: FontWeight.w600),
-            //       ),
-            //       SportPie(colorList: colorList, dataSet: fee),
-            //       const SizedBox(height: 10),
-            //       Text(
-            //         attendanceText,
-            //         style: const TextStyle(fontWeight: FontWeight.w600),
-            //       ),
-            //       SportPie(colorList: colorList, dataSet: attendanceList),
-            //     ]),

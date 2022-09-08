@@ -334,6 +334,7 @@ print('GetStaffAttendanceList = '+response.body.toString());
 
   // Pnp customer List for IN....
   Future<PnpCustomerModel> fetchPnpCustomerModel() async{
+    print('hdasgviuadgc');
     Map<String, String> _header = {
       'ContentType' : 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
@@ -343,12 +344,12 @@ print('GetStaffAttendanceList = '+response.body.toString());
      final response = await http.post(Uri.parse('${base}PNPCustomerListForIn'),
     body: {}, headers: _header);
         if (response.statusCode == 200){
+          print('doneee');
           // print(response.body.toString());
           PnpCustomerModel pnpCustomerModel = 
           PnpCustomerModel.fromJson(jsonDecode(response.body));
           return pnpCustomerModel;
         }
-
         else{return PnpCustomerModel();}
         
  }
