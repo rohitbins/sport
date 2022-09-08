@@ -49,7 +49,7 @@ import '../service.dart';
                     selectedKey: clickedKey,
                     showFees : showFees,
                     callback: (String _kay) {
-                      print('asgdkasgkdas = '+customerData.customerKey.toString());
+                      
                         setState(() {
                         // lable = 'wait...';
                         clickedKey = _kay;
@@ -161,7 +161,8 @@ class InCard extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.red
                           ), ),
-                          (customerData.feePending != 0 && showFees)?
+                          const SizedBox(width: 3),
+                          showFees?
                             Text(
                             '(*${customerData.feePending})',
                                 style: const TextStyle(
@@ -169,9 +170,7 @@ class InCard extends StatelessWidget {
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600),
                           ):const SizedBox(),  
-                           
-                         ],
-                      )
+                  ])
                     else 
                       const Text(''),
             ]),

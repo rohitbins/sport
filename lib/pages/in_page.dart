@@ -80,7 +80,8 @@ class _InPageState extends State<InPage> {
         centerTitle: true,
         leading: Container(),
       ),
-      body: ListView(physics: const NeverScrollableScrollPhysics(), children: [
+      body: 
+      ListView(physics: const NeverScrollableScrollPhysics(), children: [
         if (categoryAndBatch.data != null)
           SizedBox(
             height: MediaQuery.of(context).size.height * .06,
@@ -111,7 +112,7 @@ class _InPageState extends State<InPage> {
           ),
 
         const Divider(),
-
+        
         SizedBox(
             height: MediaQuery.of(context).size.height * .9,
             child: CustomerPage(customerListData: futureCustomerData)),

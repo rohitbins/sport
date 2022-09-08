@@ -210,7 +210,7 @@ class OutCard extends StatelessWidget {
                             "Fee Pending",
                             style: TextStyle(fontSize: 12,color: Colors.red),
                           ),
-                          (customerData.feePending != 0 && showFees)?
+                          showFees?
                           Text(
                             '(*${customerData.feePending})',
                             style: const TextStyle(
