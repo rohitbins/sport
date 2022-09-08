@@ -17,7 +17,6 @@ import '../service.dart';
     class _CustomerPageState extends State<CustomerPage>
     with SingleTickerProviderStateMixin {
        final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-       bool showFees = false;
       //  String lable = '';
        String clickedKey = '';
 
@@ -25,33 +24,34 @@ import '../service.dart';
     super.initState();
 
     _prefs.then((value) {
-      showFees = value.getBool(("fees"))!;
       setState(() {
         
       });
     });
   }
+
+
    @override
   Widget build(BuildContext context) {
+
     List<CustomerData>? dataList = widget.customerListData.data;
-    return dataList == null
-        ? const Center(child: CircularProgressIndicator())
-        : Padding(
+IsDataListNull = widget.customerListData.data == null;
+
+    return
+    IsDataListNull!?Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),))):
+     Padding(
             padding: const EdgeInsets.only(bottom: 130),
             child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: dataList.length,
+                itemCount: dataList!.length,
                 itemBuilder: (BuildContext context, int index) {
                   CustomerData customerData = dataList[index];
-
                   return InCard(
                     customerData: customerData,
                     selectedKey: clickedKey,
-                    showFees : showFees,
+                    showFees : ShowFee,
                     callback: (String _kay) {
-                      
                         setState(() {
-                        // lable = 'wait...';
                         clickedKey = _kay;
                       });
                       ServiceCall()
@@ -90,6 +90,8 @@ class InCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        // print('asasasaret');
+        // print(customerData.customerKey);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -154,15 +156,14 @@ class InCard extends StatelessWidget {
                      ],),
                      //&& showFees
                      const SizedBox(width: 4),
-                     if (customerData.feePending != 0  ) 
+                     if (customerData.feePending != 0  )
                       Row(
                         children: [
                           const Text("Fee Pending",
                           style: TextStyle(
                             color: Colors.red
                           ), ),
-                          const SizedBox(width: 3),
-                          showFees?
+                          (ShowFee)?
                             Text(
                             '(*${customerData.feePending})',
                                 style: const TextStyle(
@@ -170,9 +171,11 @@ class InCard extends StatelessWidget {
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600),
                           ):const SizedBox(),  
-                  ])
+                           
+                         ],
+                      )
                     else 
-                      const Text(''),
+                       Text(''),
             ]),
             ),
            ),

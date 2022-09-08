@@ -34,7 +34,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
           future: ServiceCall().fetchPnpCustomerModel(),
           builder: ((context, snapshot) {
              if(snapshot.hasData){
-               if(snapshot.data!.data!.isEmpty||snapshot.data!.data! == null){
+               if(snapshot.data!.data!.isEmpty){
                  return
                    Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
                }
@@ -142,7 +142,43 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                              ),
 
 
-                             InkWell(
+                             (selectedKey == snapshot.data!.data![index].status) ? const Center(
+                               child: CircularProgressIndicator(color: Colors.white),
+                             ): snapshot.data!.data![index].status.toString().toUpperCase() == 'PLAYING'  ?
+                             const Padding(
+                               padding: EdgeInsets.only(right: 10),
+                               child: BlinkText(
+                                 "Playing...",
+                                 duration: Duration(seconds: 1),
+                                 beginColor: Colors.white,
+                                 endColor: Colors.green,
+                                 style: TextStyle(
+                                     fontSize: 18
+                                 ),
+                               ),
+                             ) : snapshot.data!.data![index].status.toString().toUpperCase() == 'CANCELLED' ?
+                             const Padding(
+                               padding: EdgeInsets.only(right: 5),
+                               child: Text("Cancelled",
+                                 style: TextStyle(
+                                     fontSize: 16,
+                                     letterSpacing: 1,
+                                     color: Colors.red,
+                                     fontWeight: FontWeight.bold
+                                 ),
+                               ),
+                             ) : snapshot.data!.data![index].status.toString().toUpperCase() == 'PLAYED' ?
+                             const Padding(
+                               padding: EdgeInsets.only(right: 25),
+                               child: Text("Played",
+                                 style: TextStyle(
+                                     fontSize: 16,
+                                     letterSpacing: 1,
+                                     color: Colors.grey,
+                                     fontWeight: FontWeight.bold
+                                 ),
+                               ),
+                             ) : InkWell(
                                  onDoubleTap: () {
 
                                    ServiceCall().fetchPnpAttendaneIN(
@@ -151,7 +187,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                                      snapshot.data!.data![index].status = 'Playing';
                                      clickedKey = '';
                                    });
-                                   print(snapshot.data!.data![index].phone);
+                                   // print(snapshot.data!.data![index].phone);
                                    setState(() {
                                    });
                                  },
@@ -169,44 +205,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                                      width: snapshot.data!.data![index].status == 'Playing' 'Cancelled' 'Played' ? 120 :100,
                                      alignment: Alignment.center,
                                      constraints: const BoxConstraints(maxHeight: 4.5 * 15.0),
-                                     child: (selectedKey == snapshot.data!.data![index].status) ? const Center(
-                                       child: CircularProgressIndicator(color: Colors.white),
-                                     ): snapshot.data!.data![index].status.toString().toUpperCase() == 'PLAYING'  ?
-                                     const Padding(
-                                       padding: EdgeInsets.only(right: 10),
-                                       child: BlinkText(
-                                         "Playing...",
-                                         duration: Duration(seconds: 1),
-                                         beginColor: Colors.white,
-                                         endColor: Colors.green,
-                                         style: TextStyle(
-                                             fontSize: 18
-                                         ),
-                                       ),
-                                     ) : snapshot.data!.data![index].status.toString().toUpperCase() == 'CANCELLED' ?
-                                     const Padding(
-                                       padding: EdgeInsets.only(right: 5),
-                                       child: Text("Cancelled",
-                                         style: TextStyle(
-                                             fontSize: 16,
-                                             letterSpacing: 1,
-                                             color: Colors.red,
-                                             fontWeight: FontWeight.bold
-                                         ),
-                                       ),
-                                     ) : snapshot.data!.data![index].status.toString().toUpperCase() == 'PLAYED' ?
-                                     const Padding(
-                                       padding: EdgeInsets.only(right: 25),
-                                       child: Text("Played",
-                                         style: TextStyle(
-                                             fontSize: 16,
-                                             letterSpacing: 1,
-                                             color: Colors.grey,
-                                             fontWeight: FontWeight.bold
-                                         ),
-                                       ),
-                                     ) :
-                                     const Text("In",
+                                     child: const Text("In",
                                        style: TextStyle(
                                            fontSize: 32,
                                            letterSpacing: 1,

@@ -21,7 +21,7 @@ import 'model/request/customer_data.dart';
 
 class ServiceCall {
 
-  String _mode = "TEST"; //to connect to live db use "LIVE" and for test db use "TEST"
+  String _mode = "LIVE"; //to connect to live db use "LIVE" and for test db use "TEST"
 
   ServiceCall() {
     base = 'http://api.sportsb.co.in/api/';

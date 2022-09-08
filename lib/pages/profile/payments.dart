@@ -21,6 +21,10 @@ class Payments extends StatefulWidget {
             future: ServiceCall().fetchPayment( customerkey: widget.customerkey),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                if(snapshot.data!.isEmpty){
+                  return const Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(
+                    fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
+                }
                 return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {

@@ -16,7 +16,8 @@ class Attendence extends StatefulWidget {
 
 class _AttendenceState extends State<Attendence> {
   String rowIndex = '0';
-  bool hasMore = true, isLoading = false;
+  bool hasMore = true,
+      isLoading = false;
   bool duration = false;
   List<Attendance>? fetchList = [];
   final controller = ScrollController();
@@ -61,23 +62,17 @@ class _AttendenceState extends State<Attendence> {
         body: RefreshIndicator(
           onRefresh: refresh,
           child: fetchList!.isEmpty
-              ? const Center(child: CircularProgressIndicator())
+              ? const Center(
+                child: Text('No Record Available',
+                    softWrap: true,style: TextStyle(
+                    fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),),
+              )
               : ListView.builder(
-                  itemCount: fetchList!.length + 1,
+                  itemCount: fetchList!.length + 0,
                   controller: controller,
                   itemBuilder: (BuildContext context, int index) {
-                    if (fetchList!.isEmpty) {
-                      return const Center(
-                        child: Text(
-                          noRecordAvailable,
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black38),
-                        ),
-                      );
-                    } else if (index < fetchList!.length) {
-                      
+                   if (index < fetchList!.length) {
+
                       duration = fetchList![index].duration == "Playing Now";
                       return Column(children: [
                         const SizedBox(height: 20),
@@ -154,10 +149,10 @@ class _AttendenceState extends State<Attendence> {
                                                )
                                       : const Text(''),
                                            ]),
-                                            (!duration) ?  
+                                            (!duration) ?
                                                                   Expanded(
                                 child:
-                                   
+
                                     Row(
                                         mainAxisAlignment:
                                         MainAxisAlignment.center,
@@ -208,7 +203,7 @@ class _AttendenceState extends State<Attendence> {
                                     )
                                  ]),
                                  ])
-                               
+
                                 ): const Padding(
                                   padding: EdgeInsets.only(left: 60),
                                   child: Text("Playing Now",
@@ -224,21 +219,15 @@ class _AttendenceState extends State<Attendence> {
                            ]);
 
 
-                                         
-    
+
+
                     } else {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 25),
                         child: Center(
                           child: hasMore
                               ? const CircularProgressIndicator()
-                              : const Text(
-                                  noRecordAvailable,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                      fontSize: 15),
-                                ),
+                              : const SizedBox()
                                ),
                               );
                     }

@@ -66,7 +66,9 @@ staffAttendanceModel = value!;
             ],
           )
           : const Center(
-              child: Text('No Attendence',style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.bold),),
+              child: Text('No Attendence',
+              style: TextStyle(
+              fontSize: 30,color: Colors.grey,fontWeight: FontWeight.bold),),
             ),
     );
   }
@@ -152,12 +154,12 @@ staffAttendanceModel = value!;
                 ? Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: ElevatedButton(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
                               horizontal: 10, vertical: 12),
                           child: Text(
                             'In',
-                            style: const TextStyle(fontSize: 24),
+                            style:TextStyle(fontSize: 24),
                           ),
                         ),
                         onPressed: () {

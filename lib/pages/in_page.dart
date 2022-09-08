@@ -6,6 +6,7 @@ import 'package:sport/model/category_batch.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:sport/pages/Tab_page.dart';
 import 'package:sport/service.dart';
+import 'package:sport/utils/constants.dart';
 import '../model/request/customer_data.dart';
 
 import '../utils/enums.dart';
@@ -55,7 +56,7 @@ class _InPageState extends State<InPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
@@ -80,14 +81,14 @@ class _InPageState extends State<InPage> {
         centerTitle: true,
         leading: Container(),
       ),
-      body: 
-      ListView(physics: const NeverScrollableScrollPhysics(), children: [
-        if (categoryAndBatch.data != null)
-          SizedBox(
+      body: ListView(physics: const NeverScrollableScrollPhysics(), children: [
+        (categoryAndBatch.data == null)?const SizedBox():
+           SizedBox(
             height: MediaQuery.of(context).size.height * .06,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
+                categoryAndBatch.data!.batchList!.isEmpty?const SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(
@@ -95,8 +96,9 @@ class _InPageState extends State<InPage> {
                     child: Icon(Icons.check_circle, color: Colors.white),
                   ),
                   label: Text((categoryAndBatch.data!.batchList!.firstWhere(
-                      (element) => element.id == selectedBatchId)).batch),
+                      (element) => element.id == selectedBatchId)).batch,),
                 ),
+                categoryAndBatch.data!.categoryList!.isEmpty?const SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(
@@ -110,12 +112,12 @@ class _InPageState extends State<InPage> {
               ],
             ),
           ),
-
-        const Divider(),
-        
+const Divider(),
         SizedBox(
-            height: MediaQuery.of(context).size.height * .9,
-            child: CustomerPage(customerListData: futureCustomerData)),
+          height: MediaQuery.of(context).size.height,
+          child: CustomerPage(customerListData: futureCustomerData)),
+
+
       ]),
     );
   }

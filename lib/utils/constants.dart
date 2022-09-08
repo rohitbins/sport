@@ -5,6 +5,7 @@ class Const {
   String player = 'Player\'s In';
 }
  int IsChangedCount = 0;
+bool? IsDataListNull = true;
 int? SelectedIndex;
 String? PhoneNumber;
 String? KEY;

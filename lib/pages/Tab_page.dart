@@ -25,6 +25,9 @@ class _TabBarPageState extends State<TabBarPage> //state class
     SportType.Batch.apiValue,
     SportType.Category.apiValue,
   ];
+  bool IsCategoryNull = true;
+  bool IsBatchNull = true;
+bool IsCategoryAndBatchNull = true;
   int? selectedCatIndex;
   int? selectedbatchIndex;
   int selectedCatId = 0;
@@ -38,6 +41,10 @@ class _TabBarPageState extends State<TabBarPage> //state class
 
   @override
   Widget build(BuildContext context) {
+    IsCategoryAndBatchNull = widget.data.data == null?true:false;
+
+    IsCategoryNull = widget.data.data!.categoryList == null;
+    IsBatchNull = widget.data.data!.batchList == null;
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
@@ -55,7 +62,7 @@ class _TabBarPageState extends State<TabBarPage> //state class
             ),
             Expanded(
                 child: TabBarView(controller: _tabController, children: [
-              ListView.builder(
+                  IsBatchNull?Center(child: Text('No Batch Available, Please contact Admin',style: TextStyle(color: Colors.black),)): ListView.builder(
                   shrinkWrap: true,
                   itemCount: widget.data.data!.batchList!.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -115,7 +122,7 @@ class _TabBarPageState extends State<TabBarPage> //state class
                       ),
                     );
                   }),
-              ListView.builder(
+                 IsCategoryNull?Center(child: Text('No Category Available, Please contact Admin',style: TextStyle(color: Colors.black),)):ListView.builder(
                   shrinkWrap: true,
                   itemCount: widget.data.data!.categoryList!.length,
                   itemBuilder: (BuildContext context, int index) {
