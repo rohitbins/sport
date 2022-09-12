@@ -118,11 +118,10 @@ class ServiceCall {
     if (response.statusCode == 200) {
       OtpValidator otpValidator =
           OtpValidator.fromJson(jsonDecode(response.body));
-      // print('akey = '+otpValidator.data!.staffKey.toString());
+      print(response.body.toString());
           if(otpValidator.data!.showFee !=null)
           {
-            // print("stakePNPAttendance="+otpValidator.data!.takePNPAttendance.toString());
-            // print("stakeMemberAttendance="+otpValidator.data!.takeMemberAttendance.toString());
+            CanLogin = otpValidator.data!.canLogin as bool;
             ShowFee = otpValidator.data!.showFee as bool;
             TakeMemberAttendance = otpValidator.data!.takeMemberAttendance;
             TakePNPAttendance = otpValidator.data!.takePNPAttendance;
@@ -243,7 +242,6 @@ print('customerkey'+customerKey.toString());
     if (response.statusCode == 200) {
       CustomerAttendance customerAttendance =
           CustomerAttendance.fromJson(jsonDecode(response.body));
-
       return customerAttendance.data.attendanceList;
     } else {
       throw Exception("Failed to loading");

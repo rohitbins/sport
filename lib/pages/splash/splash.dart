@@ -22,19 +22,18 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     // TODO: implement initState
-    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    _prefs.then((value){
-      TakePNPAttendance = value.getBool('takePNPAttendance');
-      TakeMemberAttendance= value.getBool('tekeMemberAttendance');
-      // CanLogin = value.getBool('canLogin');
-      ShowFee = value.getBool(("fees"))!;
-    });
+    // final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    // _prefs.then((value){
+    //   TakePNPAttendance = value.getBool('takePNPAttendance');
+    //   TakeMemberAttendance= value.getBool('tekeMemberAttendance');
+    //   // CanLogin = value.getBool('canLogin');
+    //   ShowFee = value.getBool(("fees"))!;
+    // });
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    print('call2');
-    ServiceCall().fetchPermissonData();
+
     checkpath(context);
     return Scaffold(
       body: Container(
@@ -54,7 +53,7 @@ class _SplashState extends State<Splash> {
     _prefs.then((value) {
               if (value.getString('staffKey') != null) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const MyRoute()));
+            context, MaterialPageRoute(builder: (context) => MyRoute()));
       } else {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const Login()));

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sport/service.dart';
-
 import 'datebox.dart';
 import 'model/attendance.dart';
 import 'utils/constants.dart';
@@ -62,17 +61,22 @@ class _AttendenceState extends State<Attendence> {
         body: RefreshIndicator(
           onRefresh: refresh,
           child: fetchList!.isEmpty
-              ? const Center(
-                child: Text('No Record Available',
-                    softWrap: true,style: TextStyle(
-                    fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),),
-              )
+              ? const Center(child: CircularProgressIndicator())
               : ListView.builder(
-                  itemCount: fetchList!.length + 0,
+                  itemCount: fetchList!.length + 1,
                   controller: controller,
                   itemBuilder: (BuildContext context, int index) {
-                   if (index < fetchList!.length) {
-
+                    if (fetchList!.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          noRecordAvailable,
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black38),
+                        ),
+                      );
+                    } else if (index < fetchList!.length) {
                       duration = fetchList![index].duration == "Playing Now";
                       return Column(children: [
                         const SizedBox(height: 20),
@@ -227,7 +231,13 @@ class _AttendenceState extends State<Attendence> {
                         child: Center(
                           child: hasMore
                               ? const CircularProgressIndicator()
-                              : const SizedBox()
+                              : const Text(
+                                  noRecordAvailable,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontSize: 15),
+                                ),
                                ),
                               );
                     }

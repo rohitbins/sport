@@ -56,7 +56,10 @@ class _InPageState extends State<InPage> {
 
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
+
+    // print('categoryAndBatch'+categoryAndBatch.data!.batchList.toString());
+    // print(categoryAndBatch.data!.batchList);
+    return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
@@ -82,13 +85,13 @@ class _InPageState extends State<InPage> {
         leading: Container(),
       ),
       body: ListView(physics: const NeverScrollableScrollPhysics(), children: [
-        (categoryAndBatch.data == null)?const SizedBox():
+        (categoryAndBatch.data == null)?SizedBox():
            SizedBox(
             height: MediaQuery.of(context).size.height * .06,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                categoryAndBatch.data!.batchList!.isEmpty?const SizedBox():
+                categoryAndBatch.data!.batchList!.isEmpty?SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(
@@ -98,7 +101,7 @@ class _InPageState extends State<InPage> {
                   label: Text((categoryAndBatch.data!.batchList!.firstWhere(
                       (element) => element.id == selectedBatchId)).batch,),
                 ),
-                categoryAndBatch.data!.categoryList!.isEmpty?const SizedBox():
+                categoryAndBatch.data!.categoryList!.isEmpty?SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(
@@ -113,9 +116,7 @@ class _InPageState extends State<InPage> {
             ),
           ),
 const Divider(),
-        SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: CustomerPage(customerListData: futureCustomerData)),
+        CustomerPage(customerListData: futureCustomerData ),
 
 
       ]),

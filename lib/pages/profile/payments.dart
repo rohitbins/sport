@@ -22,8 +22,7 @@ class Payments extends StatefulWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 if(snapshot.data!.isEmpty){
-                  return const Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(
-                    fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
+                  return Text('No Data');
                 }
                 return ListView.builder(
                     itemCount: snapshot.data!.length,
@@ -140,6 +139,7 @@ class Payments extends StatefulWidget {
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
+
               return const Center(child: CircularProgressIndicator());
             }));
   }
