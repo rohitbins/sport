@@ -63,7 +63,7 @@ class _AttendenceState extends State<Attendence> {
           child: fetchList!.isEmpty
               ? const Center(child: CircularProgressIndicator())
               : ListView.builder(
-                  itemCount: fetchList!.length + 1,
+                  itemCount: fetchList!.length + 0,
                   controller: controller,
                   itemBuilder: (BuildContext context, int index) {
                     if (fetchList!.isEmpty) {

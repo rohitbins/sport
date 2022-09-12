@@ -60,14 +60,12 @@ class ServiceCall {
       'ContentType': 'application/json',
       'mode': _mode
     };
-    // print('headers:${headers.toString()}');
     final response = await http.post(
         Uri.parse('$base${EndPoints.customerListByBatchAndCategory.apiValue}'),
         body: customerDataRequest.toJson(),
         headers: headers);
 
     if (response.statusCode == 200) {
-      // print(response.body);
       CustomerListData customerListData =
           CustomerListData.fromJson(jsonDecode(response.body));
 
@@ -91,7 +89,6 @@ class ServiceCall {
         body: {"phone": phoneNumber, "source": "Android"});
 
     if (response.statusCode == 200) {
-      // print(response.body);
       PhoneValidator phoneValidator =
           PhoneValidator.fromJson(jsonDecode(response.body));
       return phoneValidator;
@@ -104,7 +101,6 @@ class ServiceCall {
 // Otp Validator//////
   Future<OtpValidator> OtpValidatorApi(
       {required String phoneNumber, required String otp}) async {
-    // print('OtpValidatorApi');
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6',
@@ -114,7 +110,6 @@ class ServiceCall {
         Uri.parse('${base}${EndPoints.guruOTPValidator.apiValue}'),
         headers: _header,
         body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
-// print('res'+response.body.toString());
     if (response.statusCode == 200) {
       OtpValidator otpValidator =
           OtpValidator.fromJson(jsonDecode(response.body));
@@ -149,7 +144,6 @@ class ServiceCall {
         body: {  });
 
     if (response.statusCode == 200) {
-      // print(response.body);
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
@@ -174,7 +168,6 @@ class ServiceCall {
         body: {});
 
     if (response.statusCode == 200) {
-      // print(response.body);
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
@@ -196,7 +189,6 @@ class ServiceCall {
         Uri.parse('$base${EndPoints.setCustomerAttendanceIn.apiValue}'),
         headers: _header,
         body: {});
-print('customerkey'+customerKey.toString());
     if (response.statusCode == 200) {
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
@@ -302,7 +294,6 @@ print('customerkey'+customerKey.toString());
     if (response.statusCode == 200) {
       StaffAttendanceModel staffAttendanceModel =
           StaffAttendanceModel.fromJson(jsonDecode(response.body));
-print('GetStaffAttendanceList = '+response.body.toString());
       return staffAttendanceModel;
     }
   }
@@ -342,8 +333,6 @@ print('GetStaffAttendanceList = '+response.body.toString());
      final response = await http.post(Uri.parse('${base}PNPCustomerListForIn'),
     body: {}, headers: _header);
         if (response.statusCode == 200){
-          print('doneee');
-          // print(response.body.toString());
           PnpCustomerModel pnpCustomerModel = 
           PnpCustomerModel.fromJson(jsonDecode(response.body));
           return pnpCustomerModel;
@@ -388,7 +377,7 @@ print('GetStaffAttendanceList = '+response.body.toString());
 	"takeMemberAttendance": TakeMemberAttendance.toString(),
 	"canLogin": CanLogin.toString()},
   headers: _header);
-  print('GuruCheckPermission = '+response.body.toString());
+  
 
   if (response.statusCode == 200){
     CheckPermisson checkPermisson = 

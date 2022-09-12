@@ -28,7 +28,7 @@ class _OtpState extends State<OtpPage> {
         elevation: 0,
       ),
       backgroundColor: const Color.fromRGBO(0, 22, 30, 1),
-      body: SingleChildScrollView(
+      body:isLoading? const CircularProgressIndicator(color: Colors.green,): SingleChildScrollView(
         child: Column(children: [
           const SizedBox(height: 70),
           Image.asset(
@@ -85,10 +85,11 @@ class _OtpState extends State<OtpPage> {
             textFieldAlignment: MainAxisAlignment.spaceAround,
             fieldStyle: FieldStyle.box,
             onCompleted: (pin) async {
+              isLoading =true;
               service.OtpValidatorApi(
                       otp: pin.toString(), phoneNumber: widget.phoneNumber)
                   .then((value) {
-                     if (!value.isError) {
+                    isLoading = false; if (!value.isError) {
                     _prefs.then((_val) {
                     _val.setString('staffKey', value.data!.staffKey!);
                     _val.setString( 'academyLogoURL', value.data!.academyLogoURL!);
