@@ -25,7 +25,7 @@ import '../service.dart';
 
     _prefs.then((value) {
       setState(() {
-        
+
       });
     });
   }
@@ -35,10 +35,10 @@ import '../service.dart';
   Widget build(BuildContext context) {
 
     List<CustomerData>? dataList = widget.customerListData.data;
-IsDataListNull = widget.customerListData.data == null;
+    IsDataListNull = widget.customerListData.data == null;
 
     return
-    IsDataListNull!?Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),))):
+    IsDataListNull!?Center(child: CircularProgressIndicator()):
      Padding(
             padding: const EdgeInsets.only(bottom: 130),
             child: ListView.builder(

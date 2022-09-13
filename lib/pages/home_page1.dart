@@ -67,16 +67,19 @@ class _HomePage1State extends State<HomePage1> {
       });
     });
   }
+
 late PermissonData Permission;
   @override
   Widget build(BuildContext context) {
-    print('canlogin1 = '+CanLogin.toString());
+    // print('canlogin1 = '+CanLogin.toString());
     ServiceCall().fetchPermissonData().then((value) => {if(CanLogin == false){
-      print('canlogin2 = '+CanLogin.toString()),
+      // print('canlogin2 = '+CanLogin.toString()),
       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Login()))
     }});
     return Scaffold(
+      backgroundColor: Mode == 'TEST'?Colors.red[700]:Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           userName,
           style: const TextStyle(fontSize: 12),
@@ -99,6 +102,7 @@ late PermissonData Permission;
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SizedBox(height: 15),
+                (Mode == 'TEST')?Padding(padding:EdgeInsets.symmetric(vertical: 10),child: Text('TEST MODE',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white))):SizedBox(),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
                   decoration: BoxDecoration(

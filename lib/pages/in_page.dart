@@ -22,6 +22,8 @@ class InPage extends StatefulWidget {
 class _InPageState extends State<InPage> {
   late Future<CategoryAndBatch> futureBatchCategories;
   CustomerListData futureCustomerData = CustomerListData();
+
+ bool isFutureCustomerData = false;
    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
        bool showFees = false;
 
@@ -56,7 +58,8 @@ class _InPageState extends State<InPage> {
 
   @override
   Widget build(BuildContext context) {
-
+    isFutureCustomerData = categoryAndBatch.data  == null;
+    print('futureCustomerData = '+futureCustomerData.data.toString());
     // print('categoryAndBatch'+categoryAndBatch.data!.batchList.toString());
     // print(categoryAndBatch.data!.batchList);
     return Scaffold(
@@ -85,13 +88,13 @@ class _InPageState extends State<InPage> {
         leading: Container(),
       ),
       body: ListView(physics: const NeverScrollableScrollPhysics(), children: [
-        (categoryAndBatch.data == null)?const SizedBox():
+        (categoryAndBatch.data == null)?SizedBox():
            SizedBox(
             height: MediaQuery.of(context).size.height * .06,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                categoryAndBatch.data!.batchList!.isEmpty?const SizedBox():
+                categoryAndBatch.data!.batchList!.isEmpty?SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(
@@ -101,7 +104,7 @@ class _InPageState extends State<InPage> {
                   label: Text((categoryAndBatch.data!.batchList!.firstWhere(
                       (element) => element.id == selectedBatchId)).batch,),
                 ),
-                categoryAndBatch.data!.categoryList!.isEmpty?const SizedBox():
+                categoryAndBatch.data!.categoryList!.isEmpty?SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(
@@ -116,15 +119,9 @@ class _InPageState extends State<InPage> {
             ),
           ),
 const Divider(),
-futureCustomerData.data == null ? const Center(child: CircularProgressIndicator()) :
-
-
-
         SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: CustomerPage(customerListData: futureCustomerData )),
-
-
+            height: MediaQuery.of(context).size.height,
+            child: CustomerPage(customerListData: futureCustomerData)),
       ]),
     );
   }

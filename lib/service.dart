@@ -21,7 +21,7 @@ import 'model/request/customer_data.dart';
 
 class ServiceCall {
 
-  String _mode = "LIVE"; //to connect to live db use "LIVE" and for test db use "TEST"
+  String _mode = Mode; //to connect to live db use "LIVE" and for test db use "TEST"
 
   ServiceCall() {
     base = 'http://api.sportsb.co.in/api/';
@@ -60,12 +60,14 @@ class ServiceCall {
       'ContentType': 'application/json',
       'mode': _mode
     };
+    // print('headers:${headers.toString()}');
     final response = await http.post(
         Uri.parse('$base${EndPoints.customerListByBatchAndCategory.apiValue}'),
         body: customerDataRequest.toJson(),
         headers: headers);
 
     if (response.statusCode == 200) {
+      // print(response.body);
       CustomerListData customerListData =
           CustomerListData.fromJson(jsonDecode(response.body));
 
@@ -89,6 +91,7 @@ class ServiceCall {
         body: {"phone": phoneNumber, "source": "Android"});
 
     if (response.statusCode == 200) {
+      // print(response.body);
       PhoneValidator phoneValidator =
           PhoneValidator.fromJson(jsonDecode(response.body));
       return phoneValidator;
@@ -101,6 +104,7 @@ class ServiceCall {
 // Otp Validator//////
   Future<OtpValidator> OtpValidatorApi(
       {required String phoneNumber, required String otp}) async {
+    // print('OtpValidatorApi');
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6',
@@ -110,10 +114,11 @@ class ServiceCall {
         Uri.parse('${base}${EndPoints.guruOTPValidator.apiValue}'),
         headers: _header,
         body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
+// print('res'+response.body.toString());
     if (response.statusCode == 200) {
       OtpValidator otpValidator =
           OtpValidator.fromJson(jsonDecode(response.body));
-      print(response.body.toString());
+      // print(response.body.toString());
           if(otpValidator.data!.showFee !=null)
           {
             CanLogin = otpValidator.data!.canLogin as bool;
@@ -144,6 +149,7 @@ class ServiceCall {
         body: {  });
 
     if (response.statusCode == 200) {
+      // print(response.body);
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
@@ -168,6 +174,7 @@ class ServiceCall {
         body: {});
 
     if (response.statusCode == 200) {
+      // print(response.body);
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
@@ -189,6 +196,7 @@ class ServiceCall {
         Uri.parse('$base${EndPoints.setCustomerAttendanceIn.apiValue}'),
         headers: _header,
         body: {});
+print('customerkey'+customerKey.toString());
     if (response.statusCode == 200) {
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
@@ -294,6 +302,7 @@ class ServiceCall {
     if (response.statusCode == 200) {
       StaffAttendanceModel staffAttendanceModel =
           StaffAttendanceModel.fromJson(jsonDecode(response.body));
+print('GetStaffAttendanceList = '+response.body.toString());
       return staffAttendanceModel;
     }
   }
@@ -333,6 +342,8 @@ class ServiceCall {
      final response = await http.post(Uri.parse('${base}PNPCustomerListForIn'),
     body: {}, headers: _header);
         if (response.statusCode == 200){
+          print('doneee');
+          // print(response.body.toString());
           PnpCustomerModel pnpCustomerModel = 
           PnpCustomerModel.fromJson(jsonDecode(response.body));
           return pnpCustomerModel;
@@ -377,7 +388,7 @@ class ServiceCall {
 	"takeMemberAttendance": TakeMemberAttendance.toString(),
 	"canLogin": CanLogin.toString()},
   headers: _header);
-  
+  print('GuruCheckPermission = '+response.body.toString());
 
   if (response.statusCode == 200){
     CheckPermisson checkPermisson = 

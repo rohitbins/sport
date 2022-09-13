@@ -105,17 +105,15 @@ class _LoginState extends State<Login> {
                             return 'Please enter Phone Number';
                           }
                           if (_invalid) {
-
-                            return "this number is not registerd check the number";
-                            // return Messg != null
-                                // // ? Messg!.length > 55
-                                // //     ? Messg!.substring(0, 53) +
-                                // //         '\n' +
-                                // //         Messg!.substring(
-                                // //           53,
-                                // //         )
-                                // //     : Messg
-                                // : "This Number is not Registered Check Number";
+                            return Messg != null
+                                ? Messg!.length > 55
+                                    ? Messg!.substring(0, 53) +
+                                        '\n' +
+                                        Messg!.substring(
+                                          53,
+                                        )
+                                    : Messg
+                                : "This Number is not Registered Check Number";
                           }
                           return null;
                             },
@@ -153,7 +151,7 @@ class _LoginState extends State<Login> {
                         onPressed: () async {
                           pressed = true;
                           if (_key.currentState!.validate()) {
-                            serviceCall();
+                            serciceCAll();
                           }
                           setState(() {
                             isLoading = false;
@@ -173,7 +171,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  void serviceCall() async {
+  void serciceCAll() async {
     _empty = _phoneController.text.isEmpty;
 
     await service.PhoneValidatorApi(phoneNumber: _phoneController.text)

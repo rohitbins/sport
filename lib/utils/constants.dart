@@ -6,6 +6,7 @@ class Const {
 }
  int IsChangedCount = 0;
 bool? IsDataListNull = true;
+String Mode = "LIVE"; //to connect to live db use "LIVE" and for test db use "TEST"
 int? SelectedIndex;
 String? PhoneNumber;
 String? KEY;
