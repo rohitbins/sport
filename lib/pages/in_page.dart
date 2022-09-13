@@ -116,6 +116,10 @@ class _InPageState extends State<InPage> {
             ),
           ),
 const Divider(),
+futureCustomerData.data == null ? const Center(child: CircularProgressIndicator()) :
+
+
+
         SizedBox(
           height: MediaQuery.of(context).size.height,
           child: CustomerPage(customerListData: futureCustomerData )),

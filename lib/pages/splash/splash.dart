@@ -22,13 +22,13 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     // TODO: implement initState
-    // final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    // _prefs.then((value){
-    //   TakePNPAttendance = value.getBool('takePNPAttendance');
-    //   TakeMemberAttendance= value.getBool('tekeMemberAttendance');
-    //   // CanLogin = value.getBool('canLogin');
-    //   ShowFee = value.getBool(("fees"))!;
-    // });
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    _prefs.then((value){
+      TakePNPAttendance = value.getBool('takePNPAttendance');
+      TakeMemberAttendance= value.getBool('tekeMemberAttendance');
+      // CanLogin = value.getBool('canLogin');
+      ShowFee = value.getBool(("fees"))!;
+    });
     super.initState();
   }
   @override
