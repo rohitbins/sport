@@ -59,9 +59,7 @@ class _InPageState extends State<InPage> {
   @override
   Widget build(BuildContext context) {
     isFutureCustomerData = categoryAndBatch.data  == null;
-    // print('futureCustomerData = '+futureCustomerData.data.toString());
-    // print('categoryAndBatch'+categoryAndBatch.data!.batchList.toString());
-    // print(categoryAndBatch.data!.batchList);
+   
     return Scaffold(
       appBar: AppBar(
         actions: [

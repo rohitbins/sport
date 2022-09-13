@@ -43,7 +43,12 @@ class _OutPageState extends State<OutPage> {
             if (snapshot.hasData) {
               if(snapshot.data!.data!.isEmpty){
                 return
-                  Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
+                  const Center(
+                    child: FittedBox(
+                      child: Text('No Record Available',
+                      softWrap: true,
+                      style: TextStyle(
+                        fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
               }
              return Padding(
                 padding: const EdgeInsets.only(bottom: 0),
@@ -93,7 +98,8 @@ class _OutPageState extends State<OutPage> {
       height: 60,
       width: 120,
       child: ElevatedButton(
-        child: Text("Out"),
+        // ignore: sort_child_properties_last
+        child: const Text("Out"),
         style: ElevatedButton.styleFrom(primary: Colors.amber.shade600),
         onPressed: () {},
       ),

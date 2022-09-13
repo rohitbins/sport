@@ -1,4 +1,4 @@
-// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: curly_braces_in_flow_control_structures, prefer_is_empty, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import '../model/staff_attendance_model.dart';
@@ -51,7 +51,7 @@ staffAttendanceModel = value!;
             children: [
               staffAttendanceModel.data!.length>0?
                  _todays(staffAttendanceModel.data![0]):_onlyFirstIn(),
-                   Container(
+                   SizedBox(
                     height: MediaQuery.of(context).size.height*.788,
                      child: ListView.builder(
                       primary: true,
@@ -152,12 +152,12 @@ staffAttendanceModel = value!;
                 ? Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: ElevatedButton(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
                               horizontal: 10, vertical: 12),
                           child: Text(
                             'In',
-                            style: const TextStyle(fontSize: 24),
+                            style: TextStyle(fontSize: 24),
                           ),
                         ),
                         onPressed: () {

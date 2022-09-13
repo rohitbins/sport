@@ -146,7 +146,7 @@ class _LoginState extends State<Login> {
                             backgroundColor: pressed
                                 ? MaterialStateProperty.all<Color>(Colors.green)
                                 : MaterialStateProperty.all<Color>(
-                                    Colors.white24)),
+                                    Colors.green)),
                         onPressed: () async {
                           pressed = true;
                           if (_key.currentState!.validate()) {
@@ -156,7 +156,7 @@ class _LoginState extends State<Login> {
                             isLoading = false;
                           });
                         },
-                        child: (isLoading)? const CircularProgressIndicator():const Text(
+                        child:const Text(
                           'Submit',
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),

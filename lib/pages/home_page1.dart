@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/check_permisson.dart';
-
 import 'package:sport/pages/my_attendance.dart';
 import 'package:sport/service.dart';
 import 'package:sport/utils/constants.dart';
@@ -14,13 +13,10 @@ class HomePage1 extends StatefulWidget {
   State<HomePage1> createState() => _HomePage1State();
 }
 class _HomePage1State extends State<HomePage1> {
-
-  Map<String, double> attendanceList = {"In": 15, "Out": 85};
-  Map<String, double> fee = {"Paid": 75.8, "pending": 85};
-  final String attendanceText = 'Attendance';
+ final String attendanceText = 'Attendance';
   final String feeText = 'Fee';
   String userName = '';
-  List<Color> colorList = [Colors.green, Colors.orange];
+  
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var MenuItem = <String>['My Attendance', 'Logout'];
   void onSelected(item) {
@@ -71,10 +67,8 @@ class _HomePage1State extends State<HomePage1> {
 late PermissonData Permission;
   @override
   Widget build(BuildContext context) {
-    // print('canlogin1 = '+CanLogin.toString());
     ServiceCall().fetchPermissonData().then((value) => {if(CanLogin == false){
-      // print('canlogin2 = '+CanLogin.toString()),
-      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Login()))
+       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const Login()))
     }});
     return Scaffold(
       backgroundColor: Mode == 'TEST'?Colors.red[700]:Colors.white,
@@ -119,8 +113,7 @@ late PermissonData Permission;
                             spreadRadius: 3,
                             offset: Offset(2,2)
                         )
-                      ]
-                  ),
+                    ] ),
                   child: Column(
                     children: [
                       Row(
@@ -154,8 +147,7 @@ late PermissonData Permission;
                               fontSize: 18,
                               fontWeight: FontWeight.w500
                             ),)
-                          ],
-                        ),
+                          ],),
                         Column(
                           children: [
                             Container(
@@ -171,7 +163,7 @@ late PermissonData Permission;
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
                         color: Colors.grey[300],),
-                        child: const Text('30',style: TextStyle(fontSize: 20),)),
+                        child: const Text('3',style: TextStyle(fontSize: 20),)),
                         const SizedBox(height: 12),
 
                          Container(
@@ -180,15 +172,10 @@ late PermissonData Permission;
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
                         color: Colors.grey[300],),
                         child: const Text('30',style: TextStyle(fontSize: 20),))
-                          ],
-                        )
-                      ],
-                     )
-
-                   
-
-                  ],),
-                ),
+                          ],)
+                         ],)
+                       ],),
+                        ),
                 const SizedBox(height: 20),
 
                 // Total Pending Fee
@@ -203,8 +190,7 @@ late PermissonData Permission;
                             spreadRadius: 3,
                             offset: Offset(2,2)
                         )
-                      ]
-                  ),
+                     ]),
                   child: Column(
                     children: [
                       Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -212,8 +198,7 @@ late PermissonData Permission;
                           Icon(Icons.currency_rupee,size: 50,color: Colors.red[800]),
                           const SizedBox(width: 10),
                           const Text('Total Pending Fee',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
-                        ],
-                      ),
+                        ]),
                     const SizedBox(height: 30),
                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -259,17 +244,13 @@ late PermissonData Permission;
                         Text(' | ',style: TextStyle(
                         fontSize: 20,fontWeight: FontWeight.w500,color: Colors.red[600]),),
                         const Text('4000',style: TextStyle(fontSize: 20),),
-                      ],
-                    ))
-                        ],
-                      )
-                    ],
-                   ),
-                      
-
-                    
-                      const SizedBox(height: 10), ],),
-                ),
+                  ],),
+                    )
+                 ],)
+               ],),
+                    const SizedBox(height: 10) ],
+               ),
+              ),
                 const SizedBox(height: 20),
 
                 // Total Played
@@ -284,8 +265,7 @@ late PermissonData Permission;
                             spreadRadius: 3,
                             offset: Offset(2,2)
                         )
-                      ]
-                  ),
+                     ]),
                   child: Column(
                     children: [
                       Row(
@@ -294,8 +274,7 @@ late PermissonData Permission;
                           Icon(Icons.timer,size: 50,color: Colors.orange[800]),
                           const SizedBox(width: 10),
                           const Text('Total Today Played',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
-                        ],
-                      ),
+                        ],),
                     const SizedBox(height: 30),
                    
                       Row(
@@ -321,8 +300,7 @@ late PermissonData Permission;
                               fontSize: 18,
                               fontWeight: FontWeight.w500
                             ),)
-                          ],
-                        ),
+                          ],),
                         Column(
                           children: [
                             Container(
@@ -330,7 +308,7 @@ late PermissonData Permission;
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
                         color: Colors.grey[300],),
-                        child: const Text('30',style: TextStyle(fontSize: 20),)),
+                        child: const Text('0',style: TextStyle(fontSize: 20),)),
                         const SizedBox(height: 12),
 
                          Container(
@@ -347,19 +325,13 @@ late PermissonData Permission;
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
                         color: Colors.grey[300],),
                         child: const Text('30',style: TextStyle(fontSize: 20),))
-                          ],
-                        )
-                      ],
-                     )
-
-                  
+                       ],)
+                      ],)
+                    ],),
+                     ),
                   ],),
-                ),
-              ],
-
-          ),
-        )
-     );
+                    )
+                  );
   }
 }
 
