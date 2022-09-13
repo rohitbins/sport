@@ -46,7 +46,8 @@ class ServiceCall {
     if (response.statusCode == 200) {
       CategoryAndBatch categoryAndBatch =
           CategoryAndBatch.fromJson(jsonDecode(response.body));
-      return categoryAndBatch;
+
+   return categoryAndBatch;
     } else {
       throw Exception('failed to load BatchCategories');
     }
@@ -70,7 +71,9 @@ class ServiceCall {
       // print(response.body);
       CustomerListData customerListData =
           CustomerListData.fromJson(jsonDecode(response.body));
-
+      if(customerListData.data!.isEmpty){
+        HasInData = false;
+      }
       return customerListData;
     } else {
       throw Exception('failed to load CustomerList');

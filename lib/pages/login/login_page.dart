@@ -2,9 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sport/utils/constants1.dart';
-// import 'package:sportsb/View/otp.dart';
-
 import '../../model/phone_validator.dart';
 import '../../service.dart';
 import '../otp/otp_page.dart';
@@ -105,15 +102,17 @@ class _LoginState extends State<Login> {
                             return 'Please enter Phone Number';
                           }
                           if (_invalid) {
-                            return Messg != null
-                                ? Messg!.length > 55
-                                    ? Messg!.substring(0, 53) +
-                                        '\n' +
-                                        Messg!.substring(
-                                          53,
-                                        )
-                                    : Messg
-                                : "This Number is not Registered Check Number";
+                            return "This Number is not Registered Check Number";
+                            // return Messg != null
+                            //     ? Messg!.length > 55
+                            //         // ignore: prefer_interpolation_to_compose_strings
+                            //         ? Messg!.substring(0, 53) +
+                            //             '\n' +
+                            //             Messg!.substring(
+                            //               53,
+                            //             )
+                            //         : Messg
+                            //     : "This Number is not Registered Check Number";
                           }
                           return null;
                             },

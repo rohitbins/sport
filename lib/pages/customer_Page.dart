@@ -38,7 +38,15 @@ import '../service.dart';
     IsDataListNull = widget.customerListData.data == null;
 
     return
-    IsDataListNull!?Center(child: CircularProgressIndicator()):
+    IsDataListNull!?Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const[
+        Padding(
+          padding: EdgeInsets.only(bottom: 200),
+          child: CircularProgressIndicator(),
+        ),
+      ],
+    ):
      Padding(
             padding: const EdgeInsets.only(bottom: 130),
             child: ListView.builder(
@@ -175,7 +183,7 @@ class InCard extends StatelessWidget {
                          ],
                       )
                     else 
-                       Text(''),
+                       const Text(''),
             ]),
             ),
            ),

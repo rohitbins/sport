@@ -59,7 +59,7 @@ class _InPageState extends State<InPage> {
   @override
   Widget build(BuildContext context) {
     isFutureCustomerData = categoryAndBatch.data  == null;
-    print('futureCustomerData = '+futureCustomerData.data.toString());
+    // print('futureCustomerData = '+futureCustomerData.data.toString());
     // print('categoryAndBatch'+categoryAndBatch.data!.batchList.toString());
     // print(categoryAndBatch.data!.batchList);
     return Scaffold(
@@ -87,14 +87,17 @@ class _InPageState extends State<InPage> {
         centerTitle: true,
         leading: Container(),
       ),
-      body: ListView(physics: const NeverScrollableScrollPhysics(), children: [
-        (categoryAndBatch.data == null)?SizedBox():
+      body: !HasInData? const Text('No Record Available',
+      softWrap: true,style: TextStyle(
+      fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),):
+      ListView(physics: const NeverScrollableScrollPhysics(), children: [
+        (categoryAndBatch.data == null)? const SizedBox():
            SizedBox(
             height: MediaQuery.of(context).size.height * .06,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                categoryAndBatch.data!.batchList!.isEmpty?SizedBox():
+                categoryAndBatch.data!.batchList!.isEmpty? const SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(
@@ -104,7 +107,7 @@ class _InPageState extends State<InPage> {
                   label: Text((categoryAndBatch.data!.batchList!.firstWhere(
                       (element) => element.id == selectedBatchId)).batch,),
                 ),
-                categoryAndBatch.data!.categoryList!.isEmpty?SizedBox():
+                categoryAndBatch.data!.categoryList!.isEmpty? const SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(

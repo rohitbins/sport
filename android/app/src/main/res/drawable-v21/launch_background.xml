@@ -8,5 +8,5 @@
         <bitmap
             android:gravity="fill"
             android:src="@drawable/splash" />
-    </item>   
+    </item> 
 </layer-list>

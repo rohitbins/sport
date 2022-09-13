@@ -9,6 +9,7 @@ bool? IsDataListNull = true;
 String Mode = "LIVE"; //to connect to live db use "LIVE" and for test db use "TEST"
 int? SelectedIndex;
 String? PhoneNumber;
+bool HasInData = true;
 String? KEY;
 String? Month;
 String? Year;

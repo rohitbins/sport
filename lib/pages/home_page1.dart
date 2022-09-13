@@ -101,12 +101,17 @@ late PermissonData Permission;
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(height: 15),
-                (Mode == 'TEST')?Padding(padding:EdgeInsets.symmetric(vertical: 10),child: Text('TEST MODE',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white))):SizedBox(),
+                const SizedBox(height: 15),
+                (Mode == 'TEST')? 
+                const Padding(padding:EdgeInsets.symmetric(vertical: 10),
+                child: Text('TEST MODE',style: TextStyle(
+                fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white))): const SizedBox(),
+                
+                // Current Playing
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.teal[400],
                       boxShadow: const [
                         BoxShadow(
                             color: Colors.grey,
@@ -118,35 +123,79 @@ late PermissonData Permission;
                   ),
                   child: Column(
                     children: [
-                      Text('Currently Playing',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
-                    SizedBox(height: 30),
-                    Row(mainAxisAlignment:MainAxisAlignment.spaceEvenly,children: [Text('Members ',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6,vertical: 2),
+                      Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: const[
+                          Icon(Icons.av_timer,size: 50,color: Colors.white),
+                          SizedBox(width: 10),
+                          Text('Currently Playing',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+                        ],),
+                    const SizedBox(height: 10),
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text("Members",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500
+                            ),),
+                            SizedBox(height: 12),
+                            Text("Studentes",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500
+                            ),),
+                            SizedBox(height: 12),
+                            Text("PPR",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500
+                            ),)
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 2),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey[300],
-                    ),child: Text('12',style: TextStyle(fontSize: 20),))],),
-                      SizedBox(height: 10),
-                    Row(mainAxisAlignment:MainAxisAlignment.spaceEvenly,children: [Text('Students ',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6,vertical: 2),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey[300],),
+                        child: const Text('30',style: TextStyle(fontSize: 20),)),
+                        const SizedBox(height: 12),
+
+                         Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 2),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey[300],
-                    ),child: Text('10',style: TextStyle(fontSize: 20),))],),
-                      SizedBox(height: 10),
-                    Row(mainAxisAlignment:MainAxisAlignment.spaceEvenly,children: [Text('PPR ',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6,vertical: 2),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey[300],),
+                        child: const Text('30',style: TextStyle(fontSize: 20),)),
+                        const SizedBox(height: 12),
+
+                         Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 2),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey[300],
-                    ),child: Text('5',style: TextStyle(fontSize: 20),))],),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey[300],),
+                        child: const Text('30',style: TextStyle(fontSize: 20),))
+                          ],
+                        )
+                      ],
+                     )
+
+                   
+
                   ],),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
+
+                // Total Pending Fee
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.teal[300],
                       boxShadow: const [
                         BoxShadow(
                             color: Colors.grey,
@@ -158,40 +207,76 @@ late PermissonData Permission;
                   ),
                   child: Column(
                     children: [
-                      Text('Total Pending Fee',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
-                    SizedBox(height: 30),
-                    Row(mainAxisAlignment:MainAxisAlignment.spaceEvenly,children: [Text('Members ',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6,vertical: 2),
+                      Row(mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.currency_rupee,size: 50,color: Colors.red[800]),
+                          const SizedBox(width: 10),
+                          const Text('Total Pending Fee',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+                        ],
+                      ),
+                    const SizedBox(height: 30),
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const[
+                          Text('Members ',style: TextStyle(
+                      fontSize: 18,fontWeight: FontWeight.w500),),
+                      SizedBox(height: 15),
+                      Text("Students",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500
+                      ),)
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 2),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey[300],
-                    ),child: Row(
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey[300],),
+                        child: Row(
                       children: [
-                        Text('15',style: TextStyle(fontSize: 20),),
-                        Text(' | ',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.red[600]),),
-                        Text('4000',style: TextStyle(fontSize: 20),),
+                       const Text('15',style: TextStyle(fontSize: 20),),
+                        Text(' | ',style: TextStyle(
+                        fontSize: 20,fontWeight: FontWeight.w500,color: Colors.red[600]),),
+                        const Text('4000',style: TextStyle(fontSize: 20),),
                       ],
-                    ))],),
-                      SizedBox(height: 10),
-                    Row(mainAxisAlignment:MainAxisAlignment.spaceEvenly,children: [Text('Students ',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6,vertical: 2),
+                    )),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 2),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey[300],
-                    ),child: Row(
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey[300],),
+                        child: Row(
                       children: [
-                        Text('15',style: TextStyle(fontSize: 20),),
-                        Text(' | ',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.red[600]),),
-                        Text('4000',style: TextStyle(fontSize: 20),),
+                       const Text('15',style: TextStyle(fontSize: 20),),
+                        Text(' | ',style: TextStyle(
+                        fontSize: 20,fontWeight: FontWeight.w500,color: Colors.red[600]),),
+                        const Text('4000',style: TextStyle(fontSize: 20),),
                       ],
-                    ))],),
-                      SizedBox(height: 10), ],),
+                    ))
+                        ],
+                      )
+                    ],
+                   ),
+                      
+
+                    
+                      const SizedBox(height: 10), ],),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
+
+                // Total Played
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.teal[200],
                       boxShadow: const [
                         BoxShadow(
                             color: Colors.grey,
@@ -203,35 +288,78 @@ late PermissonData Permission;
                   ),
                   child: Column(
                     children: [
-                      Text('Total Today Played',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
-                    SizedBox(height: 30),
-                    Row(mainAxisAlignment:MainAxisAlignment.spaceEvenly,children: [Text('Members ',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6,vertical: 2),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.timer,size: 50,color: Colors.orange[800]),
+                          const SizedBox(width: 10),
+                          const Text('Total Today Played',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+                        ],
+                      ),
+                    const SizedBox(height: 30),
+                   
+                      Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text("Members",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500
+                            ),),
+                            SizedBox(height: 12),
+                            Text("Studentes",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500
+                            ),),
+                            SizedBox(height: 12),
+                            Text("PPR",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500
+                            ),)
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 2),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey[300],
-                    ),child: Text('30',style: TextStyle(fontSize: 20),))],),
-                      SizedBox(height: 10),
-                    Row(mainAxisAlignment:MainAxisAlignment.spaceEvenly,children: [Text('Students ',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6,vertical: 2),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey[300],),
+                        child: const Text('30',style: TextStyle(fontSize: 20),)),
+                        const SizedBox(height: 12),
+
+                         Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 2),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey[300],
-                    ),child: Text('40',style: TextStyle(fontSize: 20),))],),
-                      SizedBox(height: 10),
-                    Row(mainAxisAlignment:MainAxisAlignment.spaceEvenly,children: [Text('PPR ',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6,vertical: 2),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey[300],),
+                        child: const Text('30',style: TextStyle(fontSize: 20),)),
+                        const SizedBox(height: 12),
+
+                         Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 2),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey[300],
-                    ),child: Text('2',style: TextStyle(fontSize: 20),))],),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey[300],),
+                        child: const Text('30',style: TextStyle(fontSize: 20),))
+                          ],
+                        )
+                      ],
+                     )
+
+                  
                   ],),
                 ),
               ],
 
           ),
         )
-             );
+     );
   }
 }
 
