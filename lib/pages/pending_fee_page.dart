@@ -1,7 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:sport/model/pending_customer_fee.dart';
-import 'package:sport/service.dart';
+// ignore_for_file: sort_child_properties_last
 
+import 'package:flutter/material.dart';
+import 'package:sport/pages/profile/profile.dart';
+import 'package:sport/service.dart';
+import 'package:sport/utils/constants.dart';
+import '../model/pending_customer_fee.dart';
 
 class PendingFeeList extends StatefulWidget {
    PendingFeeList({Key? key,required this.Member}) : super(key: key);
@@ -21,35 +24,107 @@ class _PendingFeeListState extends State<PendingFeeList> {
         future: ServiceCall().fetchPendingFeeData(widget.Member),
         builder: (context, snapshot){
           if(snapshot.hasData){
-            return ListView.builder(
-              itemCount: snapshot.data!.data.length,
-              itemBuilder: (BuildContext context, int index){
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    color: Colors.amber.shade100,
-                    height: 60,
-                    width: 300,
-                    child: Column(
-                      children: [
-                        Text(snapshot.data!.data[index].fee.toString()),
-                        Text(snapshot.data!.data[index].feeText.toString())
-                      ],
+            return
+              SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                  for(var i in snapshot.data!.data)
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Profile(
+                                  showFees: ShowFee,
+                                  name: i.name.toString(),
+                                  customerKey: i.customerKey.toString(),
+                                )));
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                          decoration: BoxDecoration(
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 4,
+                                spreadRadius: 1,
+                                offset: Offset(2, 2),
+                              )
+                            ],
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                      child: Row(
+                        mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                        children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 5),
+                              child: Text(
+                                i.name.toString(),
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600),),
+                            ),
+                            if(i.feeText==null)
+                              Row(
+                                children: [
+                                  const Text(
+                                    'feeText: ',
+                                    style: TextStyle(fontSize: 13),),
+                                    Text(i.feeText.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 13),),
+                                ],
+                              ),
+                            if(i.feeDate!=null)
+                              Row(
+                                children: [
+                                  const Text(
+                                    'feeDate: ',
+                                    style: TextStyle(fontSize: 13),),
+                                    Text(i.feeDate.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 13),),
+                                ],
+                              ),
+                            if(i.pendingDays!=null)
+                              Row(
+                                children: [
+                                  const Text(
+                                    'pendingDays: ',
+                                     style: TextStyle(fontSize: 13),),
+                                  Text((i.pendingDays!*-1).toString(),
+                                  style: const TextStyle(
+                                    fontSize:16,
+                                    color: Colors.orange,
+                                    fontWeight: FontWeight.w500),),
+                                ],
+                              ),
+                          ],
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                        ),
+                        Column(
+                          children: [
+                            Text(i.fee.toString(),
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red),)],)
+                      ],)
+                      ),
                     ),
-                  ),
-                );
-              });
-              // SingleChildScrollView(
-              //   scrollDirection: Axis.vertical,
-              //   child: Column(
-              //     children: [
-              //     for(var i in snapshot.data!.data)
-              //       Container(
-              //       child: Text(snapshot.data!.data[index].fee.toString())
-              //       ),
-              //     ],
-              //   ),
-              // );
+                    const SizedBox(height: 50)
+                  ],
+                ),
+              );
           }
           else if(snapshot.hasError){
             return Center(child: Text(snapshot.error.toString()));

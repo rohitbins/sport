@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'pending_customer_fee.g.dart';
+
 @JsonSerializable()
 class PendingFeeGuru{
   PendingFeeGuru({
@@ -11,7 +12,7 @@ class PendingFeeGuru{
   int? statusCode;
   bool? isError;
   String? message;
-  List<Data> data = [];
+  List<Data> data;
 
 
   factory PendingFeeGuru.fromJson(Map<String, dynamic> json) =>

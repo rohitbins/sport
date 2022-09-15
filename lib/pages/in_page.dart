@@ -92,17 +92,25 @@ class _InPageState extends State<InPage> {
         centerTitle: true,
         leading: Container(),
       ),
-      body: !HasInData?Center(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)):
+      body: !HasInData?
+      const Center(
+        child: Text(
+          'No Record Available',
+          softWrap: true,
+          style: TextStyle(
+            fontSize: 30,
+            color: Colors.grey,
+            fontWeight: FontWeight.w600),)):
       ListView(
           physics: const NeverScrollableScrollPhysics(),
           children: [
-        (categoryAndBatch.data == null)?SizedBox():
+        (categoryAndBatch.data == null)? const SizedBox():
            SizedBox(
             height: MediaQuery.of(context).size.height * .06,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                categoryAndBatch.data!.batchList!.isEmpty?SizedBox():
+                categoryAndBatch.data!.batchList!.isEmpty? const SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(
@@ -112,7 +120,7 @@ class _InPageState extends State<InPage> {
                   label: Text((categoryAndBatch.data!.batchList!.firstWhere(
                       (element) => element.id == selectedBatchId)).batch,),
                 ),
-                categoryAndBatch.data!.categoryList!.isEmpty?SizedBox():
+                categoryAndBatch.data!.categoryList!.isEmpty? const SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(
@@ -126,7 +134,7 @@ class _InPageState extends State<InPage> {
               ],
             ),
           ),
-const Divider(),
+     const Divider(),
         SizedBox(
             height: MediaQuery.of(context).size.height,
             child: CustomerPage(customerListData: futureCustomerData)),

@@ -107,161 +107,204 @@ late PermissonData Permission;
               })
             ]),
         body: 
-    Column(
-      children: [
-        const SizedBox(height: 40,),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 25),
-          decoration: const BoxDecoration(color: Colors.green),
-          child: Column(
-            children: [
-              Row( 
-                // mainAxisAlignment: MainAxisAlignment.center,
-                  children: const[
-                    Text('Today',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
-                      )]
-                     ),
-                     Row(
-                      children: const[
-                        Padding(
-                          padding: EdgeInsets.only(left: 190),
-                          child: Text("Playing"),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 70),
-                          child: Text("Total"),
-                        )
-                      ],
-                     ),
-              const SizedBox(height: 20),
-              FutureBuilder<Dashboard>(
-                  future: ServiceCall().fetchDashboardData(),
-                  builder: (context, snapshot){
-                if(snapshot.hasData) {
-                  return
-                    Column(
-                      children: [
-                        for(var i in snapshot.data!.data!.attendanceData)
-                         Container(
-                        padding: const EdgeInsets.only(bottom: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                        Row(
-                          children: [
-                           SizedBox(
-                           child: Text(
-                            i.customerType.toString().trim(), 
-                            style: const TextStyle(fontSize: 18,
-                            fontWeight: FontWeight.w500),
-                        ),
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width / 4,
-                        )
-                     ]),
-                        Container(
-                        padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
-                        decoration: BoxDecoration(
-                        borderRadius:const BorderRadius.all(Radius.circular(5)),
-                        color: Colors.grey[300]),
-                        child: Row(
-                          children: [
-                            Text(i.playingCount.toString()),
-                          ],
-                        ),),
-                        Container(
-                        padding:const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
-                        decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(5)),
-                        color: Colors.grey[300]),
-                        child: Text(i.totalCount.toString()),)
+    (TakePNPAttendance==false && TakeMemberAttendance == false)?
+    Center(child: Text('Coming Soon...',
+    style: TextStyle(
+      fontSize: 30,
+      fontWeight: FontWeight.w600,
+      color: Colors.blueGrey[600]),)):
+      SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Column(
+        children: [
+          const SizedBox(height: 5),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 25),
+            decoration:  BoxDecoration(color: Colors.green[600]),
+            child: Column(
+              children: [
+                Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children:const [
+                          Text('Today',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                            ),
+                          SizedBox(width: 10),
+                          Icon(Icons.timelapse,size: 30),
                         ],
-                        ),
-                        ),
-                      ],
-                    );
-                  }
-                else{
-                  return const CircularProgressIndicator();
+                      )]
+                       ),
+                       Row(
+                        children: const[
+                          Padding(
+                            padding: EdgeInsets.only(left: 185),
+                            child: Text(
+                              "Playing",
+                               style: TextStyle(
+                               fontWeight: FontWeight.w600,
+                               fontSize: 14),),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 70),
+                            child: Text(
+                              "Total",
+                              style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14),),
+                          )
+                        ],
+                       ),
+                const SizedBox(height: 20),
+                FutureBuilder<Dashboard>(
+                    future: ServiceCall().fetchDashboardData(),
+                    builder: (context, snapshot){
+                  if(snapshot.hasData) {
+                    return
+                      Column(
+                        children: [
+                          for(var i in snapshot.data!.data!.attendanceData)
+                           Container(
+                          padding: const EdgeInsets.only(bottom: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                          Row(
+                            children: [
+                             SizedBox(
+                             child: Text(
+                              i.customerType.toString().trim(),
+                              style: const TextStyle(fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              ),
+                          ),
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width / 4,
+                          )
+                       ]),
+                          Container(
+                          padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
+                          decoration: BoxDecoration(
+                          borderRadius:const BorderRadius.all(Radius.circular(5)),
+                          color: Colors.grey[300]),
+                          child: Row(
+                            children: [
+                              Text(i.playingCount.toString()),
+                            ],
+                          ),),
+                          Container(
+                          padding:const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
+                          decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(5)),
+                          color: Colors.grey[300]),
+                          child: Text(i.totalCount.toString()),)
+                          ],
+                          ),
+                          ),
+                        ],
+                      );
                     }
-              }),
-             ]),
-             ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 25),
-          decoration:const BoxDecoration(color: Colors.teal),
-          child: Column(
-            children: [
-              Row( 
-                // mainAxisAlignment: MainAxisAlignment.center,
-                  children: const[
-                    Text('Pending Fee',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),)],),
-             const SizedBox(height: 25,),
-              FutureBuilder<Dashboard>(
-                  future: ServiceCall().fetchDashboardData(),
-                  builder: (context, snapshot){
-                    if(snapshot.hasData){
-                      return
-                        Column(
-                          children: [
-                            for(var i in snapshot.data!.data!.feeData)
-                              InkWell(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) =>  PendingFeeList(Member: i.customerType.toString(),)));
-                                },
+                  else{
+                    return const CircularProgressIndicator();
+                      }
+                }),
+               ]),
+               ),
+         const SizedBox(height: 10),
+          if(ShowFee)
+           Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 25),
+            decoration:const BoxDecoration(color: Colors.teal),
+            child: Column(
+              children: [
+                Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
 
-                                child: Container(
-                                  padding: const EdgeInsets.only(bottom: 20),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Row(children: [
-                                        SizedBox(
-                                        child: Text(
-                                          i.customerType.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500),),
-                                        width: MediaQuery.of(context).size.width/4,
-                                      )],),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
-                                        decoration: BoxDecoration(
-                                            borderRadius:const BorderRadius.all(Radius.circular(5)),
-                                            color: Colors.grey[300]),
-                                        child: Text(i.feeCount.toString()),
-                                        ),
+                          const Text('Pending Fee',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),),
+                          const SizedBox(width: 10),
+                          Icon(Icons.currency_rupee_rounded,color: Colors.red[900],size: 30,),
+                        ],
+                      )],),
+               const SizedBox(height: 30,),
+                FutureBuilder<Dashboard>(
+                    future: ServiceCall().fetchDashboardData(),
+                    builder: (context, snapshot){
+                      if(snapshot.hasData){
+                        return
+                          Column(
+                            children: [
+                              for(var i in snapshot.data!.data!.feeData)
+                                InkWell(
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) =>  PendingFeeList(Member: i.customerType.toString(),)));
+                                  },
 
-                                      Container(
-                                        padding:const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
-                                        decoration: BoxDecoration(
-                                            borderRadius:const BorderRadius.all(Radius.circular(5)),
-                                            color: Colors.grey[300]),
-                                            child: Text(i.feeAmount.toString()),
-                                       )
-                                    ]),
-                                    ),
-                                   ),
-                                 ]);
-                    }
-                    else{
-                      return const CircularProgressIndicator();
-                    }
-                  }),
+                                  child: Container(
+                                    padding: const EdgeInsets.only(bottom: 20),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Row(children: [
+                                          SizedBox(
+                                          child: Text(
+                                            i.customerType.toString(),
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600),),
+                                          width: MediaQuery.of(context).size.width/4,
+                                        )],),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
+                                          decoration: BoxDecoration(
+                                              borderRadius:const BorderRadius.all(Radius.circular(5)),
+                                              color: Colors.grey[300]),
+                                          child: Row(
+                                            children: [
+                                              Icon(Icons.currency_rupee,color: Colors.green[600],size: 15,),
+                                              Text(i.feeCount.toString()),
+                                            ],
+                                          ),
+                                          ),
 
-         ]),
-         ),
-        ])
+                                        Container(
+                                          padding:const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
+                                          decoration: BoxDecoration(
+                                              borderRadius:const BorderRadius.all(Radius.circular(5)),
+                                              color: Colors.grey[300]),
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.currency_rupee,color: Colors.green[600],size: 15,),
+                                                  Text(i.feeAmount.toString()),
+                                                ],
+                                              ),
+                                         )
+                                      ]),
+                                      ),
+                                     ),
+                                   ]);
+                      }
+                      else{
+                        return const CircularProgressIndicator();
+                      }
+                    }),
+
+           ]),
+           ),
+          ]),
+    )
        );
   }
 }

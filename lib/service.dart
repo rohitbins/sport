@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/model/dashboard.dart';
 import 'package:sport/model/payment.dart';
-import 'package:sport/model/pending_customer_fee.dart';
 import 'package:sport/model/personal_sport.dart';
 import 'package:sport/model/pnp_Attendance_in.dart';
 import 'package:sport/model/pnp_customer_model.dart';
@@ -18,9 +17,9 @@ import 'package:sport/utils/constants.dart';
 import 'package:sport/utils/enums.dart';
 import 'model/baseresponse.dart';
 import 'model/otp_validator.dart';
+import 'model/pending_customer_fee.dart';
 import 'model/phone_validator.dart';
 import 'model/request/customer_data.dart';
-
 
 class ServiceCall {
 
@@ -440,7 +439,6 @@ Future<PendingFeeGuru> fetchPendingFeeData(String? member) async {
       return pendingFeeGuru;
     }
     else {return PendingFeeGuru(data: []);}
-  
 }
 
 }

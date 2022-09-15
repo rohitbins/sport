@@ -147,7 +147,6 @@ class OutCard extends StatelessWidget {
                   topLeft: Radius.circular(20),
                   bottomLeft: Radius.circular(20),
                 ),
-               
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
               child: Column(
