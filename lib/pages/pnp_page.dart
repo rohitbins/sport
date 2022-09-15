@@ -36,11 +36,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
              if(snapshot.hasData){
                if(snapshot.data!.data!.isEmpty){
                  return
-                   const Center(
-                    child: FittedBox(
-                      child: Text('No Record Available',
-                      softWrap: true,
-                      style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
+                   Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
                }
                else
                {
@@ -81,19 +77,19 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                                          children: [
                                            Flexible(
                                              child: Padding(
-                                               padding:  const EdgeInsets.only(top: 3),
+                                               padding:  EdgeInsets.only(top: 3),
                                                child: FittedBox(
 
                                                  child: Text(snapshot.data!.data![index].pnpCustomer.toString(),softWrap: true,
                                                    style: const TextStyle(
-                                                       fontSize: 20,
-                                                       fontWeight: FontWeight.bold,
+                                                       fontSize: 18,
+                                                       fontWeight: FontWeight.w600,
                                                        letterSpacing: 1
                                                    ),),
                                                ),
                                              ),
                                            ),
-                                           const SizedBox(width: 5),
+                                           SizedBox(width: 5),
                                            Image.network(snapshot.data!.data![index].sportLogo.toString(),scale: 3.5,),
                                          ],
                                        ),
@@ -105,7 +101,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                                              style: const TextStyle(
                                                  color: Colors.grey
                                              ),),
-                                           const Text(' | '),
+                                           Text(' | '),
                                            Flexible(
                                              child: Text(snapshot.data!.data![index].facilityName.toString(),
                                                style:  TextStyle(
@@ -113,7 +109,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                                                    color: Colors.yellow[900]
                                                ),),
                                            ),
-                                           const Text(' | '),
+                                           Text(' | '),
                                            Flexible(
                                              child: Text(snapshot.data!.data![index].pnpFee.toString(),
                                                style:  TextStyle(
@@ -191,7 +187,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                                      snapshot.data!.data![index].status = 'Playing';
                                      clickedKey = '';
                                    });
-                                  
+                                   // print(snapshot.data!.data![index].phone);
                                    setState(() {
                                    });
                                  },

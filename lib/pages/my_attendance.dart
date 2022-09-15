@@ -1,4 +1,4 @@
-// ignore_for_file: curly_braces_in_flow_control_structures, prefer_is_empty, sized_box_for_whitespace
+// ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'package:flutter/material.dart';
 import '../model/staff_attendance_model.dart';
@@ -51,7 +51,7 @@ staffAttendanceModel = value!;
             children: [
               staffAttendanceModel.data!.length>0?
                  _todays(staffAttendanceModel.data![0]):_onlyFirstIn(),
-                   SizedBox(
+                   Container(
                     height: MediaQuery.of(context).size.height*.788,
                      child: ListView.builder(
                       primary: true,
@@ -152,12 +152,12 @@ staffAttendanceModel = value!;
                 ? Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: ElevatedButton(
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 12),
                           child: Text(
                             'In',
-                            style: TextStyle(fontSize: 24),
+                            style: const TextStyle(fontSize: 24),
                           ),
                         ),
                         onPressed: () {
@@ -177,7 +177,6 @@ staffAttendanceModel = value!;
                         }),
                   )
                 : const CircularProgressIndicator(),
-
           ],
         ),
       ),
@@ -272,8 +271,8 @@ staffAttendanceModel = value!;
                 Text(
                   getHours(data.totalInTime!),
                   style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w500,
                     color: Color.fromRGBO(41, 128, 185, 1),
                   ),
                 ),
@@ -296,8 +295,8 @@ staffAttendanceModel = value!;
                 Text(
                   getMinuts(data.totalInTime!),
                   style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w500,
                       color: Colors.black54),
                 ),
                 const Text(

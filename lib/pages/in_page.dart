@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/category_batch.dart';
@@ -11,10 +10,11 @@ import '../model/request/customer_data.dart';
 
 import '../utils/enums.dart';
 import 'customer_Page.dart';
+import 'login/login_page.dart';
+
 
 class InPage extends StatefulWidget {
   const InPage({Key? key}) : super(key: key);
-
   @override
   State<InPage> createState() => _InPageState();
 }
@@ -45,6 +45,11 @@ class _InPageState extends State<InPage> {
 
   @override
   void initState() {
+    ServiceCall().fetchDashboardData().then((value) => {if(CanLogin == false){
+      // print('canlogin2 = '+CanLogin.toString()),
+      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Login()))
+
+    }});
     super.initState();
     getBatchCatgories();
     getCustomerList(0, 0);
@@ -59,7 +64,9 @@ class _InPageState extends State<InPage> {
   @override
   Widget build(BuildContext context) {
     isFutureCustomerData = categoryAndBatch.data  == null;
-   
+    // print('futureCustomerData = '+futureCustomerData.data.toString());
+    // print('categoryAndBatch'+categoryAndBatch.data!.batchList.toString());
+    // print(categoryAndBatch.data!.batchList);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -85,17 +92,17 @@ class _InPageState extends State<InPage> {
         centerTitle: true,
         leading: Container(),
       ),
-      body: !HasInData? const Text('No Record Available',
-      softWrap: true,style: TextStyle(
-      fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),):
-      ListView(physics: const NeverScrollableScrollPhysics(), children: [
-        (categoryAndBatch.data == null)? const SizedBox():
+      body: !HasInData?Center(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)):
+      ListView(
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+        (categoryAndBatch.data == null)?SizedBox():
            SizedBox(
             height: MediaQuery.of(context).size.height * .06,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                categoryAndBatch.data!.batchList!.isEmpty? const SizedBox():
+                categoryAndBatch.data!.batchList!.isEmpty?SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(
@@ -105,7 +112,7 @@ class _InPageState extends State<InPage> {
                   label: Text((categoryAndBatch.data!.batchList!.firstWhere(
                       (element) => element.id == selectedBatchId)).batch,),
                 ),
-                categoryAndBatch.data!.categoryList!.isEmpty? const SizedBox():
+                categoryAndBatch.data!.categoryList!.isEmpty?SizedBox():
                 Chip(
                   backgroundColor: Colors.white,
                   avatar: const CircleAvatar(

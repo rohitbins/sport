@@ -1,0 +1,10 @@
+String? currentMemberPlay = '0';
+String? currentStudentPlay = '0';
+String? currentPPRPlay = '0';
+String? todayMemberPlay = '0';
+String? todayStudentPlay= '0';
+String? todayPPRPlay= '0';
+String? memberFeeCount= '0';
+String? memberFeeAmount= '0';
+String? studenFeeCount= '0';
+String? studentFeeAmount= '0';

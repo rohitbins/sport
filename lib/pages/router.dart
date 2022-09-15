@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/pages/home_page1.dart';
 import 'package:sport/pages/in_page.dart';
+import 'package:sport/pages/login/login_page.dart';
 import 'package:sport/pages/out_page.dart';
 import 'package:sport/pages/pnp_page.dart';
 import 'package:sport/service.dart';
@@ -22,7 +23,9 @@ class _MyRouteState extends State<MyRoute> {
   void initState() {
 
     super.initState();
-   
+    // if(CanLogin == false){
+    //   Navigator.pushReplacement(context, MaterialPageRoute (builder: (BuildContext context) => const Login()));
+    // }
     _prefs.then((value){
       TakePNPAttendance = value.getBool('takePNPAttendance');
       TakeMemberAttendance= value.getBool('tekeMemberAttendance');

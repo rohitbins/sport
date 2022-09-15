@@ -33,14 +33,14 @@ class _OtpState extends State<OtpPage> {
           const SizedBox(height: 70),
           Image.asset(
             'assets/images/lock.png',
-            scale: 1.5,
+            scale: MediaQuery.of(context).size.width/250,
           ),
           const SizedBox(height: 70),
-          const Text(
+           Text(
             'OTP  Verification',
             style: TextStyle(
               color: Color.fromRGBO(41, 128, 185, 1),
-              fontSize: 40,
+              fontSize: MediaQuery.of(context).size.width/10,
               fontWeight: FontWeight.w500,
             ),
           ),

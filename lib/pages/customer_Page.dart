@@ -17,7 +17,6 @@ import '../service.dart';
     class _CustomerPageState extends State<CustomerPage>
     with SingleTickerProviderStateMixin {
        final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-      //  String lable = '';
        String clickedKey = '';
 
   void initState(){
@@ -25,7 +24,6 @@ import '../service.dart';
 
     _prefs.then((value) {
       setState(() {
-
       });
     });
   }
@@ -33,22 +31,18 @@ import '../service.dart';
 
    @override
   Widget build(BuildContext context) {
-
     List<CustomerData>? dataList = widget.customerListData.data;
     IsDataListNull = widget.customerListData.data == null;
 
     return
     IsDataListNull!?Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const[
-        Padding(
-          padding: EdgeInsets.only(bottom: 200),
-          child: CircularProgressIndicator(),
-        ),
+      children: [
+        CircularProgressIndicator(),
       ],
     ):
      Padding(
-            padding: const EdgeInsets.only(bottom: 130),
+            padding:  EdgeInsets.only(bottom: MediaQuery.of(context).size.height/3.25),
             child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: dataList!.length,
@@ -98,8 +92,6 @@ class InCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // print('asasasaret');
-        // print(customerData.customerKey);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -164,7 +156,7 @@ class InCard extends StatelessWidget {
                      ],),
                      //&& showFees
                      const SizedBox(width: 4),
-                     if (customerData.feePending != 0  )
+                     if (customerData.feePending != 0)
                       Row(
                         children: [
                           const Text("Fee Pending",
@@ -183,7 +175,7 @@ class InCard extends StatelessWidget {
                          ],
                       )
                     else 
-                       const Text(''),
+                       Text(''),
             ]),
             ),
            ),

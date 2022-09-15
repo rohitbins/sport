@@ -7,7 +7,9 @@ import 'package:sport/model/check_permisson.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:sport/model/customer_list_out.dart';
+import 'package:sport/model/dashboard.dart';
 import 'package:sport/model/payment.dart';
+import 'package:sport/model/pending_customer_fee.dart';
 import 'package:sport/model/personal_sport.dart';
 import 'package:sport/model/pnp_Attendance_in.dart';
 import 'package:sport/model/pnp_customer_model.dart';
@@ -18,6 +20,7 @@ import 'model/baseresponse.dart';
 import 'model/otp_validator.dart';
 import 'model/phone_validator.dart';
 import 'model/request/customer_data.dart';
+
 
 class ServiceCall {
 
@@ -68,7 +71,6 @@ class ServiceCall {
         headers: headers);
 
     if (response.statusCode == 200) {
-      // print(response.body);
       CustomerListData customerListData =
           CustomerListData.fromJson(jsonDecode(response.body));
       if(customerListData.data!.isEmpty){
@@ -94,7 +96,6 @@ class ServiceCall {
         body: {"phone": phoneNumber, "source": "Android"});
 
     if (response.statusCode == 200) {
-      // print(response.body);
       PhoneValidator phoneValidator =
           PhoneValidator.fromJson(jsonDecode(response.body));
       return phoneValidator;
@@ -107,7 +108,6 @@ class ServiceCall {
 // Otp Validator//////
   Future<OtpValidator> OtpValidatorApi(
       {required String phoneNumber, required String otp}) async {
-    // print('OtpValidatorApi');
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'token': 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6',
@@ -117,11 +117,9 @@ class ServiceCall {
         Uri.parse('${base}${EndPoints.guruOTPValidator.apiValue}'),
         headers: _header,
         body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
-// print('res'+response.body.toString());
     if (response.statusCode == 200) {
       OtpValidator otpValidator =
           OtpValidator.fromJson(jsonDecode(response.body));
-      // print(response.body.toString());
           if(otpValidator.data!.showFee !=null)
           {
             CanLogin = otpValidator.data!.canLogin as bool;
@@ -130,7 +128,6 @@ class ServiceCall {
             TakePNPAttendance = otpValidator.data!.takePNPAttendance;
           }
           ShowFee = false;
-           // print("shown fee="+ShowFee.toString());
 
       return otpValidator;
 
@@ -152,7 +149,6 @@ class ServiceCall {
         body: {  });
 
     if (response.statusCode == 200) {
-      // print(response.body);
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
@@ -177,7 +173,6 @@ class ServiceCall {
         body: {});
 
     if (response.statusCode == 200) {
-      // print(response.body);
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
       return customerOut;
@@ -199,7 +194,7 @@ class ServiceCall {
         Uri.parse('$base${EndPoints.setCustomerAttendanceIn.apiValue}'),
         headers: _header,
         body: {});
-print('customerkey'+customerKey.toString());
+
     if (response.statusCode == 200) {
       CustomerListOut customerOut =
           CustomerListOut.fromJson(jsonDecode(response.body));
@@ -271,7 +266,9 @@ print('customerkey'+customerKey.toString());
   }
 
 // Profile Data ////////
+  // ignore: body_might_complete_normally_nullable
   Future<PersonalSportModel?> fetchProfileData(String _key) async {
+    // ignore: no_leading_underscores_for_local_identifiers
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
@@ -305,7 +302,7 @@ print('customerkey'+customerKey.toString());
     if (response.statusCode == 200) {
       StaffAttendanceModel staffAttendanceModel =
           StaffAttendanceModel.fromJson(jsonDecode(response.body));
-print('GetStaffAttendanceList = '+response.body.toString());
+
       return staffAttendanceModel;
     }
   }
@@ -345,8 +342,6 @@ print('GetStaffAttendanceList = '+response.body.toString());
      final response = await http.post(Uri.parse('${base}PNPCustomerListForIn'),
     body: {}, headers: _header);
         if (response.statusCode == 200){
-          print('doneee');
-          // print(response.body.toString());
           PnpCustomerModel pnpCustomerModel = 
           PnpCustomerModel.fromJson(jsonDecode(response.body));
           return pnpCustomerModel;
@@ -377,7 +372,7 @@ print('GetStaffAttendanceList = '+response.body.toString());
  
 
  Future<CheckPermisson> fetchPermissonData() async{
-    print('function called');
+   
   Map<String, String> _header = {
     'ContentType' : 'application/json',
     'token' : 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6',
@@ -391,8 +386,6 @@ print('GetStaffAttendanceList = '+response.body.toString());
 	"takeMemberAttendance": TakeMemberAttendance.toString(),
 	"canLogin": CanLogin.toString()},
   headers: _header);
-  print('GuruCheckPermission = '+response.body.toString());
-
   if (response.statusCode == 200){
     CheckPermisson checkPermisson = 
     CheckPermisson.fromJson(jsonDecode(response.body));
@@ -405,4 +398,49 @@ print('GetStaffAttendanceList = '+response.body.toString());
   } else {return CheckPermisson();}
 
  }
+
+ // Staff Dashboard Data
+
+ Future<Dashboard> fetchDashboardData () async {
+Map <String, String> _header = {
+  'ContentType' : 'application/json',
+  'staff-Key' :  await _prefs.then((value) => value.getString(('staffKey'))!),
+  'mode' : _mode
+};
+final response = await http.post(Uri.parse('${base}GetStaffDashboard'),
+body: {
+  'showFee' : ShowFee.toString(),
+  'takePNPAttendance' : TakePNPAttendance.toString(),
+  'tekeMemberAttendance' : TakeMemberAttendance.toString(),
+  'canLogin' : CanLogin.toString(),},
+  headers: _header);
+  if (response.statusCode == 200){
+    print(response.body.toString());
+    Dashboard dashboard = 
+    Dashboard.fromJson(jsonDecode(response.body));
+
+    return dashboard;
+  }else {return Dashboard();}
+ }
+
+// Guru Pending Fee Customer
+Future<PendingFeeGuru> fetchPendingFeeData(String? member) async {
+  Map<String,String> _header = {
+  'ContentType' : 'application/json',
+  'staff-Key' : await _prefs.then((value) => value.getString(('staffKey'))!),
+  'made' : _mode};
+  final response = await http.post(Uri.parse('${base}GuruGetPendingFeeCustomerList'),
+  body: {
+    'customerType' : member},
+    headers: _header);
+    if(response.statusCode == 200){
+      print(response.body.toString());
+      PendingFeeGuru pendingFeeGuru = 
+      PendingFeeGuru.fromJson(jsonDecode(response.body));
+      return pendingFeeGuru;
+    }
+    else {return PendingFeeGuru(data: []);}
+  
+}
+
 }

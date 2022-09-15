@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sport/utils/constants1.dart';
+// import 'package:sportsb/View/otp.dart';
+
 import '../../model/phone_validator.dart';
 import '../../service.dart';
 import '../otp/otp_page.dart';
@@ -102,17 +105,15 @@ class _LoginState extends State<Login> {
                             return 'Please enter Phone Number';
                           }
                           if (_invalid) {
-                            return "This Number is not Registered Check Number";
-                            // return Messg != null
-                            //     ? Messg!.length > 55
-                            //         // ignore: prefer_interpolation_to_compose_strings
-                            //         ? Messg!.substring(0, 53) +
-                            //             '\n' +
-                            //             Messg!.substring(
-                            //               53,
-                            //             )
-                            //         : Messg
-                            //     : "This Number is not Registered Check Number";
+                            return Messg != null
+                                ? Messg!.length > 55
+                                    ? Messg!.substring(0, 53) +
+                                        '\n' +
+                                        Messg!.substring(
+                                          53,
+                                        )
+                                    : Messg
+                                : "This Number is not Registered Check Number";
                           }
                           return null;
                             },
@@ -146,7 +147,7 @@ class _LoginState extends State<Login> {
                             backgroundColor: pressed
                                 ? MaterialStateProperty.all<Color>(Colors.green)
                                 : MaterialStateProperty.all<Color>(
-                                    Colors.green)),
+                                    Colors.white24)),
                         onPressed: () async {
                           pressed = true;
                           if (_key.currentState!.validate()) {
@@ -156,7 +157,7 @@ class _LoginState extends State<Login> {
                             isLoading = false;
                           });
                         },
-                        child:const Text(
+                        child: (isLoading)? const CircularProgressIndicator():const Text(
                           'Submit',
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),

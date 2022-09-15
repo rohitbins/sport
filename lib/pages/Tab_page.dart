@@ -122,9 +122,7 @@ bool IsCategoryAndBatchNull = true;
                       ),
                     );
                   }),
-                 IsCategoryNull? const Center(
-                  child: Text('No Category Available, Please contact Admin',
-                  style: TextStyle(color: Colors.black),)):ListView.builder(
+                 IsCategoryNull?Center(child: Text('No Category Available, Please contact Admin',style: TextStyle(color: Colors.black),)):ListView.builder(
                   shrinkWrap: true,
                   itemCount: widget.data.data!.categoryList!.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -168,7 +166,7 @@ bool IsCategoryAndBatchNull = true;
                                       ),
                                 const SizedBox(width: 20),
                                 Expanded(child: Text(data.category)),
-                                
+                                // Text(data.id.toString()),
                                 if (selectedCatIndex == index)
                                   Container(
                                     alignment: Alignment.center,
