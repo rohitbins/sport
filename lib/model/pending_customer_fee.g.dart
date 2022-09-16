@@ -27,7 +27,7 @@ Map<String, dynamic> _$PendingFeeGuruToJson(PendingFeeGuru instance) =>
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
       name: json['name'] as String?,
       customerKey: json['customerKey'] as String?,
-      feeText: json['feeText'] as String?,
+      feetext: json['feetext'] as String?,
       pendingDays: json['pendingDays'] as int?,
       fee: (json['fee'] as num?)?.toDouble(),
       feeDate: json['feeDate'] as String?,
@@ -36,7 +36,7 @@ Data _$DataFromJson(Map<String, dynamic> json) => Data(
 Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
       'name': instance.name,
       'customerKey': instance.customerKey,
-      'feeText': instance.feeText,
+      'feetext': instance.feetext,
       'pendingDays': instance.pendingDays,
       'fee': instance.fee,
       'feeDate': instance.feeDate,

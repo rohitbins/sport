@@ -7,7 +7,7 @@ import 'package:sport/pages/Tab_page.dart';
 import 'package:sport/service.dart';
 import 'package:sport/utils/constants.dart';
 import '../model/request/customer_data.dart';
-
+import 'dart:io' show Platform;
 import '../utils/enums.dart';
 import 'customer_Page.dart';
 import 'login/login_page.dart';
@@ -19,7 +19,7 @@ class InPage extends StatefulWidget {
   State<InPage> createState() => _InPageState();
 }
 
-class _InPageState extends State<InPage> {
+  class _InPageState extends State<InPage> {
   late Future<CategoryAndBatch> futureBatchCategories;
   CustomerListData futureCustomerData = CustomerListData();
 
@@ -59,6 +59,11 @@ class _InPageState extends State<InPage> {
   void getBatchCatgories() async {
     categoryAndBatch = await ServiceCall().fetchBatchCatgories();
     setState(() {});
+  }
+  void main (){
+    if(Platform.isAndroid){
+     
+    }
   }
 
   @override
@@ -134,10 +139,15 @@ class _InPageState extends State<InPage> {
               ],
             ),
           ),
-     const Divider(),
-        SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: CustomerPage(customerListData: futureCustomerData)),
+            
+            Platform.isAndroid?  SizedBox(
+             height: MediaQuery.of(context).size.height,
+             child: CustomerPage(customerListData: futureCustomerData)
+            ) :  SizedBox(
+             height: MediaQuery.of(context).size.height/ 1.44,
+             child: CustomerPage(customerListData: futureCustomerData)
+             ),
+       
       ]),
     );
   }

@@ -54,7 +54,11 @@ final pagesForAttendenceFalse = [const HomePage1(),  const OutPage(), const PnpP
           currentIndex: pagesIndex,
           items: [
             BottomNavigationBarItem(
-                icon: const Icon(Icons.home_filled,color: Colors.grey,), label: _home),
+                icon:  InkWell(
+                  onTap: () {
+                    ServiceCall().fetchDashboardData();
+                  },
+                  child: const Icon(Icons.home_filled,color: Colors.grey,)), label: _home),
 
             if(TakeMemberAttendance!)
             BottomNavigationBarItem(

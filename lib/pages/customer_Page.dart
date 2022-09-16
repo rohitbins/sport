@@ -37,12 +37,12 @@ import '../service.dart';
     return
     IsDataListNull!?Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+      children: const [
         CircularProgressIndicator(),
       ],
     ):
      Padding(
-            padding:  EdgeInsets.only(bottom: MediaQuery.of(context).size.height/3.25),
+            padding:  EdgeInsets.only(bottom: MediaQuery.of(context).size.height/4.2),
             child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: dataList!.length,

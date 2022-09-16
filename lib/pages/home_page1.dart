@@ -20,12 +20,11 @@ class HomePage1 extends StatefulWidget {
 }
 class _HomePage1State extends State<HomePage1> {
 
-  Map<String, double> attendanceList = {"In": 15, "Out": 85};
-  Map<String, double> fee = {"Paid": 75.8, "pending": 85};
+  
   final String attendanceText = 'Attendance';
   final String feeText = 'Fee';
   String userName = '';
-  List<Color> colorList = [Colors.green, Colors.orange];
+ 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var MenuItem = <String>['My Attendance', 'Logout'];
   void onSelected(item) {
@@ -217,7 +216,7 @@ late PermissonData Permission;
                ]),
                ),
          const SizedBox(height: 10),
-          if(ShowFee)
+          ShowFee?
            Container(
             padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 25),
             decoration:const BoxDecoration(color: Colors.teal),
@@ -228,7 +227,6 @@ late PermissonData Permission;
                     children: [
                       Row(
                         children: [
-
                           const Text('Pending Fee',
                           style: TextStyle(
                             fontSize: 25,
@@ -249,8 +247,15 @@ late PermissonData Permission;
                               for(var i in snapshot.data!.data!.feeData)
                                 InkWell(
                                   onTap: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) =>  PendingFeeList(Member: i.customerType.toString(),)));
-                                  },
+                                    Navigator.push(
+                                      context, 
+                                      MaterialPageRoute(
+                                        builder: (
+                                          BuildContext context) =>  PendingFeeList(
+                                            Member: i.customerType.toString(),
+                                            )
+                                           )
+                                            );},
 
                                   child: Container(
                                     padding: const EdgeInsets.only(bottom: 20),
@@ -302,7 +307,7 @@ late PermissonData Permission;
                     }),
 
            ]),
-           ),
+           ) : const SizedBox(),
           ]),
     )
        );

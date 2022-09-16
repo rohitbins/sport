@@ -69,13 +69,13 @@ class _PendingFeeListState extends State<PendingFeeList> {
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600),),
                             ),
-                            if(i.feeText==null)
+                            // if(i.feetext==null)
                               Row(
                                 children: [
                                   const Text(
                                     'feeText: ',
                                     style: TextStyle(fontSize: 13),),
-                                    Text(i.feeText.toString(),
+                                    Text(i.feetext.toString(),
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w500,

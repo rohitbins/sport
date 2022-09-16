@@ -25,7 +25,7 @@ class Data {
   Data({
     this.name,
     this.customerKey,
-    this.feeText,
+    this.feetext,
     this.pendingDays,
     this.fee,
     this.feeDate
@@ -33,7 +33,7 @@ class Data {
 
   String? name;
   String? customerKey;
-  String? feeText;
+  String? feetext;
   int? pendingDays;
   double? fee;
   String? feeDate;

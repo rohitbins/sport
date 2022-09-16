@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -21,6 +23,8 @@ bool? TakeMemberAttendance = false;
 bool? IsChanged = false;
 bool? CanLogin = false;
 bool ShowFee = false;
+bool? isAndroid = false;
+bool? isIOS = false;
 const String noRecordAvailable = 'No Record Available';
 
 final DateFormat formatter = DateFormat('d\nMMM');
