@@ -21,28 +21,24 @@ import '../service.dart';
 
   void initState(){
     super.initState();
-
     _prefs.then((value) {
       setState(() {
       });
     });
   }
 
-
-   @override
+  @override
   Widget build(BuildContext context) {
     List<CustomerData>? dataList = widget.customerListData.data;
     IsDataListNull = widget.customerListData.data == null;
-
     return
     IsDataListNull!?Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
         CircularProgressIndicator(),
-      ],
-    ):
+      ]):
      Padding(
-            padding:  EdgeInsets.only(bottom: MediaQuery.of(context).size.height/4.2),
+            padding:  EdgeInsets.only(bottom: MediaQuery.of(context).size.height/4.3),
             child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: dataList!.length,
@@ -69,11 +65,7 @@ import '../service.dart';
                 );
   }
 }
-
-
- 
-
-class InCard extends StatelessWidget {
+  class InCard extends StatelessWidget {
   const InCard({
     Key? key,
     required this.showFees,
@@ -110,7 +102,7 @@ class InCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.2),
             width: 1,
           ),
-        ),
+         ),
         child: Row(children: [
           Expanded(
             child: Container(
@@ -120,7 +112,7 @@ class InCard extends StatelessWidget {
                   topLeft: Radius.circular(20),
                   bottomLeft: Radius.circular(20),
                 ),
-              ),
+               ),
                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                    child: Column(
                    mainAxisSize: MainAxisSize.max,
@@ -153,8 +145,8 @@ class InCard extends StatelessWidget {
                           color: Colors.grey.shade600,
                           fontWeight: FontWeight.w400),
                      ),
-                     ],),
-                     //&& showFees
+                  ],),
+                    
                      const SizedBox(width: 4),
                      if (customerData.feePending != 0)
                       Row(
@@ -171,21 +163,18 @@ class InCard extends StatelessWidget {
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600),
                           ):const SizedBox(),  
-                           
-                         ],
-                      )
+                           ])
                     else 
-                       Text(''),
+                       const Text(''),
             ]),
             ),
            ),
           InkWell(
             onDoubleTap: () { 
              if(customerData.isPlaying! ==0) callback(customerData.customerKey);
-            },onTap: () {
+            },onTap: () {  },
               
-            },
-            child: Container(
+              child: Container(
               width: customerData.isPlaying! > 0 ? 120 : 80,
               alignment: Alignment.center,
               constraints: const BoxConstraints(maxHeight: 4 * 15.0),
@@ -204,16 +193,17 @@ class InCard extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                        )
-                      : const Text('in',
+                          )
+                         : const Text('in',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 32,
-                              fontWeight: FontWeight.bold)),
+                              fontWeight: FontWeight.bold)
+             ),
             ),
-          )
-        ]),
-      ),
-    );
+            )
+         ]),
+         ),
+        );
   }
 }

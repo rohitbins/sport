@@ -43,7 +43,7 @@ class _OutPageState extends State<OutPage> {
             if (snapshot.hasData) {
               if(snapshot.data!.data!.isEmpty){
                 return
-                  const Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
+                  Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
               }
              return Padding(
                 padding: const EdgeInsets.only(bottom: 0),

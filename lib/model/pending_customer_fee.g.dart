@@ -11,8 +11,8 @@ PendingFeeGuru _$PendingFeeGuruFromJson(Map<String, dynamic> json) =>
       statusCode: json['statusCode'] as int?,
       isError: json['isError'] as bool?,
       message: json['message'] as String?,
-      data: (json['data'] as List<dynamic>)
-          .map((e) => Data.fromJson(e as Map<String, dynamic>))
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) => Data.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

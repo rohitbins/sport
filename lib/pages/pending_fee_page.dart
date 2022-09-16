@@ -1,5 +1,3 @@
-// ignore_for_file: sort_child_properties_last
-
 import 'package:flutter/material.dart';
 import 'package:sport/pages/profile/profile.dart';
 import 'package:sport/service.dart';
@@ -19,7 +17,9 @@ class _PendingFeeListState extends State<PendingFeeList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+          centerTitle: true,
+          title: Text(widget.Member.toString()+' Pending Fee')),
       body: FutureBuilder<PendingFeeGuru>(
         future: ServiceCall().fetchPendingFeeData(widget.Member),
         builder: (context, snapshot){
@@ -29,7 +29,7 @@ class _PendingFeeListState extends State<PendingFeeList> {
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
-                  for(var i in snapshot.data!.data)
+                  for(var i in snapshot.data!.data!)
                     InkWell(
                       onTap: () {
                         Navigator.push(
@@ -42,8 +42,8 @@ class _PendingFeeListState extends State<PendingFeeList> {
                                 )));
                       },
                       child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
-                          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                        margin: EdgeInsets.symmetric(vertical: 8,horizontal: 10),
+                          padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
                           decoration: BoxDecoration(
                             boxShadow: const [
                               BoxShadow(
@@ -59,69 +59,32 @@ class _PendingFeeListState extends State<PendingFeeList> {
                       child: Row(
                         mainAxisAlignment:MainAxisAlignment.spaceBetween,
                         children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 5),
-                              child: Text(
-                                i.name.toString(),
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600),),
-                            ),
-                            // if(i.feetext==null)
-                              Row(
-                                children: [
-                                  const Text(
-                                    'feeText: ',
-                                    style: TextStyle(fontSize: 13),),
-                                    Text(i.feetext.toString(),
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13),),
-                                ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:  EdgeInsets.only(bottom: 5),
+                                child: Text(i.name.toString(),style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
                               ),
-                            if(i.feeDate!=null)
-                              Row(
-                                children: [
-                                  const Text(
-                                    'feeDate: ',
-                                    style: TextStyle(fontSize: 13),),
-                                    Text(i.feeDate.toString(),
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13),),
-                                ],
-                              ),
-                            if(i.pendingDays!=null)
-                              Row(
-                                children: [
-                                  const Text(
-                                    'pendingDays: ',
-                                     style: TextStyle(fontSize: 13),),
-                                  Text((i.pendingDays!*-1).toString(),
-                                  style: const TextStyle(
-                                    fontSize:16,
-                                    color: Colors.orange,
-                                    fontWeight: FontWeight.w500),),
-                                ],
-                              ),
-                          ],
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                              if(i.feeDate!=null)
+                                Row(
+                                  children: [
+                                    Text(i.feeDate.toString(),style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w500),),
+                                    SizedBox(width: 5),
+                                    Text('('+(i.pendingDays!*-1).toString()+')',style: TextStyle(fontSize:14,color: Colors.orange,fontWeight: FontWeight.w500),),
+                                  ],
+                                ),
+                              if(i.feetext!=null)
+                                Text(i.feetext.toString(),style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w500),)
+                            ],
+                          ),
                         ),
-                        Column(
-                          children: [
-                            Text(i.fee.toString(),
-                            style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red),)],)
+                        Column(children: [Text(i.fee.toString(),style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.red),)],)
                       ],)
                       ),
                     ),
-                    const SizedBox(height: 50)
+                    SizedBox(height: 50)
                   ],
                 ),
               );
@@ -129,7 +92,8 @@ class _PendingFeeListState extends State<PendingFeeList> {
           else if(snapshot.hasError){
             return Center(child: Text(snapshot.error.toString()));
           }
-          else{ return const CircularProgressIndicator();}
+          else{ return Center(child: CircularProgressIndicator());
+          }
         },
       ),
     );

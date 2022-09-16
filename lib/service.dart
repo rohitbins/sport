@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/attendance.dart';
 import 'package:sport/model/category_batch.dart';
-import 'package:sport/model/check_permisson.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:sport/model/customer_list_out.dart';
@@ -15,6 +14,7 @@ import 'package:sport/model/pnp_customer_model.dart';
 import 'package:sport/model/staff_attendance_model.dart';
 import 'package:sport/utils/constants.dart';
 import 'package:sport/utils/enums.dart';
+import 'package:sport/utils/homepage_live_values.dart';
 import 'model/baseresponse.dart';
 import 'model/otp_validator.dart';
 import 'model/pending_customer_fee.dart';
@@ -48,7 +48,6 @@ class ServiceCall {
     if (response.statusCode == 200) {
       CategoryAndBatch categoryAndBatch =
           CategoryAndBatch.fromJson(jsonDecode(response.body));
-
    return categoryAndBatch;
     } else {
       throw Exception('failed to load BatchCategories');
@@ -63,7 +62,6 @@ class ServiceCall {
       'ContentType': 'application/json',
       'mode': _mode
     };
-    // print('headers:${headers.toString()}');
     final response = await http.post(
         Uri.parse('$base${EndPoints.customerListByBatchAndCategory.apiValue}'),
         body: customerDataRequest.toJson(),
@@ -116,9 +114,15 @@ class ServiceCall {
         Uri.parse('${base}${EndPoints.guruOTPValidator.apiValue}'),
         headers: _header,
         body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
+    print('OtpValidator = '+response.body.toString());
+
+
+
     if (response.statusCode == 200) {
       OtpValidator otpValidator =
           OtpValidator.fromJson(jsonDecode(response.body));
+      await  _prefs.then((value) => value.setString('academyLogo', otpValidator.data!.academyLogoURL!));
+       AcademyLogo =await  _prefs.then((value) => value.getString('academyLogo'));
           if(otpValidator.data!.showFee !=null)
           {
             CanLogin = otpValidator.data!.canLogin as bool;
@@ -280,7 +284,6 @@ class ServiceCall {
     if (response.statusCode == 200) {
       PersonalSportModel personalSportModel =
           PersonalSportModel.fromJson(jsonDecode(response.body));
-
       return personalSportModel;
     }
   }
@@ -367,39 +370,6 @@ class ServiceCall {
          }
  }
 
- /// Check Permisson
- 
-
- Future<CheckPermisson> fetchPermissonData() async{
-   
-  Map<String, String> _header = {
-    'ContentType' : 'application/json',
-    'token' : 'CFE25CAB1BA245F89E1158LOPSU598USPIE24T6',
-    'staff-Key' : await _prefs.then((value) => value.getString(('staffKey'))!),
-    'mode': _mode
-  };
-  final response = await http.post(Uri.parse('${base}GuruCheckPermission'),
-  body: {
-  "showFee": ShowFee.toString(),
-	"takePNPAttendance": TakePNPAttendance.toString(),
-	"takeMemberAttendance": TakeMemberAttendance.toString(),
-	"canLogin": CanLogin.toString()},
-  headers: _header);
-  if (response.statusCode == 200){
-    CheckPermisson checkPermisson = 
-    CheckPermisson.fromJson(jsonDecode(response.body));
-    CanLogin = checkPermisson.data!.canLogin;
-    IsChanged = checkPermisson.data!.isChanged;
-    TakeMemberAttendance = checkPermisson.data!.takeMemberAttendance;
-    TakePNPAttendance = checkPermisson.data!.takePNPAttendance;
-    ShowFee = checkPermisson.data!.showFee!;
-    return checkPermisson;
-  } else {return CheckPermisson();}
-
- }
-
- // Staff Dashboard Data
-
  Future<Dashboard> fetchDashboardData () async {
 Map <String, String> _header = {
   'ContentType' : 'application/json',
@@ -414,10 +384,31 @@ body: {
   'canLogin' : CanLogin.toString(),},
   headers: _header);
   if (response.statusCode == 200){
-    print(response.body.toString());
+    print('fetchDashboardData = '+response.body.toString());
     Dashboard dashboard = 
     Dashboard.fromJson(jsonDecode(response.body));
 
+    if(dashboard.data!.isChanged == true){
+      CanLogin = dashboard.data!.canLogin;
+      TakeMemberAttendance = dashboard.data!.takeMemberAttendance;
+      TakePNPAttendance = dashboard.data!.takePNPAttendance;
+      ShowFee = dashboard.data!.showFee!;
+      print('ShowFee = '+ShowFee.toString());
+    }
+    todayFirst = 0;
+    todaySecond = 0;
+    for(var i in dashboard.data!.attendanceData)
+    {
+      todayFirst = todayFirst + (i.playingCount as int);
+      todaySecond = todaySecond + (i.totalCount as int);
+    }
+    feeFirst = 0;
+    feeSecond = 0;
+    for(var i in dashboard.data!.feeData)
+    {
+      feeFirst = feeFirst + (i.feeCount as int);
+      feeSecond = feeSecond + (i.feeAmount as int);
+    }
     return dashboard;
   }else {return Dashboard();}
  }
@@ -433,7 +424,7 @@ Future<PendingFeeGuru> fetchPendingFeeData(String? member) async {
     'customerType' : member},
     headers: _header);
     if(response.statusCode == 200){
-      print(response.body.toString());
+      // print(response.body.toString());
       PendingFeeGuru pendingFeeGuru = 
       PendingFeeGuru.fromJson(jsonDecode(response.body));
       return pendingFeeGuru;

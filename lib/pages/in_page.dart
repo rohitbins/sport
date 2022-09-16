@@ -18,61 +18,46 @@ class InPage extends StatefulWidget {
   @override
   State<InPage> createState() => _InPageState();
 }
-
   class _InPageState extends State<InPage> {
   late Future<CategoryAndBatch> futureBatchCategories;
   CustomerListData futureCustomerData = CustomerListData();
 
- bool isFutureCustomerData = false;
+   bool isFutureCustomerData = false;
    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-       bool showFees = false;
+   bool showFees = false;
 
-  List<String> CatBatch = [
+    List<String> CatBatch = [
     SportType.Category.apiValue,
     SportType.Batch.apiValue,
   ];
 
   int SelectedId = 0;
-
   String? selectedPerson;
   List<Category> sports = [];
-
   final List<Batch> batch = [];
   int selecteCatId = 0;
   int selectedBatchId = 0;
   CategoryAndBatch categoryAndBatch = CategoryAndBatch();
-
-
+ 
   @override
   void initState() {
     ServiceCall().fetchDashboardData().then((value) => {if(CanLogin == false){
-      // print('canlogin2 = '+CanLogin.toString()),
-      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Login()))
-
-    }});
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const Login()))
+   }});
     super.initState();
     getBatchCatgories();
     getCustomerList(0, 0);
     getData();
   }
-
-  void getBatchCatgories() async {
+    void getBatchCatgories() async {
     categoryAndBatch = await ServiceCall().fetchBatchCatgories();
     setState(() {});
   }
-  void main (){
-    if(Platform.isAndroid){
-     
-    }
-  }
-
-  @override
+ 
+ @override
   Widget build(BuildContext context) {
     isFutureCustomerData = categoryAndBatch.data  == null;
-    // print('futureCustomerData = '+futureCustomerData.data.toString());
-    // print('categoryAndBatch'+categoryAndBatch.data!.batchList.toString());
-    // print(categoryAndBatch.data!.batchList);
-    return Scaffold(
+     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
@@ -89,10 +74,10 @@ class InPage extends StatefulWidget {
                             setState(() {});
                             getCustomerList(category, batc);
                           }),
-                    ));
-              },
-              icon: const Icon(Icons.filter_alt)),
-        ],
+                         ));
+                         },        
+                         icon: const Icon(Icons.filter_alt)
+                         )],
         title: const Text("In"),
         centerTitle: true,
         leading: Container(),
@@ -136,23 +121,20 @@ class InPage extends StatefulWidget {
                           .firstWhere((element) => element.id == selecteCatId))
                       .category),
                 ),
-              ],
-            ),
-          ),
+              ]),
+              ),
             
             Platform.isAndroid?  SizedBox(
              height: MediaQuery.of(context).size.height,
              child: CustomerPage(customerListData: futureCustomerData)
             ) :  SizedBox(
-             height: MediaQuery.of(context).size.height/ 1.44,
+             height: MediaQuery.of(context).size.height/1.06,
              child: CustomerPage(customerListData: futureCustomerData)
              ),
-       
-      ]),
-    );
+           ]),
+           );
   }
-
-  void getData() async {
+    void getData() async {
     ServiceCall().fetchBatchCatgories().then((value) {
       sports.addAll(value.data!.categoryList!);
       selectedPerson = sports.first.category;
@@ -161,7 +143,7 @@ class InPage extends StatefulWidget {
     });
   }
 
-  void getCustomerList(int _categoryId, int _batchId) async {
+    void getCustomerList(int _categoryId, int _batchId) async {
     await ServiceCall()
         .fetchCustomerData(
             customerDataRequest: CustomerDataRequest(

@@ -44,7 +44,7 @@ final pagesForAttendenceFalse = [const HomePage1(),  const OutPage(), const PnpP
 
   @override
   Widget build(BuildContext context) {
-    ServiceCall().fetchPermissonData();
+    // ServiceCall().fetchPermissonData();
     return (TakePNPAttendance == false && TakeMemberAttendance == false)?const HomePage1():
     DefaultTabController(
       length: TakePNPAttendance!?TakeMemberAttendance!?4:3:3,
@@ -54,11 +54,7 @@ final pagesForAttendenceFalse = [const HomePage1(),  const OutPage(), const PnpP
           currentIndex: pagesIndex,
           items: [
             BottomNavigationBarItem(
-                icon:  InkWell(
-                  onTap: () {
-                    ServiceCall().fetchDashboardData();
-                  },
-                  child: const Icon(Icons.home_filled,color: Colors.grey,)), label: _home),
+                icon: const Icon(Icons.home_filled,color: Colors.grey,), label: _home),
 
             if(TakeMemberAttendance!)
             BottomNavigationBarItem(

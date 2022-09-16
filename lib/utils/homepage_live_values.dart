@@ -8,3 +8,7 @@ String? memberFeeCount= '0';
 String? memberFeeAmount= '0';
 String? studenFeeCount= '0';
 String? studentFeeAmount= '0';
+int todayFirst = 0;
+int todaySecond = 0;
+int feeFirst = 0;
+int feeSecond = 0;

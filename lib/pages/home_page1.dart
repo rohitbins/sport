@@ -20,11 +20,12 @@ class HomePage1 extends StatefulWidget {
 }
 class _HomePage1State extends State<HomePage1> {
 
-  
+  Map<String, double> attendanceList = {"In": 15, "Out": 85};
+  Map<String, double> fee = {"Paid": 75.8, "pending": 85};
   final String attendanceText = 'Attendance';
   final String feeText = 'Fee';
   String userName = '';
- 
+  List<Color> colorList = [Colors.green, Colors.orange];
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var MenuItem = <String>['My Attendance', 'Logout'];
   void onSelected(item) {
@@ -53,13 +54,6 @@ class _HomePage1State extends State<HomePage1> {
 
   @override
   void initState() {
-    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    _prefs.then((value){
-      TakePNPAttendance = value.getBool('takePNPAttendance');
-      TakeMemberAttendance= value.getBool('tekeMemberAttendance');
-      CanLogin = value.getBool('canLogin');
-      ShowFee = value.getBool(("fees"))!;
-    });
     getName();
     super.initState();
   }
@@ -75,23 +69,17 @@ class _HomePage1State extends State<HomePage1> {
 late PermissonData Permission;
   @override
   Widget build(BuildContext context) {
-    // ServiceCall().fetchDashboardData();
-    // ServiceCall().fetchDashboardData().then((value) => {if(CanLogin == false){
-    //   // print('canlogin2 = '+CanLogin.toString()),
-    //   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Login()))
-    // }}).then((value) => {
-    // // print('Showfee = '+ShowFee.toString())
-    // });
     return Scaffold(
       backgroundColor: Mode == 'TEST'?Colors.red[700]:Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.network('http://booking.sportsb.co.in/images/AcademyLogo/noLogo.png',scale: 2.5,),
+            if(AcademyLogo !=null)
+            Image.network(AcademyLogo.toString(),scale: 3,),
             Text(
               userName,
-              style: const TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 11),
             ),
           ]),
         actions: [
@@ -106,136 +94,174 @@ late PermissonData Permission;
               })
             ]),
         body: 
-    (TakePNPAttendance==false && TakeMemberAttendance == false)?
-    Center(child: Text('Coming Soon...',
-    style: TextStyle(
-      fontSize: 30,
-      fontWeight: FontWeight.w600,
-      color: Colors.blueGrey[600]),)):
+    (TakePNPAttendance==false && TakeMemberAttendance == false)?Center(child: Text('Coming Soon...',style: TextStyle(fontSize: 30,fontWeight: FontWeight.w600,color: Colors.blueGrey[600]),)):
       SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         children: [
-          const SizedBox(height: 5),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 25),
-            decoration:  BoxDecoration(color: Colors.green[600]),
-            child: Column(
-              children: [
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children:const [
-                          Text('Today',
-                          style: TextStyle(
-                            fontSize: 25,
+          ClipRRect(
+            borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20)),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 25),
+              decoration:  BoxDecoration(color: Color.fromRGBO(7,41, 73, 1)),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 45),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Today',style: TextStyle(
+                            fontSize: 10,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white),
-                            ),
-                          SizedBox(width: 10),
-                          Icon(Icons.timelapse,size: 30),
-                        ],
-                      )]
-                       ),
-                       Row(
-                        children: const[
-                          Padding(
-                            padding: EdgeInsets.only(left: 185),
-                            child: Text(
-                              "Playing",
-                               style: TextStyle(
-                               fontWeight: FontWeight.w600,
-                               fontSize: 14),),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 70),
-                            child: Text(
-                              "Total",
-                              style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14),),
-                          )
-                        ],
-                       ),
-                const SizedBox(height: 20),
-                FutureBuilder<Dashboard>(
-                    future: ServiceCall().fetchDashboardData(),
-                    builder: (context, snapshot){
-                  if(snapshot.hasData) {
-                    return
-                      Column(
-                        children: [
-                          for(var i in snapshot.data!.data!.attendanceData)
-                           Container(
-                          padding: const EdgeInsets.only(bottom: 15),
+                            color: Colors.orange[400]),),
+                        Expanded(
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                          Row(
-                            children: [
-                             SizedBox(
-                             child: Text(
-                              i.customerType.toString().trim(),
-                              style: const TextStyle(fontSize: 18,
-                              fontWeight: FontWeight.w600,
+                              Flexible(
+                                child: Text(todayFirst.toString(),
+                                style: TextStyle(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                                  ),
                               ),
-                          ),
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width / 4,
-                          )
-                       ]),
-                          Container(
-                          padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
-                          decoration: BoxDecoration(
-                          borderRadius:const BorderRadius.all(Radius.circular(5)),
-                          color: Colors.grey[300]),
-                          child: Row(
-                            children: [
-                              Text(i.playingCount.toString()),
+                              Text('/',
+                                style: TextStyle(
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.bold,
+                                    color:  Colors.orange[400]),
+                              ),
+                              Flexible(
+                                child: Text(todaySecond.toString(),
+                                  style: TextStyle(
+                                      fontSize: 36,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
                             ],
-                          ),),
-                          Container(
-                          padding:const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
-                          decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(5)),
-                          color: Colors.grey[300]),
-                          child: Text(i.totalCount.toString()),)
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  FutureBuilder<Dashboard>(
+                      future: ServiceCall().fetchDashboardData(),
+                      builder: (context, snapshot){
+                    if(snapshot.hasData) {
+                      return
+                        Column(
+                          children: [
+                            for(var i in snapshot.data!.data!.attendanceData)
+                             Container(
+                            padding: const EdgeInsets.only(bottom: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                            Row(
+                              children: [
+                               SizedBox(
+                               child: Text(
+                                i.customerType.toString().trim(),
+                                style: const TextStyle(fontSize: 18,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w600,
+                                ),
+                            ),
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 4,
+                            )
+                         ]),
+                            Row(
+                              children: [
+                                Text(i.playingCount.toString(),style: TextStyle(color:Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                            Text(i.totalCount.toString(),style: TextStyle(color:Colors.white,fontSize: 16,fontWeight: FontWeight.bold))
+                            ],
+                            ),
+                            ),
                           ],
-                          ),
-                          ),
-                        ],
-                      );
-                    }
-                  else{
-                    return const CircularProgressIndicator();
+                        );
                       }
-                }),
-               ]),
-               ),
-         const SizedBox(height: 10),
-          ShowFee?
+                    else{
+                      return const CircularProgressIndicator();
+                        }
+                  }),
+                 ]),
+                 ),
+          ),
+          SizedBox(height: 10),
+          if(ShowFee)
            Container(
+             margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+             decoration: BoxDecoration(
+               boxShadow: const [
+                 BoxShadow(
+                   color: Colors.grey,
+                   blurRadius: 4,
+                   spreadRadius: 1,
+                   offset: Offset(2, 2),
+                 )
+               ],
+               color: Colors.white,
+               borderRadius: BorderRadius.circular(10),
+             ),
             padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 25),
-            decoration:const BoxDecoration(color: Colors.teal),
             child: Column(
               children: [
                 Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
+                  children: [
+                    SizedBox(width: 25),
+                    Text('Pending Fee',style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromRGBO(237, 11, 11, 1)),),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const Text('Pending Fee',
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),),
-                          const SizedBox(width: 10),
-                          Icon(Icons.currency_rupee_rounded,color: Colors.red[900],size: 30,),
+                          Flexible(
+                            child: Text(feeFirst.toString(),
+                              softWrap: true,
+                              style: TextStyle(
+                                  fontSize: 36,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromRGBO(7,41, 73, 1)),
+                            ),
+                          ),
+                          Text('/',
+                            softWrap: true,
+                            style: TextStyle(
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red),
+                          ),
+                          Flexible(
+                            child: Row(
+                              children: [
+                                Icon(Icons.currency_rupee,size: 19,),
+                                Text(feeSecond.toString(),
+                                  softWrap: true,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
-                      )],),
+                      ),
+                    ),
+
+                  ],
+                ),
                const SizedBox(height: 30,),
                 FutureBuilder<Dashboard>(
                     future: ServiceCall().fetchDashboardData(),
@@ -247,16 +273,8 @@ late PermissonData Permission;
                               for(var i in snapshot.data!.data!.feeData)
                                 InkWell(
                                   onTap: (){
-                                    Navigator.push(
-                                      context, 
-                                      MaterialPageRoute(
-                                        builder: (
-                                          BuildContext context) =>  PendingFeeList(
-                                            Member: i.customerType.toString(),
-                                            )
-                                           )
-                                            );},
-
+                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) =>  PendingFeeList(Member: i.customerType.toString(),)));
+                                  },
                                   child: Container(
                                     padding: const EdgeInsets.only(bottom: 20),
                                     child: Row(
@@ -271,31 +289,13 @@ late PermissonData Permission;
                                               fontWeight: FontWeight.w600),),
                                           width: MediaQuery.of(context).size.width/4,
                                         )],),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
-                                          decoration: BoxDecoration(
-                                              borderRadius:const BorderRadius.all(Radius.circular(5)),
-                                              color: Colors.grey[300]),
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.currency_rupee,color: Colors.green[600],size: 15,),
-                                              Text(i.feeCount.toString()),
-                                            ],
-                                          ),
-                                          ),
-
-                                        Container(
-                                          padding:const EdgeInsets.symmetric(vertical: 3,horizontal: 8,),
-                                          decoration: BoxDecoration(
-                                              borderRadius:const BorderRadius.all(Radius.circular(5)),
-                                              color: Colors.grey[300]),
-                                              child: Row(
-                                                children: [
-                                                  Icon(Icons.currency_rupee,color: Colors.green[600],size: 15,),
-                                                  Text(i.feeAmount.toString()),
-                                                ],
-                                              ),
-                                         )
+                                        Text(i.feeCount.toString(),style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold)),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.currency_rupee,color: Colors.green[900],size: 15,),
+                                            Text(i.feeAmount.toString(),style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold)),
+                                          ],
+                                        )
                                       ]),
                                       ),
                                      ),
@@ -307,7 +307,7 @@ late PermissonData Permission;
                     }),
 
            ]),
-           ) : const SizedBox(),
+           ),
           ]),
     )
        );

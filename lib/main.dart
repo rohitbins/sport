@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/splash/splash.dart';
-import 'dart:io' show Platform;
 
 void main() {
-  String os = Platform.operatingSystem;
-  if(Platform.isAndroid){
-    print("is a android");
-  }else if (Platform.isIOS){
-    print("is a ios");
-  }
   runApp(const MyApp());
 }
 

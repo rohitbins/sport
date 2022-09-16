@@ -7,12 +7,12 @@ class PendingFeeGuru{
     this.statusCode,
     this.isError,
     this.message,
-   required this.data
+    this.data
   });
   int? statusCode;
   bool? isError;
   String? message;
-  List<Data> data;
+  List<Data>? data;
 
 
   factory PendingFeeGuru.fromJson(Map<String, dynamic> json) =>
