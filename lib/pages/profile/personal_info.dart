@@ -52,11 +52,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                                ])
+                              ]),
+                              ),
                         const Divider(thickness: 2),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -82,11 +80,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                                ])
+                              ]),
+                              ),
                         const Divider(thickness: 2),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -115,11 +111,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                                ])
+                              ]),
+                              ),
                         const Divider(thickness: 2),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -147,11 +141,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                                ])
+                              ]),
+                              ),
                         const Divider(thickness: 2),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -177,11 +169,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                                ])
+                              ]),
+                              ),
                         const Divider(thickness: 2),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -223,11 +213,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                                ])
+                              ]),
+                              ),
                         const Divider(thickness: 2),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -256,12 +244,10 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold),
                                     )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                                 ]),
+                                  )
+                               ]),
+                               ),
                         const Divider(thickness: 2),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -287,11 +273,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                                 ])
+                               ]),
+                               ),
                         const Divider(thickness: 2),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -317,11 +301,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                                ])
+                              ]),
+                              ),
                         const Divider(thickness: 2),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -349,23 +331,18 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                                ])
+                              ]),
+                              ),
                         const Divider(thickness: 2),
-                      ],
-                    ),
-                    // SizedBox(height: 5),
-                  ],
-                ),
-              );
+                      ]),
+                     ]),
+                     );
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
             return const Center(child: CircularProgressIndicator());
           }),
-    );
+          );
   }
 }

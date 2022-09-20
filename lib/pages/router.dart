@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/pages/home_page1.dart';
 import 'package:sport/pages/in_page.dart';
-import 'package:sport/pages/login/login_page.dart';
 import 'package:sport/pages/out_page.dart';
 import 'package:sport/pages/pnp_page.dart';
-import 'package:sport/service.dart';
 import 'package:sport/utils/constants.dart';
 
 class MyRoute extends StatefulWidget {
@@ -21,11 +20,13 @@ class _MyRouteState extends State<MyRoute> {
   
   
   void initState() {
-
+    InternetConnectionChecker().onStatusChange.listen((status) {
+      HasConnection = status ==  InternetConnectionStatus.connected;
+      setState(() {}
+       
+      );
+    });
     super.initState();
-    // if(CanLogin == false){
-    //   Navigator.pushReplacement(context, MaterialPageRoute (builder: (BuildContext context) => const Login()));
-    // }
     _prefs.then((value){
       TakePNPAttendance = value.getBool('takePNPAttendance');
       TakeMemberAttendance= value.getBool('tekeMemberAttendance');
@@ -42,10 +43,36 @@ final pagesForAttendenceFalse = [const HomePage1(),  const OutPage(), const PnpP
   final String _out = 'Out';
   final String _PNP = 'PNP';
 
+
   @override
   Widget build(BuildContext context) {
-    // ServiceCall().fetchPermissonData();
-    return (TakePNPAttendance == false && TakeMemberAttendance == false)?const HomePage1():
+    return !HasConnection?Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/noInternet.png',scale: 2,),
+            SizedBox(height: MediaQuery.of(context).size.height/10),
+            const Text('No Internet Available',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.white)),
+        RichText(
+          text: const TextSpan(
+            style: TextStyle(color: Colors.grey),
+            children: <TextSpan>[
+              TextSpan(text: 'please check your'),
+              TextSpan(text: ' wifi ', style: TextStyle(fontWeight: FontWeight.bold)),
+              TextSpan(text: 'or '),
+              TextSpan(text: 'mobile data', style: TextStyle(fontWeight: FontWeight.bold)),
+            ],
+          ),
+        )
+     ]),
+      ),
+    ):(TakePNPAttendance == false && TakeMemberAttendance == false)?const HomePage1():
     DefaultTabController(
       length: TakePNPAttendance!?TakeMemberAttendance!?4:3:3,
       child: Scaffold(
@@ -73,7 +100,8 @@ final pagesForAttendenceFalse = [const HomePage1(),  const OutPage(), const PnpP
             });
           },
         ),
-        body: (!TakeMemberAttendance!)?pagesForAttendenceFalse[pagesIndex]:(!TakePNPAttendance!)?pagesForPnpFalse[pagesIndex]:pages[pagesIndex],
+        body: (!TakeMemberAttendance!)?pagesForAttendenceFalse
+        [pagesIndex]:(!TakePNPAttendance!)?pagesForPnpFalse[pagesIndex]:pages[pagesIndex],
       ),
     );
   }

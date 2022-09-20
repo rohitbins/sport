@@ -22,7 +22,7 @@ class Payments extends StatefulWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 if(snapshot.data!.isEmpty){
-                  return Text('No Data');
+                  return const Text('No Data');
                 }
                 return ListView.builder(
                     itemCount: snapshot.data!.length,

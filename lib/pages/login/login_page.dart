@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, unused_field
+// ignore_for_file: prefer_final_fields, unused_field, prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -55,13 +55,7 @@ class _LoginState extends State<Login> {
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   _phoneController.dispose();
-  //   super.dispose();
-  // }
-
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: InkWell(
@@ -73,7 +67,7 @@ class _LoginState extends State<Login> {
           body: ListView(
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * .18),
-              // mainAxisAlignment: MainAxisAlignment.center,
+             
               children: [
                 Container(
                   decoration: const BoxDecoration(

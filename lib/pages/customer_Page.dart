@@ -94,7 +94,7 @@ import '../service.dart';
                     )));
       },
       child: Card(
-        elevation: 6,
+        elevation: 4,
         color: customerData.isPlaying! > 0 ? Colors.white : colors ?? myBlue,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // if you need this

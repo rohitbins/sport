@@ -1,15 +1,18 @@
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/pnp_customer_model.dart';
 import 'package:sport/service.dart';
 
+import '../utils/constants.dart';
+
 
 
 class PnpPage extends StatefulWidget {
   const PnpPage({Key? key,}) : super(key: key);
-  // final PnpCustomerModel pnpCustomerModel;
+ 
   
   @override
   State<PnpPage> createState() => _PnpPageState();
@@ -20,6 +23,18 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final String selectedKey = '';
   String clickedKey = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    InternetConnectionChecker().onStatusChange.listen((status) {
+      HasConnection = status ==  InternetConnectionStatus.connected;
+      setState(() {}
+       
+      );
+    });
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -37,7 +52,14 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
              if(snapshot.hasData){
                if(snapshot.data!.data!.isEmpty){
                  return
-                   Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
+                   const Center(
+                    child: FittedBox(
+                      child: Text('No Record Available',
+                      softWrap: true,
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w600),)));
                }
                else
                {
@@ -78,7 +100,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                                          children: [
                                            Flexible(
                                              child: Padding(
-                                               padding:  EdgeInsets.only(top: 3),
+                                               padding: const EdgeInsets.only(top: 3),
                                                child: FittedBox(
 
                                                  child: Text(snapshot.data!.data![index].pnpCustomer.toString(),softWrap: true,
@@ -90,7 +112,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                                                ),
                                              ),
                                            ),
-                                           SizedBox(width: 5),
+                                           const SizedBox(width: 5),
                                            Image.network(snapshot.data!.data![index].sportLogo.toString(),scale: 3.5,),
                                          ],
                                        ),
@@ -102,7 +124,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                                              style: const TextStyle(
                                                  color: Colors.grey
                                              ),),
-                                           Text(' | '),
+                                           const Text(' | '),
                                            Flexible(
                                              child: Text(snapshot.data!.data![index].facilityName.toString(),
                                                style:  TextStyle(
@@ -110,7 +132,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                                                    color: Colors.yellow[900]
                                                ),),
                                            ),
-                                           Text(' | '),
+                                           const Text(' | '),
                                            Flexible(
                                              child: Text(snapshot.data!.data![index].pnpFee.toString(),
                                                style:  TextStyle(
@@ -188,7 +210,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
                                      snapshot.data!.data![index].status = 'Playing';
                                      clickedKey = '';
                                    });
-                                   // print(snapshot.data!.data![index].phone);
+                                  
                                    setState(() {
                                    });
                                  },

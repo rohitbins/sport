@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:sport/model/category_batch.dart';
 import 'package:sport/model/customer_list.dart';
@@ -27,7 +29,7 @@ class _TabBarPageState extends State<TabBarPage> //state class
   ];
   bool IsCategoryNull = true;
   bool IsBatchNull = true;
-bool IsCategoryAndBatchNull = true;
+  bool IsCategoryAndBatchNull = true;
   int? selectedCatIndex;
   int? selectedbatchIndex;
   int selectedCatId = 0;
@@ -62,7 +64,7 @@ bool IsCategoryAndBatchNull = true;
             ),
             Expanded(
                 child: TabBarView(controller: _tabController, children: [
-                  IsBatchNull?Center(child: Text('No Batch Available, Please contact Admin',style: TextStyle(color: Colors.black),)): ListView.builder(
+                  IsBatchNull? const Center(child: Text('No Batch Available, Please contact Admin',style: TextStyle(color: Colors.black),)): ListView.builder(
                   shrinkWrap: true,
                   itemCount: widget.data.data!.batchList!.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -103,7 +105,7 @@ bool IsCategoryAndBatchNull = true;
                                     ),
                               const SizedBox(width: 20),
                               Expanded(child: Text(data.batch)),
-                              // Text(data.id.toString()),
+                            
                               if (selectedbatchIndex == index)
                                 Container(
                                   alignment: Alignment.center,
@@ -122,7 +124,7 @@ bool IsCategoryAndBatchNull = true;
                       ),
                     );
                   }),
-                 IsCategoryNull?Center(child: Text('No Category Available, Please contact Admin',style: TextStyle(color: Colors.black),)):ListView.builder(
+                 IsCategoryNull? const Center(child: Text('No Category Available, Please contact Admin',style: TextStyle(color: Colors.black),)):ListView.builder(
                   shrinkWrap: true,
                   itemCount: widget.data.data!.categoryList!.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -166,7 +168,7 @@ bool IsCategoryAndBatchNull = true;
                                       ),
                                 const SizedBox(width: 20),
                                 Expanded(child: Text(data.category)),
-                                // Text(data.id.toString()),
+                                
                                 if (selectedCatIndex == index)
                                   Container(
                                     alignment: Alignment.center,
@@ -191,7 +193,6 @@ bool IsCategoryAndBatchNull = true;
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           widget.callBack(selectedCatId, selectedbatchId);
-          print('navi');
           Navigator.pop(context);
         },
         child: const Icon(Icons.search),

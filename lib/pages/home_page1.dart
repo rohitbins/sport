@@ -1,13 +1,10 @@
 // ignore_for_file: sort_child_properties_last, duplicate_ignore
 
 import 'dart:async';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/check_permisson.dart';
-
 import 'package:sport/pages/my_attendance.dart';
 import 'package:sport/pages/pending_fee_page.dart';
 import 'package:sport/service.dart';
@@ -23,12 +20,6 @@ class HomePage1 extends StatefulWidget {
   State<HomePage1> createState() => _HomePage1State();
 }
 class _HomePage1State extends State<HomePage1> {
- ConnectivityResult _connectionStatus = ConnectivityResult.none;
-  final Connectivity _connectivity = Connectivity();
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-
-  
-
    final String attendanceText = 'Attendance';
   final String feeText = 'Fee';
   List<Color> colorList = [Colors.green, Colors.orange];
@@ -60,40 +51,21 @@ class _HomePage1State extends State<HomePage1> {
 
   @override
   void initState() {
+    InternetConnectionChecker().onStatusChange.listen((status) {
+      HasConnection = status ==  InternetConnectionStatus.connected;
+      setState(() {}
+      );
+    });
     getName();
     super.initState();
 
-    _connectivitySubscription = 
-    _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
   @override 
   void dispose(){
-    _connectivitySubscription.cancel();
     super.dispose();
   }
 
-  Future<void> initConnectivity()async{
-    late ConnectivityResult result;
-
-    try {
-      result = await _connectivity.checkConnectivity();
-    }on PlatformException catch (e) {
-      var developer;
-      developer.log('Couldn\t check connectivity status',error: e);
-      return;
-    }
-    if (mounted){
-      return Future.value(null);
-    }
-    return _updateConnectionStatus(result);
-  }
-
-  Future<void> _updateConnectionStatus (ConnectivityResult result) async {
-    setState(() {
-      _connectionStatus = result;
-    });
-  }
 
   getName() async {
    
@@ -121,7 +93,7 @@ late PermissonData Permission;
         title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             (AcademyLogo!=null)?
-            Image.network(AcademyLogo.toString(),scale: 3,): const SizedBox(),
+             Image.network(AcademyLogo.toString(),scale: 3,): SizedBox(),
             NAME != null?Text(
               NAME!,
               style: const TextStyle(fontSize: 11),
@@ -139,8 +111,7 @@ late PermissonData Permission;
               })
             ]),
         body:
-        _connectionStatus != true? Text('Connection Status : ${_connectionStatus.toString()}'): 
-        //  _connectionStatus == true ? 
+         
     (TakePNPAttendance==false && TakeMemberAttendance == false)?
     Center(child: Text('Coming Soon...',
     style: TextStyle(
@@ -231,12 +202,11 @@ late PermissonData Permission;
                             Row(
                               children: [
                                 SizedBox(
-                                    width:MediaQuery.of(context).size.width/11,
+                                    width:30,
                                     child: Text(i.playingCount.toString(),style: const TextStyle(color:Colors.white,fontSize: 16,fontWeight: FontWeight.bold))),
-
                               ]),
                             SizedBox(
-                                width:MediaQuery.of(context).size.width/9,
+                                width:30,
                                 child: Text(i.totalCount.toString(),style: const TextStyle(color:Colors.white,fontSize: 16,fontWeight: FontWeight.bold)))
                             ]),
                             ),
@@ -330,19 +300,20 @@ late PermissonData Permission;
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
                                         Row(children: [
-                                          SizedBox(
+                                          Container(
+                                            width:95,
                                           child: Text(
                                             i.customerType.toString(),
                                             style: const TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w600),),
-                                          width: MediaQuery.of(context).size.width/4,
+                                          // width: MediaQuery.of(context).size.width/4,
                                         )],),
-                                        SizedBox(
-                                            width: MediaQuery.of(context).size.width/15,
+                                        Container(
+                                            width: 30,
                                             child: Text(i.feeCount.toString(),style: const TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold))),
-                                        SizedBox(
-                                          width: MediaQuery.of(context).size.width/5,
+                                        Container(
+                                          width: 90,
                                           child: Row(
                                             children: [
                                               Icon(Icons.currency_rupee,color: Colors.green[900],size: 15,),

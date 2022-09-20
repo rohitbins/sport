@@ -21,10 +21,7 @@ class _SplashState extends State<Splash> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
-
-    super.initState();
+  super.initState();
   }
   @override
   Widget build(BuildContext context) {
@@ -35,9 +32,9 @@ class _SplashState extends State<Splash> {
       ShowFee = value.getBool(('ShowFee'))!;
       AcademyLogo = value.getString(('academyLogo'));
       NAME = value.getString(('name'));
-      ServiceCall().fetchDashboardData().then((value) => {print('before = '+ ShowFee.toString()),
+      ServiceCall().fetchDashboardData().then((value) => {
       checkpath(context)});
-      print('after = '+ ShowFee.toString());
+      
     });
     checkpath(context);
     return Scaffold(
@@ -57,7 +54,7 @@ class _SplashState extends State<Splash> {
     _prefs.then((value) {
               if (value.getString('staffKey') != null) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MyRoute()));
+            context, MaterialPageRoute(builder: (context) => const MyRoute()));
       } else {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const Login()));

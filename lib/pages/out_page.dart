@@ -1,6 +1,7 @@
 // ignore_for_file: dead_code
 
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/customer_list_out.dart';
 import 'package:sport/service.dart';
@@ -14,25 +15,35 @@ class OutPage extends StatefulWidget {
   State<OutPage> createState() => _OutPageState();
 }
 
+
 class _OutPageState extends State<OutPage> {
+  // bool HasConnection = false;
   late CustomerListOut futureCustomerOut;
+
+
+
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   bool showFees = false;
   String clickedKey = '';
   @override
   void initState() {
+    InternetConnectionChecker().onStatusChange.listen((status) {
+      HasConnection = status ==  InternetConnectionStatus.connected;
+      setState(() {}
+        // this.HasConnection = HasConnection
+      );
+    });
     super.initState();
      _prefs.then((value) {
       showFees = 
       value.getBool(('fees'))!;
       });
-
   }
 
   @override
   Widget build(BuildContext context) {
     ServiceCall().fetchDashboardData();
-    return Scaffold(
+    return !HasConnection?Center(child: Text('out = $HasConnection')):Scaffold(
       appBar: AppBar(
         leading: Container(),
         title: const Text("Out"),

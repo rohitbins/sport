@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class PnpAttendanceIn {
   int? statusCode;
   bool? isError;
@@ -19,9 +21,9 @@ class PnpAttendanceIn {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['statusCode'] = this.statusCode;
-    data['isError'] = this.isError;
-    data['message'] = this.message;
+    data['statusCode'] = statusCode;
+    data['isError'] = isError;
+    data['message'] = message;
     data['data'] = this.data;
     return data;
   }

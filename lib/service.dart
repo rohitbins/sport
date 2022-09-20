@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers, duplicate_ignore, body_might_complete_normally_nullable
+
 import 'dart:convert';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -131,7 +133,7 @@ class ServiceCall {
             TakeMemberAttendance = otpValidator.data!.takeMemberAttendance;
             TakePNPAttendance = otpValidator.data!.takePNPAttendance;
           }
-          // ShowFee = false;
+         
 
       return otpValidator;
 
@@ -187,7 +189,7 @@ class ServiceCall {
 
 // Customer Attendance In/////////
   Future<CustomerListOut> attendanceIn({required String customerKey}) async {
-    print('CUSTOMERIN');
+    
     Map<String, String> _header = {
       'ContentType': 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
@@ -220,8 +222,8 @@ class ServiceCall {
         Uri.parse('${base}SetCustomerAttendanceOut'),
         headers: _header,
         body: {"customerId": data.id.toString(),
-"slotId": data.slotId.toString(),
-"isPNP":data.isPNP.toString()});
+        "slotId": data.slotId.toString(),
+        "isPNP":data.isPNP.toString()});
 
     if (response.statusCode == 200) {
       return true;
@@ -335,7 +337,7 @@ class ServiceCall {
 
   // Pnp customer List for IN....
   Future<PnpCustomerModel> fetchPnpCustomerModel() async{
-    print('hdasgviuadgc');
+  
     Map<String, String> _header = {
       'ContentType' : 'application/json',
       'staff-key': await _prefs.then((value) => value.getString(('staffKey'))!),
@@ -386,8 +388,7 @@ body: {
   headers: _header);
 
   if (response.statusCode == 200){
-    // print('fetchDashboardData = '+response.body.toString());
-    Dashboard dashboard = 
+       Dashboard dashboard = 
     Dashboard.fromJson(jsonDecode(response.body));
     if(dashboard.data!.isChanged == true){
       CanLogin = dashboard.data!.canLogin;

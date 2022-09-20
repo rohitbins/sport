@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sport/model/category_batch.dart';
 import 'package:sport/model/customer_list.dart';
 import 'package:sport/pages/Tab_page.dart';
@@ -10,7 +10,6 @@ import '../model/request/customer_data.dart';
 import 'dart:io' show Platform;
 import '../utils/enums.dart';
 import 'customer_Page.dart';
-import 'login/login_page.dart';
 
 
 class InPage extends StatefulWidget {
@@ -23,9 +22,7 @@ class InPage extends StatefulWidget {
   CustomerListData futureCustomerData = CustomerListData();
 
    bool isFutureCustomerData = false;
-   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
    bool showFees = false;
-
     List<String> CatBatch = [
     SportType.Category.apiValue,
     SportType.Batch.apiValue,
@@ -39,8 +36,15 @@ class InPage extends StatefulWidget {
   int selectedBatchId = 0;
   CategoryAndBatch categoryAndBatch = CategoryAndBatch();
  
+
   @override
   void initState() {
+    InternetConnectionChecker().onStatusChange.listen((status) {
+      HasConnection = status ==  InternetConnectionStatus.connected;
+      setState(() {}
+       
+      );
+    });
     super.initState();
     getBatchCatgories();
     getCustomerList(0, 0);
@@ -53,7 +57,7 @@ class InPage extends StatefulWidget {
  
  @override
   Widget build(BuildContext context) {
-   ServiceCall().fetchDashboardData();
+  ServiceCall().fetchDashboardData();
     isFutureCustomerData = categoryAndBatch.data  == null;
      return Scaffold(
       appBar: AppBar(
@@ -94,7 +98,7 @@ class InPage extends StatefulWidget {
           children: [
         (categoryAndBatch.data == null)? const SizedBox():
            SizedBox(
-            height: MediaQuery.of(context).size.height * .06,
+            height: MediaQuery.of(context).size.height * .05,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [

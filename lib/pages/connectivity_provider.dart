@@ -1,5 +1,6 @@
-import 'dart:io';
+// ignore_for_file: prefer_final_fields
 
+import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -24,7 +25,6 @@ class ConnectivityProvider with ChangeNotifier {
               } );
       }
      });
-
   }
 
   Future<void> initConnectivity() async {
@@ -40,7 +40,7 @@ class ConnectivityProvider with ChangeNotifier {
         notifyListeners();
       }
     }on PlatformException catch (e){
-      print ('platformException:' + e.toString());
+    
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 class Const {
   String player = 'Player\'s In';
 }
+bool HasConnection = false;
  int IsChangedCount = 0;
 bool? IsDataListNull = true;
 String Mode = "LIVE"; //to connect to live db use "LIVE" and for test db use "TEST"
