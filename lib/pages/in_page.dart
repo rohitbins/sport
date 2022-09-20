@@ -41,9 +41,6 @@ class InPage extends StatefulWidget {
  
   @override
   void initState() {
-    ServiceCall().fetchDashboardData().then((value) => {if(CanLogin == false){
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const Login()))
-   }});
     super.initState();
     getBatchCatgories();
     getCustomerList(0, 0);
@@ -56,6 +53,7 @@ class InPage extends StatefulWidget {
  
  @override
   Widget build(BuildContext context) {
+   ServiceCall().fetchDashboardData();
     isFutureCustomerData = categoryAndBatch.data  == null;
      return Scaffold(
       appBar: AppBar(

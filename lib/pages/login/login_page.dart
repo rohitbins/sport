@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/utils/constants1.dart';
 // import 'package:sportsb/View/otp.dart';
 
@@ -18,6 +19,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   TextEditingController numberController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   void dispose() {
     numberController.clear();
   }
@@ -42,10 +45,13 @@ class _LoginState extends State<Login> {
             ],
           ));
   ServiceCall service = ServiceCall();
-  TextEditingController _phoneController = TextEditingController();
+
 
   @override
   void initState() {
+    _prefs.then((value) {
+      value.clear();
+    });
     super.initState();
   }
 

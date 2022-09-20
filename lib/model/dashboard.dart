@@ -68,7 +68,6 @@ class DashboardData {
   factory DashboardData.fromJson(Map<String, dynamic> json) =>
       _$DashboardDataFromJson(json);
   Map<String, dynamic> toJson() => _$DashboardDataToJson(this);
-
 }
 
 @JsonSerializable()

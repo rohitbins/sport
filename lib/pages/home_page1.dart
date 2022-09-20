@@ -1,6 +1,10 @@
-// ignore_for_file: sort_child_properties_last
+// ignore_for_file: sort_child_properties_last, duplicate_ignore
 
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport/model/check_permisson.dart';
 
@@ -19,12 +23,14 @@ class HomePage1 extends StatefulWidget {
   State<HomePage1> createState() => _HomePage1State();
 }
 class _HomePage1State extends State<HomePage1> {
+ ConnectivityResult _connectionStatus = ConnectivityResult.none;
+  final Connectivity _connectivity = Connectivity();
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
-  Map<String, double> attendanceList = {"In": 15, "Out": 85};
-  Map<String, double> fee = {"Paid": 75.8, "pending": 85};
-  final String attendanceText = 'Attendance';
+  
+
+   final String attendanceText = 'Attendance';
   final String feeText = 'Fee';
-  String userName = '';
   List<Color> colorList = [Colors.green, Colors.orange];
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var MenuItem = <String>['My Attendance', 'Logout'];
@@ -56,31 +62,70 @@ class _HomePage1State extends State<HomePage1> {
   void initState() {
     getName();
     super.initState();
+
+    _connectivitySubscription = 
+    _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+  }
+
+  @override 
+  void dispose(){
+    _connectivitySubscription.cancel();
+    super.dispose();
+  }
+
+  Future<void> initConnectivity()async{
+    late ConnectivityResult result;
+
+    try {
+      result = await _connectivity.checkConnectivity();
+    }on PlatformException catch (e) {
+      var developer;
+      developer.log('Couldn\t check connectivity status',error: e);
+      return;
+    }
+    if (mounted){
+      return Future.value(null);
+    }
+    return _updateConnectionStatus(result);
+  }
+
+  Future<void> _updateConnectionStatus (ConnectivityResult result) async {
+    setState(() {
+      _connectionStatus = result;
+    });
   }
 
   getName() async {
+   
     await _prefs.then((value) {
-      setState(() {
-        userName = value.getString(('name'))!;
-      });
+      feeFirst = value.getInt('feeFirst')! == 0?feeFirst:value.getInt('feeFirst')!;
+      feeSecond = value.getInt('feeSecond')! == 0?feeSecond:value.getInt('feeSecond')!;
+      todayFirst = value.getInt('todayFirst')! == 0?todayFirst:value.getInt('todayFirst')!;
+      todaySecond = value.getInt('todaySecond')! == 0?todaySecond:value.getInt('todaySecond')!;
+    });
+    setState(() {
     });
   }
 
 late PermissonData Permission;
   @override
   Widget build(BuildContext context) {
+     ServiceCall().fetchDashboardData().then((value) => {if(CanLogin == false){
+      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const Login()))
+    }});
+ 
     return Scaffold(
       backgroundColor: Mode == 'TEST'?Colors.red[700]:Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            if(AcademyLogo !=null)
-            Image.network(AcademyLogo.toString(),scale: 3,),
-            Text(
-              userName,
+            (AcademyLogo!=null)?
+            Image.network(AcademyLogo.toString(),scale: 3,): const SizedBox(),
+            NAME != null?Text(
+              NAME!,
               style: const TextStyle(fontSize: 11),
-            ),
+            ): const SizedBox(),
           ]),
         actions: [
           PopupMenuButton<String>(
@@ -93,21 +138,29 @@ late PermissonData Permission;
                 }).toList();
               })
             ]),
-        body: 
-    (TakePNPAttendance==false && TakeMemberAttendance == false)?Center(child: Text('Coming Soon...',style: TextStyle(fontSize: 30,fontWeight: FontWeight.w600,color: Colors.blueGrey[600]),)):
+        body:
+        _connectionStatus != true? Text('Connection Status : ${_connectionStatus.toString()}'): 
+        //  _connectionStatus == true ? 
+    (TakePNPAttendance==false && TakeMemberAttendance == false)?
+    Center(child: Text('Coming Soon...',
+    style: TextStyle(
+      fontSize: 30,
+      fontWeight: FontWeight.w600,
+      color: Colors.blueGrey[600]),
+      )):
       SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20)),
+            borderRadius: const BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20)),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 25),
-              decoration:  BoxDecoration(color: Color.fromRGBO(7,41, 73, 1)),
+              decoration:  const BoxDecoration(color: Color.fromRGBO(7,41, 73, 1)),
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 45),
+                    padding: const EdgeInsets.symmetric(horizontal: 45),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -121,12 +174,12 @@ late PermissonData Permission;
                             children: [
                               Flexible(
                                 child: Text(todayFirst.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 40,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                                   ),
-                              ),
+                                 ),
                               Text('/',
                                 style: TextStyle(
                                     fontSize: 40,
@@ -135,18 +188,16 @@ late PermissonData Permission;
                               ),
                               Flexible(
                                 child: Text(todaySecond.toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 36,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
                               ),
-                            ],
+                            ]),
+                            ),
+                          ]),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
                   const SizedBox(height: 20),
                   FutureBuilder<Dashboard>(
                       future: ServiceCall().fetchDashboardData(),
@@ -170,7 +221,7 @@ late PermissonData Permission;
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w600,
                                 ),
-                            ),
+                               ),
                             width: MediaQuery
                                 .of(context)
                                 .size
@@ -179,15 +230,17 @@ late PermissonData Permission;
                          ]),
                             Row(
                               children: [
-                                Text(i.playingCount.toString(),style: TextStyle(color:Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),
-                              ],
+                                SizedBox(
+                                    width:MediaQuery.of(context).size.width/11,
+                                    child: Text(i.playingCount.toString(),style: const TextStyle(color:Colors.white,fontSize: 16,fontWeight: FontWeight.bold))),
+
+                              ]),
+                            SizedBox(
+                                width:MediaQuery.of(context).size.width/9,
+                                child: Text(i.totalCount.toString(),style: const TextStyle(color:Colors.white,fontSize: 16,fontWeight: FontWeight.bold)))
+                            ]),
                             ),
-                            Text(i.totalCount.toString(),style: TextStyle(color:Colors.white,fontSize: 16,fontWeight: FontWeight.bold))
-                            ],
-                            ),
-                            ),
-                          ],
-                        );
+                          ]);
                       }
                     else{
                       return const CircularProgressIndicator();
@@ -196,9 +249,9 @@ late PermissonData Permission;
                  ]),
                  ),
           ),
-          SizedBox(height: 10),
-          if(ShowFee)
-           Container(
+          const SizedBox(height: 10),
+          if(ShowFee!=null&&ShowFee == true)
+             Container(
              margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
              decoration: BoxDecoration(
                boxShadow: const [
@@ -217,8 +270,8 @@ late PermissonData Permission;
               children: [
                 Row(
                   children: [
-                    SizedBox(width: 25),
-                    Text('Pending Fee',style: TextStyle(
+                   const SizedBox(width: 25),
+                    const Text('Pending Fees',style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
                         color: Color.fromRGBO(237, 11, 11, 1)),),
@@ -229,13 +282,13 @@ late PermissonData Permission;
                           Flexible(
                             child: Text(feeFirst.toString(),
                               softWrap: true,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 36,
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromRGBO(7,41, 73, 1)),
                             ),
                           ),
-                          Text('/',
+                         const Text('/',
                             softWrap: true,
                             style: TextStyle(
                                 fontSize: 40,
@@ -245,23 +298,19 @@ late PermissonData Permission;
                           Flexible(
                             child: Row(
                               children: [
-                                Icon(Icons.currency_rupee,size: 19,),
+                               const Icon(Icons.currency_rupee,size: 19,),
                                 Text(feeSecond.toString(),
                                   softWrap: true,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black),
                                 ),
-                              ],
+                              ]),
+                              ),
+                            ]),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                  ],
-                ),
+                          ]),
                const SizedBox(height: 30,),
                 FutureBuilder<Dashboard>(
                     future: ServiceCall().fetchDashboardData(),
@@ -289,12 +338,17 @@ late PermissonData Permission;
                                               fontWeight: FontWeight.w600),),
                                           width: MediaQuery.of(context).size.width/4,
                                         )],),
-                                        Text(i.feeCount.toString(),style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold)),
-                                        Row(
-                                          children: [
-                                            Icon(Icons.currency_rupee,color: Colors.green[900],size: 15,),
-                                            Text(i.feeAmount.toString(),style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold)),
-                                          ],
+                                        SizedBox(
+                                            width: MediaQuery.of(context).size.width/15,
+                                            child: Text(i.feeCount.toString(),style: const TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold))),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width/5,
+                                          child: Row(
+                                            children: [
+                                              Icon(Icons.currency_rupee,color: Colors.green[900],size: 15,),
+                                              Flexible(child: Text(i.feeAmount.toString(),style: const TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold))),
+                                            ],
+                                          ),
                                         )
                                       ]),
                                       ),
@@ -305,12 +359,13 @@ late PermissonData Permission;
                         return const CircularProgressIndicator();
                       }
                     }),
+                   ]),
+                   ),
+                 ]),
+                  )
+                );
 
-           ]),
-           ),
-          ]),
-    )
-       );
+                
   }
 }
 

@@ -114,15 +114,16 @@ class ServiceCall {
         Uri.parse('${base}${EndPoints.guruOTPValidator.apiValue}'),
         headers: _header,
         body: {"phone": phoneNumber, "source": "Android", "OTP": otp});
-    print('OtpValidator = '+response.body.toString());
-
-
 
     if (response.statusCode == 200) {
       OtpValidator otpValidator =
           OtpValidator.fromJson(jsonDecode(response.body));
+
       await  _prefs.then((value) => value.setString('academyLogo', otpValidator.data!.academyLogoURL!));
-       AcademyLogo =await  _prefs.then((value) => value.getString('academyLogo'));
+      await  _prefs.then((value) => value.setString('name', otpValidator.data!.name!));
+       AcademyLogo = await  _prefs.then((value) => value.getString('academyLogo'));
+      NAME = await  _prefs.then((value) => value.getString('name'));
+
           if(otpValidator.data!.showFee !=null)
           {
             CanLogin = otpValidator.data!.canLogin as bool;
@@ -130,7 +131,7 @@ class ServiceCall {
             TakeMemberAttendance = otpValidator.data!.takeMemberAttendance;
             TakePNPAttendance = otpValidator.data!.takePNPAttendance;
           }
-          ShowFee = false;
+          // ShowFee = false;
 
       return otpValidator;
 
@@ -383,17 +384,20 @@ body: {
   'tekeMemberAttendance' : TakeMemberAttendance.toString(),
   'canLogin' : CanLogin.toString(),},
   headers: _header);
+
   if (response.statusCode == 200){
-    print('fetchDashboardData = '+response.body.toString());
+    // print('fetchDashboardData = '+response.body.toString());
     Dashboard dashboard = 
     Dashboard.fromJson(jsonDecode(response.body));
-
     if(dashboard.data!.isChanged == true){
       CanLogin = dashboard.data!.canLogin;
       TakeMemberAttendance = dashboard.data!.takeMemberAttendance;
       TakePNPAttendance = dashboard.data!.takePNPAttendance;
       ShowFee = dashboard.data!.showFee!;
-      print('ShowFee = '+ShowFee.toString());
+      _prefs.then((value) => value.setBool('CanLogin', CanLogin as bool));
+      _prefs.then((value) => value.setBool('ShowFee', ShowFee as bool));
+      _prefs.then((value) => value.setBool('TakeMemberAttendance', TakeMemberAttendance as bool));
+      _prefs.then((value) => value.setBool('TakePNPAttendance', TakePNPAttendance as bool));
     }
     todayFirst = 0;
     todaySecond = 0;
@@ -409,9 +413,12 @@ body: {
       feeFirst = feeFirst + (i.feeCount as int);
       feeSecond = feeSecond + (i.feeAmount as int);
     }
+    await  _prefs.then((value) => value.setInt('todayFirst', todayFirst));
+    await  _prefs.then((value) => value.setInt('todaySecond', todaySecond));
+    await  _prefs.then((value) => value.setInt('feeFirst', feeFirst));
+    await  _prefs.then((value) => value.setInt('feeSecond', feeSecond));
     return dashboard;
-  }else {return Dashboard();}
- }
+  }else {return Dashboard();}}
 
 // Guru Pending Fee Customer
 Future<PendingFeeGuru> fetchPendingFeeData(String? member) async {
@@ -424,12 +431,11 @@ Future<PendingFeeGuru> fetchPendingFeeData(String? member) async {
     'customerType' : member},
     headers: _header);
     if(response.statusCode == 200){
-      // print(response.body.toString());
       PendingFeeGuru pendingFeeGuru = 
       PendingFeeGuru.fromJson(jsonDecode(response.body));
       return pendingFeeGuru;
     }
     else {return PendingFeeGuru(data: []);}
-}
 
+  }
 }

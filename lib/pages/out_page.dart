@@ -31,6 +31,7 @@ class _OutPageState extends State<OutPage> {
 
   @override
   Widget build(BuildContext context) {
+    ServiceCall().fetchDashboardData();
     return Scaffold(
       appBar: AppBar(
         leading: Container(),
@@ -43,7 +44,7 @@ class _OutPageState extends State<OutPage> {
             if (snapshot.hasData) {
               if(snapshot.data!.data!.isEmpty){
                 return
-                  Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
+                  const Center(child: FittedBox(child: Text('No Record Available',softWrap: true,style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.w600),)));
               }
              return Padding(
                 padding: const EdgeInsets.only(bottom: 0),
@@ -199,7 +200,6 @@ class OutCard extends StatelessWidget {
                     ),),
                       ),
                     ],),
-                    //&& showFees
                     const SizedBox(height: 5),
                     !customerData.isPNP?
                      (customerData.feePending != 0 ) ?
@@ -209,7 +209,8 @@ class OutCard extends StatelessWidget {
                             "Fee Pending",
                             style: TextStyle(fontSize: 12,color: Colors.red),
                           ),
-                          (customerData.feePending != 0 && showFees)?
+                         const SizedBox(width: 3),
+                          (customerData.feePending != 0 && ShowFee)?
                           Text(
                             '(*${customerData.feePending})',
                             style: const TextStyle(

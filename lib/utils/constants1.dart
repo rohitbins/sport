@@ -9,3 +9,4 @@ String? Year;
 String? Messg;
 String? LOGO;
 String? NAME;
+bool ? _connectionStatus;

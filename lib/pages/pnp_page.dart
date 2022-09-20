@@ -23,6 +23,7 @@ class _PnpPageState extends State<PnpPage> with SingleTickerProviderStateMixin{
   
   @override
   Widget build(BuildContext context) {
+    ServiceCall().fetchDashboardData();
      return Scaffold(
       appBar: AppBar(
         

@@ -30,7 +30,7 @@ class _MyRouteState extends State<MyRoute> {
       TakePNPAttendance = value.getBool('takePNPAttendance');
       TakeMemberAttendance= value.getBool('tekeMemberAttendance');
       // CanLogin = value.getBool('canLogin');
-      ShowFee = value.getBool(("fees"))!;
+      ShowFee = value.getBool(("ShowFee"))!;
     });
   }
   int pagesIndex = 0;

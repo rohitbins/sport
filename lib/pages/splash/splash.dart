@@ -22,18 +22,23 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     // TODO: implement initState
-    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    _prefs.then((value){
-      TakePNPAttendance = value.getBool('takePNPAttendance');
-      TakeMemberAttendance= value.getBool('tekeMemberAttendance');
-      // CanLogin = value.getBool('canLogin');
-      ShowFee = value.getBool(("fees"))!;
-    });
+
+
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-
+    _prefs.then((value){
+      CanLogin = value.getBool('CanLogin');
+      TakePNPAttendance = value.getBool('takePNPAttendance');
+      TakeMemberAttendance= value.getBool('tekeMemberAttendance');
+      ShowFee = value.getBool(('ShowFee'))!;
+      AcademyLogo = value.getString(('academyLogo'));
+      NAME = value.getString(('name'));
+      ServiceCall().fetchDashboardData().then((value) => {print('before = '+ ShowFee.toString()),
+      checkpath(context)});
+      print('after = '+ ShowFee.toString());
+    });
     checkpath(context);
     return Scaffold(
       body: Container(
@@ -47,7 +52,6 @@ class _SplashState extends State<Splash> {
       ),
     );
   }
-
   void checkpath(BuildContext context) {
 
     _prefs.then((value) {
