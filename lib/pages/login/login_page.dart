@@ -137,9 +137,9 @@ class _LoginState extends State<Login> {
                               hintStyle: TextStyle(color: Colors.white),
                               labelText: 'Phone Number',
                             ),
+                           ),
                           ),
-                        ),
-                      ),
+                         ),
                       const SizedBox(height: 50),
                       isLoading?const CircularProgressIndicator(color: Colors.blue):
                       TextButton(
@@ -161,15 +161,15 @@ class _LoginState extends State<Login> {
                           'Submit',
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
-                      ),
-                    ]),
+                       ),
+                     ]),
+                     ),
+                    ),
+                  ]),
                   ),
-                ),
-              ]),
-        ),
-      ),
-    );
-  }
+                 ),
+                );
+               }
 
   void serciceCAll() async {
     _empty = _phoneController.text.isEmpty;

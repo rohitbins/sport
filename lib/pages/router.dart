@@ -67,11 +67,10 @@ final pagesForAttendenceFalse = [const HomePage1(),  const OutPage(), const PnpP
               TextSpan(text: ' wifi ', style: TextStyle(fontWeight: FontWeight.bold)),
               TextSpan(text: 'or '),
               TextSpan(text: 'mobile data', style: TextStyle(fontWeight: FontWeight.bold)),
-            ],
+            ]),
+             )
+          ]),
           ),
-        )
-     ]),
-      ),
     ):(TakePNPAttendance == false && TakeMemberAttendance == false)?const HomePage1():
     DefaultTabController(
       length: TakePNPAttendance!?TakeMemberAttendance!?4:3:3,
@@ -98,8 +97,7 @@ final pagesForAttendenceFalse = [const HomePage1(),  const OutPage(), const PnpP
             setState(() {
               pagesIndex = index;
             });
-          },
-        ),
+        }),
         body: (!TakeMemberAttendance!)?pagesForAttendenceFalse
         [pagesIndex]:(!TakePNPAttendance!)?pagesForPnpFalse[pagesIndex]:pages[pagesIndex],
       ),

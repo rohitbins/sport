@@ -28,8 +28,13 @@ class _OtpState extends State<OtpPage> {
         elevation: 0,
       ),
       backgroundColor: const Color.fromRGBO(0, 22, 30, 1),
-      body: isLoading?Center(child: CircularProgressIndicator(color: Colors.green)):SingleChildScrollView(
-        child: Column(children: [
+      body: isLoading?
+      const Center(
+        child: CircularProgressIndicator(
+          color: Colors.green)):
+          SingleChildScrollView(
+        child: Column(
+          children: [
           const SizedBox(height: 70),
           Image.asset(
             'assets/images/lock.png',
@@ -39,7 +44,7 @@ class _OtpState extends State<OtpPage> {
            Text(
             'OTP  Verification',
             style: TextStyle(
-              color: Color.fromRGBO(41, 128, 185, 1),
+              color: const Color.fromRGBO(41, 128, 185, 1),
               fontSize: MediaQuery.of(context).size.width/10,
               fontWeight: FontWeight.w500,
             ),

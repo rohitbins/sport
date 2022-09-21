@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../../model/personal_sport.dart';
 import '../../service.dart';
 import '../../utils/constants.dart';
@@ -52,8 +51,8 @@ class _SportInfoState extends State<SportInfo> {
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )
                             ])
-                      ]),
-                    ),
+                          ]),
+                          ),
                     const Divider(thickness: 2),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -78,8 +77,8 @@ class _SportInfoState extends State<SportInfo> {
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )
                             ])
-                      ]),
-                    ),
+                          ]),
+                          ),
                     const Divider(thickness: 2),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -101,10 +100,9 @@ class _SportInfoState extends State<SportInfo> {
                               style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             )
-                          ],
-                        )
-                      ]),
-                    ),
+                          ])
+                        ]),
+                        ),
                     const Divider(thickness: 2),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -129,11 +127,9 @@ class _SportInfoState extends State<SportInfo> {
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                            ])
+                          ]),
+                          ),
                     const Divider(thickness: 2),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -158,11 +154,9 @@ class _SportInfoState extends State<SportInfo> {
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                            ])
+                          ]),
+                          ),
                     const Divider(thickness: 2),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -187,11 +181,9 @@ class _SportInfoState extends State<SportInfo> {
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                            ])
+                          ]),
+                          ),
                     const Divider(thickness: 2),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -218,11 +210,9 @@ class _SportInfoState extends State<SportInfo> {
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                            ])
+                          ]),
+                          ),
                     const Divider(thickness: 2),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -249,11 +239,9 @@ class _SportInfoState extends State<SportInfo> {
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                            ])
+                          ]),
+                          ),
                     const Divider(thickness: 2),
                     ShowFee?Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
@@ -276,12 +264,10 @@ class _SportInfoState extends State<SportInfo> {
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )
-                            ],
-                          )
-                        ],
-                      ),
-                    ):SizedBox(),
-                    ShowFee?Divider(thickness: 2):SizedBox(),
+                            ])
+                          ]),
+                           ): const SizedBox(),
+                    ShowFee? const Divider(thickness: 2): const SizedBox(),
                     ShowFee?Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
                       child: Row(
@@ -307,12 +293,10 @@ class _SportInfoState extends State<SportInfo> {
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )
-                            ],
-                          )
-                        ],
-                      ),
-                    ):SizedBox(),
-                    ShowFee?Divider(thickness: 2):SizedBox(),
+                            ])
+                          ]),
+                    ): const SizedBox(),
+                    ShowFee? const Divider(thickness: 2): const SizedBox(),
                     ShowFee?Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
                       child: Row(

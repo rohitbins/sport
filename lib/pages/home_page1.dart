@@ -163,7 +163,7 @@ late PermissonData Permission;
                                       fontSize: 36,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
-                                ),
+                               ),
                               ),
                             ]),
                             ),
@@ -257,7 +257,7 @@ late PermissonData Permission;
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromRGBO(7,41, 73, 1)),
                             ),
-                          ),
+                           ),
                          const Text('/',
                             softWrap: true,
                             style: TextStyle(
@@ -300,7 +300,7 @@ late PermissonData Permission;
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
                                         Row(children: [
-                                          Container(
+                                          SizedBox(
                                             width:95,
                                           child: Text(
                                             i.customerType.toString(),
@@ -309,18 +309,18 @@ late PermissonData Permission;
                                               fontWeight: FontWeight.w600),),
                                           // width: MediaQuery.of(context).size.width/4,
                                         )],),
-                                        Container(
+                                        SizedBox(
                                             width: 30,
                                             child: Text(i.feeCount.toString(),style: const TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold))),
-                                        Container(
+                                        SizedBox(
                                           width: 90,
                                           child: Row(
                                             children: [
                                               Icon(Icons.currency_rupee,color: Colors.green[900],size: 15,),
                                               Flexible(child: Text(i.feeAmount.toString(),style: const TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold))),
                                             ],
-                                          ),
-                                        )
+                                         ),
+                                         )
                                       ]),
                                       ),
                                      ),

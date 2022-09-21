@@ -104,9 +104,8 @@ class Payments extends StatefulWidget {
                                           fontSize: 11,
                                         ),
                                        ),
-                                    ],
+                                     ]),
                                      ),
-                                    ),
                                 Expanded(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
