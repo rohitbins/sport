@@ -1,4 +1,4 @@
-// ignore_for_file: curly_braces_in_flow_control_structures, prefer_is_empty
+// ignore_for_file: curly_braces_in_flow_control_structures, prefer_is_empty, unused_field
 
 import 'package:flutter/material.dart';
 import '../model/staff_attendance_model.dart';
@@ -33,6 +33,7 @@ staffAttendanceModel = value!;
 
   bool clicked = false;
   bool staffInside = false;
+  // ignore: prefer_final_fields
   bool _noAttendence = false;
 
   @override
@@ -62,13 +63,16 @@ staffAttendanceModel = value!;
                       return myCard(staffAttendanceModel.data![index]);
                                      },
                                    ),
-                   ),
-            ],
-          )
+                                  ),
+                                 ])
           : const Center(
-              child: Text('No Attendence',style: TextStyle(fontSize: 30,color: Colors.grey,fontWeight: FontWeight.bold),),
+              child: Text('No Attendence',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold),),
             ),
-    );
+           );
   }
 
   Widget _todays(StaffData data) {
@@ -92,7 +96,7 @@ staffAttendanceModel = value!;
                             data.outTime!.length>0 ? 'In' : 'Out',
                             style: const TextStyle(fontSize: 24),
                           ),
-                        ),
+                         ),
                         onPressed: () {
                           setState(() {
                             clicked = !clicked;
@@ -108,7 +112,7 @@ staffAttendanceModel = value!;
                             fetchData();
                           });
                         }),
-                  )
+                        )
                 : const CircularProgressIndicator(),
             Column(
               children: [
@@ -118,7 +122,7 @@ staffAttendanceModel = value!;
                     "Last ${data.outTime!.length>0 ? 'Out' : 'In'}",
                     style: const TextStyle(letterSpacing: 1.4),
                   ),
-                ),
+                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Text(
@@ -131,12 +135,10 @@ staffAttendanceModel = value!;
                   data.inDate!,
                   style: const TextStyle(fontSize: 10),
                 ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+              ]),
+             ]),
+             ),
+            );
   }
   Widget _onlyFirstIn() {
     return Container(
@@ -177,10 +179,9 @@ staffAttendanceModel = value!;
                         }),
                   )
                 : const CircularProgressIndicator(),
-          ],
-        ),
+      ]),
       ),
-    );
+     );
   }
 
   Widget myCard(StaffData data) {
@@ -215,7 +216,7 @@ staffAttendanceModel = value!;
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-          ),
+           ),
         Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
           RichText(
             text: TextSpan(
@@ -232,9 +233,9 @@ staffAttendanceModel = value!;
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
-                  )
-                ]),
-          ),
+                    )
+                 ]),
+                 ),
           const SizedBox(height: 7),
           RichText(
             text: TextSpan(
@@ -251,7 +252,7 @@ staffAttendanceModel = value!;
                           fontWeight: FontWeight.bold,
                           fontSize: 14))
                 ]),
-          ),
+                ),
           const SizedBox(height: 7),
           Row(
             children: [
@@ -259,10 +260,10 @@ staffAttendanceModel = value!;
               Text(data.outDate.toString(),
               style: const TextStyle(
               fontWeight: FontWeight.bold
-              ),),
-            ],
-          )
-        ]),
+              ),
+             ),
+            ])
+          ]),
         if (data.totalInTime != '')
           Expanded(
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [

@@ -133,9 +133,7 @@ class ServiceCall {
             TakeMemberAttendance = otpValidator.data!.takeMemberAttendance;
             TakePNPAttendance = otpValidator.data!.takePNPAttendance;
           }
-         
-
-      return otpValidator;
+          return otpValidator;
 
     } else {
       throw Exception('failed to load BatchCategories');
@@ -271,7 +269,7 @@ class ServiceCall {
     }
   }
 
-// Profile Data ////////
+// Profile Data ///
   // ignore: body_might_complete_normally_nullable
   Future<PersonalSportModel?> fetchProfileData(String _key) async {
     // ignore: no_leading_underscores_for_local_identifiers
@@ -373,6 +371,8 @@ class ServiceCall {
          }
  }
 
+ // Dashboard
+
  Future<Dashboard> fetchDashboardData () async {
 Map <String, String> _header = {
   'ContentType' : 'application/json',
@@ -396,7 +396,7 @@ body: {
       TakePNPAttendance = dashboard.data!.takePNPAttendance;
       ShowFee = dashboard.data!.showFee!;
       _prefs.then((value) => value.setBool('CanLogin', CanLogin as bool));
-      _prefs.then((value) => value.setBool('ShowFee', ShowFee as bool));
+      _prefs.then((value) => value.setBool('ShowFee', ShowFee));
       _prefs.then((value) => value.setBool('TakeMemberAttendance', TakeMemberAttendance as bool));
       _prefs.then((value) => value.setBool('TakePNPAttendance', TakePNPAttendance as bool));
     }

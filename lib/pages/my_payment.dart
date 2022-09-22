@@ -35,8 +35,7 @@ class _MyPaymentState extends State<MyPayment> {
                     spreadRadius: 3,
                     offset: Offset(2,2)
                   )
-                ]
-              ),
+               ]),
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)
@@ -59,13 +58,11 @@ class _MyPaymentState extends State<MyPayment> {
                       fontSize: 16,
                       fontWeight: FontWeight.bold
                     ),)
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+                   ]),
+                   ),
+                  ),
+                  )
+               ]),
+               );
   }
 }

@@ -36,8 +36,8 @@ class _MyRouteState extends State<MyRoute> {
   }
   int pagesIndex = 0;
   final pages = [const HomePage1(), const InPage(), const OutPage(), const PnpPage()];
-final pagesForPnpFalse = [const HomePage1(), const InPage(), const OutPage()];
-final pagesForAttendenceFalse = [const HomePage1(),  const OutPage(), const PnpPage()];
+  final pagesForPnpFalse = [const HomePage1(), const InPage(), const OutPage()];
+  final pagesForAttendenceFalse = [const HomePage1(),  const OutPage(), const PnpPage()];
   final String _home = 'Home';
   final String _in = 'In';
   final String _out = 'Out';
