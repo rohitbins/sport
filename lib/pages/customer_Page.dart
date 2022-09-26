@@ -96,7 +96,7 @@ import '../service.dart';
                  ));
       },
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 6),
+        padding: const EdgeInsets.only(bottom: 6,right: 5,left: 5),
         child: Card(
           elevation: 4,
           color: customerData.isPlaying! > 0 ? Colors.white : colors ?? myBlue,

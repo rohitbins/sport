@@ -186,7 +186,7 @@ staffAttendanceModel = value!;
 
   Widget myCard(StaffData data) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(20, 10, 20, 2),
+      margin: const EdgeInsets.fromLTRB(15, 10, 15, 2),
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(

@@ -140,152 +140,155 @@ class OutCard extends StatelessWidget {
                       customerKey: customerData.customerKey,
                     ))) : const SizedBox();
       },
-      child: Card(
-        elevation: 6,
-        color: customerData.isPlaying > 0 ? Colors.white : myYellow,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: BorderSide(
-            color: Colors.grey.withOpacity(0.2),
-            width: 1,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 5,right: 5),
+        child: Card(
+          elevation: 6,
+          color: customerData.isPlaying > 0 ? Colors.white : myYellow,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(
+              color: Colors.grey.withOpacity(0.2),
+              width: 1,
+            ),
           ),
-        ),
-        child: Row(children: [
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-              child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      customerData.name.trim(),
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w600),
-                    ),
-                   !customerData.isPNP?
-                    Row(children:[
-                      Text(
-                      customerData.categoryType,
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    const SizedBox(width: 2),
-                    !customerData.isPNP ?
-                    const Text("|",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16
-                    ),):
-                    const SizedBox(),
-                    Text(
-                      customerData.batch.toString(),
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    ],): const SizedBox(),
-                    
-                    const SizedBox(height: 3),
-                    Row(children: [
-                      const Text("In :",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.blue
-                      ),),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 3),
-                        child: Text(customerData.inTime,
-                    style: const TextStyle(
-                        fontSize: 12
-                    ),),
-                      ),
-                    ],),
-                    const SizedBox(height: 5),
-                    !customerData.isPNP?
-                     (customerData.feePending != 0 ) ?
-                      Row(
-                        children:[
-                          const Text(
-                            "Fee Pending",
-                            style: TextStyle(fontSize: 12,color: Colors.red),
-                          ),
-                         const SizedBox(width: 3),
-                          (customerData.feePending != 0 && ShowFee)?
-                          Text(
-                            '(*${customerData.feePending})',
-                            style: const TextStyle(
-                                color: Colors.red,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600),
-                          ): const SizedBox()
-                        ],
-                      ): 
-                    
-                       const SizedBox(): const SizedBox(),
-                      const SizedBox(height: 5),
-                        customerData.isPNP ?
-                       Image.asset('assets/images/pnp.jpeg',
-                       scale: 3,): const SizedBox(),
-                  ]),
+          child: Row(children: [
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
                   ),
-                 ),
-          InkWell(
-            
-            onDoubleTap: () => callback(customerData.isPNP==true? customerData.slotId.toString():customerData.customerKey), 
-            onTap: () {},
-            child: Container(
-              width: 80,
-              alignment: Alignment.center,
-              constraints: const BoxConstraints(maxHeight: 5 * 15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
+                child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        customerData.name.trim(),
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                     !customerData.isPNP?
+                      Row(children:[
+                        Text(
+                        customerData.categoryType,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade600,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      const SizedBox(width: 2),
+                      !customerData.isPNP ?
+                      const Text("|",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16
+                      ),):
+                      const SizedBox(),
+                      Text(
+                        customerData.batch.toString(),
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade600,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      ],): const SizedBox(),
+                      
+                      const SizedBox(height: 3),
+                      Row(children: [
+                        const Text("In :",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.blue
+                        ),),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3),
+                          child: Text(customerData.inTime,
+                      style: const TextStyle(
+                          fontSize: 12
+                      ),),
+                        ),
+                      ],),
+                      const SizedBox(height: 5),
+                      !customerData.isPNP?
+                       (customerData.feePending != 0 ) ?
+                        Row(
+                          children:[
+                            const Text(
+                              "Fee Pending",
+                              style: TextStyle(fontSize: 12,color: Colors.red),
+                            ),
+                           const SizedBox(width: 3),
+                            (customerData.feePending != 0 && ShowFee)?
+                            Text(
+                              '(*${customerData.feePending})',
+                              style: const TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
+                            ): const SizedBox()
+                          ],
+                        ): 
+                      
+                         const SizedBox(): const SizedBox(),
+                        const SizedBox(height: 5),
+                          customerData.isPNP ?
+                         Image.asset('assets/images/pnp.jpeg',
+                         scale: 3,): const SizedBox(),
+                    ]),
+                    ),
+                   ),
+            InkWell(
+              
+              onDoubleTap: () => callback(customerData.isPNP==true? customerData.slotId.toString():customerData.customerKey), 
+              onTap: () {},
+              child: Container(
+                width: 80,
+                alignment: Alignment.center,
+                constraints: const BoxConstraints(maxHeight: 5 * 15.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                   
+                  customerData.isPNP==true?
+                  ((selectedKey != customerData.slotId.toString())
+                    ? const Text('Out',
+                      style: TextStyle(
+                      color: Color.fromRGBO(6, 41, 74, 1),
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold))
+                    : const Center(
+                  child: CircularProgressIndicator(color: Colors.white),))
+                  :
+                    ((selectedKey != customerData.customerKey)
+                    ? const Text('Out',
+                      style: TextStyle(
+                      color: Color.fromRGBO(6, 41, 74, 1),
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold))
+                    : const Center(
+                  child: CircularProgressIndicator(color: Colors.white),)),
                  
-                customerData.isPNP==true?
-                ((selectedKey != customerData.slotId.toString())
-                  ? const Text('Out',
-                    style: TextStyle(
-                    color: Color.fromRGBO(6, 41, 74, 1),
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold))
-                  : const Center(
-                child: CircularProgressIndicator(color: Colors.white),))
-                :
-                  ((selectedKey != customerData.customerKey)
-                  ? const Text('Out',
-                    style: TextStyle(
-                    color: Color.fromRGBO(6, 41, 74, 1),
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold))
-                  : const Center(
-                child: CircularProgressIndicator(color: Colors.white),)),
-               
-               (customerData.totalPlay.toString() == '')? const SizedBox():
-               Column(
-                 children: [
-                   Text(customerData.totalPlay.toString()),
-                   const Text("Hr : Min",
-                style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.bold
-               ),
-             )],
-         ), ],
-            )
-          ),
-         ),
-       ]),
+                 (customerData.totalPlay.toString() == '')? const SizedBox():
+                 Column(
+                   children: [
+                     Text(customerData.totalPlay.toString()),
+                     const Text("Hr : Min",
+                  style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold
+                 ),
+               )],
+           ), ],
+              )
+            ),
+           ),
+         ]),
+        ),
       ),
     );
   }
