@@ -24,6 +24,7 @@ class _HomePage1State extends State<HomePage1> {
   final String feeText = 'Fee';
   List<Color> colorList = [Colors.green, Colors.orange];
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  // ignore: non_constant_identifier_names
   var MenuItem = <String>['My Attendance', 'Logout'];
   void onSelected(item) {
     switch (item) {
@@ -79,6 +80,7 @@ class _HomePage1State extends State<HomePage1> {
     });
   }
 
+// ignore: non_constant_identifier_names
 late PermissonData Permission;
   @override
   Widget build(BuildContext context) {
@@ -93,7 +95,7 @@ late PermissonData Permission;
         title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             (AcademyLogo!=null)?
-             Image.network(AcademyLogo.toString(),scale: 3,): SizedBox(),
+             Image.network(AcademyLogo.toString(),scale: 3,): const SizedBox(),
             NAME != null?Text(
               NAME!,
               style: const TextStyle(fontSize: 11),
@@ -220,6 +222,7 @@ late PermissonData Permission;
                  ),
           ),
           const SizedBox(height: 10),
+          // ignore: unnecessary_null_comparison
           if(ShowFee!=null&&ShowFee == true)
              Container(
              margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),

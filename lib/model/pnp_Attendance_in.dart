@@ -20,7 +20,8 @@ class PnpAttendanceIn {
   get slotId => null;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    // ignore: prefer_collection_literals
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['statusCode'] = statusCode;
     data['isError'] = isError;
     data['message'] = message;

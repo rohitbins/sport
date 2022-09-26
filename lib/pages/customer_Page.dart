@@ -48,6 +48,7 @@ import '../service.dart';
                     customerData: customerData,
                     selectedKey: clickedKey,
                     showFees : ShowFee,
+                    // ignore: no_leading_underscores_for_local_identifiers
                     callback: (String _kay) {
                         setState(() {
                         clickedKey = _kay;
@@ -95,7 +96,7 @@ import '../service.dart';
                  ));
       },
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 3),
+        padding: const EdgeInsets.only(bottom: 6),
         child: Card(
           elevation: 4,
           color: customerData.isPlaying! > 0 ? Colors.white : colors ?? myBlue,

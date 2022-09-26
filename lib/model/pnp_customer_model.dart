@@ -13,16 +13,17 @@ class PnpCustomerModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add( Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['statusCode'] = this.statusCode;
-    data['isError'] = this.isError;
-    data['message'] = this.message;
+    // ignore: prefer_collection_literals
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['statusCode'] = statusCode;
+    data['isError'] = isError;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -77,20 +78,21 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['bookingId'] = this.bookingId;
-    data['bookingDate'] = this.bookingDate;
-    data['status'] = this.status;
-    data['pnpCustomerId'] = this.pnpCustomerId;
-    data['pnpCustomer'] = this.pnpCustomer;
-    data['slotId'] = this.slotId;
-    data['phone'] = this.phone;
-    data['sport'] = this.sport;
-    data['sportLogo'] = this.sportLogo;
-    data['facilityName'] = this.facilityName;
-    data['inTime'] = this.inTime;
-    data['outTime'] = this.outTime;
-    data['pnpFee'] = this.pnpFee;
+    // ignore: prefer_collection_literals
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['bookingId'] = bookingId;
+    data['bookingDate'] = bookingDate;
+    data['status'] = status;
+    data['pnpCustomerId'] = pnpCustomerId;
+    data['pnpCustomer'] = pnpCustomer;
+    data['slotId'] = slotId;
+    data['phone'] = phone;
+    data['sport'] = sport;
+    data['sportLogo'] = sportLogo;
+    data['facilityName'] = facilityName;
+    data['inTime'] = inTime;
+    data['outTime'] = outTime;
+    data['pnpFee'] = pnpFee;
     return data;
   }
 }

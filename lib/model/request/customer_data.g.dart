@@ -6,6 +6,7 @@ part of 'customer_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: unused_element
 CustomerDataRequest _$CustomerDataRequestFromJson(Map<String, dynamic> json) =>
     CustomerDataRequest(
       batchId: json['batchId'] as String?,
